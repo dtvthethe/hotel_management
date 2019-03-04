@@ -1,0 +1,75 @@
+#reveration-table{
+	display: table;
+	width: 100%;
+	border-bottom: 1px solid red;
+	z-index: 6;
+}
+.reveration-row{display: table-row; z-index: 9;}
+.reveration-row .cell{display: table-cell;border: 1px solid red;border-bottom: none; z-index: 10;}
+.reveration-row .cell:not(:last-child){
+	border-right:none; 
+}
+.reveration-row .cell:first-child{
+	width: 10%;
+}
+.reveration-row .cell-header{
+	cursor: pointer;
+}
+.reveration-row .cell-contain:hover{
+	background-color: #f9c9be36;
+}
+
+.reveration-mark-color{
+	background-color: #f9c9be63;
+}
+
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	  -webkit-user-select: none; /* Safari */
+	   -khtml-user-select: none; /* Konqueror HTML */
+		 -moz-user-select: none; /* Firefox */
+		  -ms-user-select: none; /* Internet Explorer/Edge */
+			  user-select: none; /* Non-prefixed version, currently
+									supported by Chrome and Opera */
+  }
+#reveration-table .progressbar-booking{
+	position: absolute;
+    /* z-index: 11;
+    background-color: green; */
+    /* width: 100%; */
+	display: contents;
+	/* height: 21px; */
+}
+
+/* #reveration-table .progressbar-booking button{ */
+#reveration-table button{
+	height: 21px;
+    font-size: 13px;
+    z-index: 20;
+    position: absolute;
+	/* width: 100%; */
+	color: #ffffff;
+	margin-top: 1px;
+	text-align: left;
+}
+
+#reveration-table2{
+	overflow-x: scroll;
+    overflow-y: hidden;
+	white-space:nowrap;
+	position: relative;
+}
+
+.pending-check-in{
+	background-color: rgb(15, 143, 11);
+
+}
+.in-house{
+	background-color: rgb(117, 115, 1);
+}
+.check-out{
+	background-color: rgba(84, 5, 100, 0.664);
+}
+#contextMenu a{
+	cursor: pointer;
+}
