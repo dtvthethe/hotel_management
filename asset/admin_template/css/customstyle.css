@@ -1,3 +1,5 @@
+/* calendar booking */
+
 #reveration-table{
 	display: table;
 	width: 100%;
@@ -73,3 +75,62 @@
 #contextMenu a{
 	cursor: pointer;
 }
+
+/* calendar booking */
+
+/* front desk */
+.front-desk{}
+.front-desk .front-desk-group{}
+.front-desk-group .front-desk-title{
+	border-bottom: 1px solid red;
+	margin: 5px 0px;
+}
+.front-desk-group .front-desk-title strong{}
+.front-desk-group .front-desk-body{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.front-desk-group .front-desk-body .room{margin: 5px 0px;padding: 0px 5px;font-size: 13px;}
+.room .room-containt{
+	height: 92px;
+	width: 100%;
+	border-radius: 4px;
+	border: 1px solid #8873a2;
+	color: #fff;
+	text-align: center;
+}
+.room .room-containt .room-number{
+    border-bottom: 1px solid #fff;
+    border-bottom-style: dashed;
+    padding: 2px 0px;
+    font-weight: bold;
+}
+
+.room .room-containt i{
+    font-size: x-large;
+    margin: 11px 0px;
+}
+.room .room-containt .room-status{font-size: small;}
+.room-pending-check-out{
+	background-color: #f73557;
+}
+.room-pending-check-in{
+	background-color: #207aff;
+}
+.room-block{
+	background-color: #fff;
+	color: #000 !important;
+}
+.room .room-block .room-number{
+    border-color: #000;
+}
+.room-occupied{
+	background-color: #e9ad07;
+}
+.room-odirty{
+	background-color: #2a2727;
+}
+.room-available{
+	background-color: #3dc32f;
+}
+/* front desk */
