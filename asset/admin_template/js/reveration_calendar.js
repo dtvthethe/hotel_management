@@ -85,20 +85,17 @@ $("#reveration-table .cell-contain").mousedown(function (e) {
 		let date_selected = $(this).context.dataset;
 		mark_date_stop = new MarkPoint(date_selected.index, date_selected.roomId, date_selected.date);
 		fill_color(mark_date_start, mark_date_stop);
-
-		if ($('#contextMenu').css('display') == 'block' && mark_date_start.date == mark_date_stop.date) {
-			$('#contextMenu').hide();
-			$('#reveration-table .reveration-mark-color').removeClass('reveration-mark-color'); // clear previous selection
-		}
-		else {
-			$('#contextMenu').css('left', e.clientX + 'px').css('top', e.clientY + 'px');
-			$('#contextMenu').show();
-		}
+	}
+	if (e.which == 3 && !e.currentTarget.className.includes('reveration-mark-color')){
+		$('div.site-cm-box').hide();
+		
 	}
 });
 
 
 function fill_color(start, stop) {
+	if (mark_date_start == null || mark_date_stop == null) return;
+
 	// swap start point:
 	if (start.index > stop.index) {
 		let tmp = start;
@@ -121,7 +118,6 @@ $(window).resize(function () {
 
 function show_modal() {
 	$('#myModal').modal('show');
-	$('#contextMenu').hide();
 	$('#reveration-table .reveration-mark-color').removeClass('reveration-mark-color'); // clear previous selection
 }
 
@@ -129,14 +125,34 @@ function show_coonfirm() {
 	alert('show');
 }
 
-// $("#reveration-table button, #reveration-table .cell").click(function (e) {
+var contextMenuNewReservation = [
+	[
+		{
+			text: "<p onclick='show_modal2()'><i class='fa fa-cut site-cm-icon'></i>Cut（ctrl+x</p>"
+		},
+	]
+];
 
-// });
+var contextMenuOption = [
+	[
+		{ text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Change room</p>" },
+		{ text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Check-in</p>" },
+		{ text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Cancel</p>" },
+		{ text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>No show</p>" },
+		{ text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Bill</p>" },
+		{ text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Bill Room</p>" },
+		{ text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Bill Services/Minibar</p>" },
+		{ text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Check-ou</p>" },
+	]
+];
 
-// $("#reveration-table button").mousedown(function (e) {
-// 	if (e.which == 3) {
-// 		$('#contextOption').css('left', e.clientX + 'px').css('top', e.clientY + 'px');
-// 		$('#contextOption').show();
-// 	}
-// });
 
+$('#reveration-table button').contextMenu(contextMenuOption);
+$('#reveration-table .cell-contain').contextMenu(contextMenuNewReservation);
+
+
+function show_modal2(){
+	console.log('start',mark_date_start);
+	console.log('stop',mark_date_stop);
+	
+}
