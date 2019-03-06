@@ -329,7 +329,11 @@
         <section id="main-content">
             <section class="wrapper">
                 <section class="agile-grid">
+
+                    <link href="css/jquery.contextMenu.min.css" rel="stylesheet" type="text/css" />
                     <link href="css/customstyle.css" rel="stylesheet" type="text/css" />
+
+
                     <header class="agileits-box-header clearfix">
                         <h3>Visitor Statistics</h3>
                         <div class="toolbar">
@@ -554,9 +558,10 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="front-desk-group">
                             <div class="front-desk-title row">
-                                <strong>Deluxe King(Double Bed)</strong>
+                                <strong>Deluxe King(Double)</strong>
                             </div>
                             <div class="front-desk-body row">
                                 <div class="col-xs-3 col-md-1 room">
@@ -593,6 +598,7 @@
                                         <p class="room-number">303</p>
                                         <i class="fa fa-smile-o"></i>
                                         <p class="room-status">Occupied</p>
+
                                     </div>
                                 </div>
                                 <div class="col-xs-3 col-md-1 room">
@@ -600,6 +606,7 @@
                                         <p class="room-number">303</p>
                                         <i class="fa fa-magnet"></i>
                                         <p class="room-status">Dirty</p>
+
                                     </div>
                                 </div>
                                 <div class="col-xs-3 col-md-1 room">
@@ -660,6 +667,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </section>
             </section>
@@ -679,27 +687,36 @@
     <script src="js/scripts.js"></script>
     <script src="js/jquery.slimscroll.js"></script>
     <script src="js/jquery.nicescroll.js"></script>
-    <script src="js/contextMenu.min.js"></script>
+
+    <script src="js/jquery.contextMenu.min.js"></script>
+    <script src="js/jquery.ui.position.min.js"></script>
+
     <script>
-        var contextMenuOption = [
-            [
-                { text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Change room</p>" },
-                { text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Check-in</p>" },
-                { text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Cancel</p>" },
-                { text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>No show</p>" },
-                { text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Bill</p>" },
-                { text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Bill Room</p>" },
-                { text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Bill Services/Minibar</p>" },
-                { text: "<p onclick='show_modal()'><i class='fa fa-cut site-cm-icon'></i>Check-ou</p>" },
-            ]
-        ];
-        $('.room-containt').contextMenu(contextMenuOption);
+
+        $(function () {
+            $.contextMenu({
+                selector: '.room-containt',
+                callback: function (key, options) {
+                    var m = "clicked: " + key;
+                    window.console && console.log(m) || alert(m);
+                },
+                items: {
+                    "change_room": { name: "Change room", icon: "glyphicon glyphicon-pencil" },
+                    "check_in": { name: "Check-in", icon: "glyphicon glyphicon-pencil" },
+                    "cancel": { name: "Cancel", icon: "glyphicon glyphicon-pencil" },
+                    "no_show": { name: "No show", icon: "glyphicon glyphicon-pencil" },
+                    "bill": { name: "Bill", icon: "glyphicon glyphicon-pencil" },
+                    "bill_service_minibar": { name: "Bill Services/Minibar", icon: "glyphicon glyphicon-pencil" },
+                    "check_out": { name: "Check-out", icon: "glyphicon glyphicon-pencil" },
+                }
+            });
+        });
 
     </script>
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
     <script src="js/jquery.scrollTo.js"></script>
     <!-- gallery -->
-    
+
 </body>
 
 </html>

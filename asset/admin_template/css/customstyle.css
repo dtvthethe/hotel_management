@@ -98,6 +98,8 @@
 	border: 1px solid #8873a2;
 	color: #fff;
 	text-align: center;
+	cursor: pointer;
+
 }
 .room .room-containt .room-number{
     border-bottom: 1px solid #fff;
@@ -108,7 +110,7 @@
 
 .room .room-containt i{
     font-size: x-large;
-    margin: 11px 0px;
+	margin: 11px 0px;
 }
 .room .room-containt .room-status{font-size: small;}
 .room-pending-check-out{
