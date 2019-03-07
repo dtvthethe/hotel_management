@@ -1,0 +1,192 @@
+[
+  {
+    "model": "hotelmanagement.client",
+    "pk": 1,
+    "fields": {
+      "name": "Booking"
+    }
+  },
+  {
+    "model": "hotelmanagement.client",
+    "pk": 2,
+    "fields": {
+      "name": "Agoda"
+    }
+  },
+  {
+    "model": "hotelmanagement.client",
+    "pk": 3,
+    "fields": {
+      "name": "Expedia"
+    }
+  },
+  {
+    "model": "hotelmanagement.client",
+    "pk": 4,
+    "fields": {
+      "name": "Walk-in"
+    }
+  },
+
+
+  {
+    "model": "hotelmanagement.roomstatus",
+    "pk": 1,
+    "fields": {
+      "name": "Dirty"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomstatus",
+    "pk": 2,
+    "fields": {
+      "name": "Available"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomstatus",
+    "pk": 3,
+    "fields": {
+      "name": "Block"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomstatus",
+    "pk": 4,
+    "fields": {
+      "name": "Check-in"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomstatus",
+    "pk": 5,
+    "fields": {
+      "name": "Occupied"
+    }
+  },
+
+
+  {
+    "model": "hotelmanagement.producttype",
+    "pk": 1,
+    "fields": {
+      "name": "Minibar"
+    }
+  },
+  {
+    "model": "hotelmanagement.producttype",
+    "pk": 2,
+    "fields": {
+      "name": "Kitchen"
+    }
+  },
+  {
+    "model": "hotelmanagement.producttype",
+    "pk": 3,
+    "fields": {
+      "name": "Laundry"
+    }
+  },
+  {
+    "model": "hotelmanagement.producttype",
+    "pk": 4,
+    "fields": {
+      "name": "Other"
+    }
+  },
+  {
+    "model": "hotelmanagement.producttype",
+    "pk": 5,
+    "fields": {
+      "name": "Early Check-in"
+    }
+  },
+  {
+    "model": "hotelmanagement.producttype",
+    "pk": 6,
+    "fields": {
+      "name": "Late Check-out"
+    }
+  },
+  {
+    "model": "hotelmanagement.producttype",
+    "pk": 7,
+    "fields": {
+      "name": "Extrac Charge"
+    }
+  },
+
+
+  {
+    "model": "hotelmanagement.roomtype",
+    "pk": 1,
+    "fields": {
+      "name": "Deluxe Twin"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomtype",
+    "pk": 2,
+    "fields": {
+      "name": "Deluxe King(Double)"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomtype",
+    "pk": 3,
+    "fields": {
+      "name": "Deluxe Capsule"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomtype",
+    "pk": 4,
+    "fields": {
+      "name": "Deluxe Capsule (Family Room with Share Bathroom)"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomtype",
+    "pk": 5,
+    "fields": {
+      "name": "Standard Capsule (8 Bed Mixed Capsule)"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomtype",
+    "pk": 6,
+    "fields": {
+      "name": "Dormitory (Family Room with Share Bathroom)"
+    }
+  },
+  {
+    "model": "hotelmanagement.roomtype",
+    "pk": 7,
+    "fields": {
+      "name": "Standard Dormitory (6 Bed Mixed Dormitory)"
+    }
+  },
+
+
+  {
+    "model": "hotelmanagement.paymenttype",
+    "pk": 1,
+    "fields": {
+      "name": "Cash"
+    }
+  },
+  {
+    "model": "hotelmanagement.paymenttype",
+    "pk": 2,
+    "fields": {
+      "name": "Credit"
+    }
+  },
+  {
+    "model": "hotelmanagement.paymenttype",
+    "pk": 3,
+    "fields": {
+      "name": "Bank Tranfer"
+    }
+  }
+]
