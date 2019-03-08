@@ -91,7 +91,7 @@
     "model": "hotelmanagement.producttype",
     "pk": 4,
     "fields": {
-      "name": "Other"
+      "name": "Motobike"
     }
   },
   {
@@ -112,7 +112,7 @@
     "model": "hotelmanagement.producttype",
     "pk": 7,
     "fields": {
-      "name": "Extrac Charge"
+      "name": "Extra Charge"
     }
   },
 
@@ -135,7 +135,7 @@
     "model": "hotelmanagement.roomtype",
     "pk": 3,
     "fields": {
-      "name": "Deluxe Capsule"
+      "name": "Deluxe Apartment"
     }
   },
   {
@@ -156,7 +156,7 @@
     "model": "hotelmanagement.roomtype",
     "pk": 6,
     "fields": {
-      "name": "Dormitory (Family Room with Share Bathroom)"
+      "name": "Deluxe Dormitory (Family Room with Share Bathroom)"
     }
   },
   {
@@ -188,5 +188,1023 @@
     "fields": {
       "name": "Bank Tranfer"
     }
-  }
+  },
+
+
+  {
+    "model": "hotelmanagement.product",
+    "pk": 1,
+    "fields": {
+      "name": "Pepsi",
+      "price":15000,
+      "product_type":1
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 2,
+    "fields": {
+      "name": "Twister",
+      "price":15000,
+      "product_type":1
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 3,
+    "fields": {
+      "name": "Aquafina 500ml",
+      "price":10000,
+      "product_type":1
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 4,
+    "fields": {
+      "name": "Revive",
+      "price":15000,
+      "product_type":1
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 5,
+    "fields": {
+      "name": "Breakfast",
+      "price":40000,
+      "product_type":2
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 5,
+    "fields": {
+      "name": "Shirt",
+      "price":40000,
+      "product_type":3
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 6,
+    "fields": {
+      "name": "Pants",
+      "price":20000,
+      "product_type":3
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 7,
+    "fields": {
+      "name": "Skirt",
+      "price":40000,
+      "product_type":3
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 8,
+    "fields": {
+      "name": "Jacket",
+      "price":70000,
+      "product_type":3
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 9,
+    "fields": {
+      "name": "Coat",
+      "price":60000,
+      "product_type":3
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 10,
+    "fields": {
+      "name": "Room Card",
+      "price":50000,
+      "product_type":7
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 11,
+    "fields": {
+      "name": "Capsule Card",
+      "price":40000,
+      "product_type":7
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 12,
+    "fields": {
+      "name": "100% Early Check-in",
+      "price":0,
+      "product_type":5
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 13,
+    "fields": {
+      "name": "50% Early Check-in",
+      "price":0,
+      "product_type":5
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 14,
+    "fields": {
+      "name": "30% Early Check-in",
+      "price":0,
+      "product_type":5
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 15,
+    "fields": {
+      "name": "100% Late Check-out",
+      "price":0,
+      "product_type":6
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 16,
+    "fields": {
+      "name": "50% Late Check-out",
+      "price":0,
+      "product_type":6
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 17,
+    "fields": {
+      "name": "30% Late Check-out",
+      "price":0,
+      "product_type":6
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 18,
+    "fields": {
+      "name": "Scooter",
+      "price":150000,
+      "product_type":4
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 19,
+    "fields": {
+      "name": "Normal Motobike",
+      "price":120000,
+      "product_type":4
+    }
+ },
+ {
+    "model": "hotelmanagement.product",
+    "pk": 20,
+    "fields": {
+      "name": "3% Surcharge",
+      "price":0,
+      "product_type":7
+    }
+ },
+
+
+  {
+    "model": "hotelmanagement.room",
+    "pk": 1,
+    "fields": {
+      "name": "201#001",
+      "price":150000,
+      "capacity":1,
+      "room_type":7,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 2,
+    "fields": {
+      "name": "201#002",
+      "price":150000,
+      "capacity":1,
+      "room_type":7,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 3,
+    "fields": {
+      "name": "201#003",
+      "price":150000,
+      "capacity":1,
+      "room_type":7,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 4,
+    "fields": {
+      "name": "201#004",
+      "price":150000,
+      "capacity":1,
+      "room_type":7,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 5,
+    "fields": {
+      "name": "201#005",
+      "price":150000,
+      "capacity":1,
+      "room_type":7,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 6,
+    "fields": {
+      "name": "201#006",
+      "price":150000,
+      "capacity":1,
+      "room_type":7,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 7,
+    "fields": {
+      "name": "202#001",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 8,
+    "fields": {
+      "name": "202#002",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 9,
+    "fields": {
+      "name": "202#003",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 10,
+    "fields": {
+      "name": "202#004",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 11,
+    "fields": {
+      "name": "202#005",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 12,
+    "fields": {
+      "name": "202#006",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 13,
+    "fields": {
+      "name": "202#007",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 14,
+    "fields": {
+      "name": "202#008",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 15,
+    "fields": {
+      "name": "202#009",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 16,
+    "fields": {
+      "name": "202#010",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 17,
+    "fields": {
+      "name": "202#011",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 18,
+    "fields": {
+      "name": "202#012",
+      "price":190000,
+      "capacity":1,
+      "room_type":6,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 19,
+    "fields": {
+      "name": "203#001",
+      "price":230000,
+      "capacity":1,
+      "room_type":5,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 20,
+    "fields": {
+      "name": "203#002",
+      "price":230000,
+      "capacity":1,
+      "room_type":5,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 21,
+    "fields": {
+      "name": "203#003",
+      "price":230000,
+      "capacity":1,
+      "room_type":5,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 22,
+    "fields": {
+      "name": "203#004",
+      "price":230000,
+      "capacity":1,
+      "room_type":5,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 23,
+    "fields": {
+      "name": "203#005",
+      "price":230000,
+      "capacity":1,
+      "room_type":5,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 24,
+    "fields": {
+      "name": "203#006",
+      "price":230000,
+      "capacity":1,
+      "room_type":5,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 25,
+    "fields": {
+      "name": "203#007",
+      "price":230000,
+      "capacity":1,
+      "room_type":5,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 26,
+    "fields": {
+      "name": "203#008",
+      "price":230000,
+      "capacity":1,
+      "room_type":5,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 27,
+    "fields": {
+      "name": "204#001",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 28,
+    "fields": {
+      "name": "204#002",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 29,
+    "fields": {
+      "name": "204#003",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 30,
+    "fields": {
+      "name": "204#004",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 31,
+    "fields": {
+      "name": "204#005",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 32,
+    "fields": {
+      "name": "204#006",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 33,
+    "fields": {
+      "name": "204#007",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 34,
+    "fields": {
+      "name": "204#008",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 35,
+    "fields": {
+      "name": "204#009",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 36,
+    "fields": {
+      "name": "204#010",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 37,
+    "fields": {
+      "name": "204#011",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 38,
+    "fields": {
+      "name": "204#012",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 39,
+    "fields": {
+      "name": "204#013",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 40,
+    "fields": {
+      "name": "204#014",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 41,
+    "fields": {
+      "name": "204#015",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 42,
+    "fields": {
+      "name": "204#016",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 43,
+    "fields": {
+      "name": "204#017",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 44,
+    "fields": {
+      "name": "204#018",
+      "price":260000,
+      "capacity":1,
+      "room_type":4,
+      "room_status": 3
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 45,
+    "fields": {
+      "name": "301",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 46,
+    "fields": {
+      "name": "302",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 47,
+    "fields": {
+      "name": "303",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 48,
+    "fields": {
+      "name": "304",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 49,
+    "fields": {
+      "name": "305",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 50,
+    "fields": {
+      "name": "306",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 51,
+    "fields": {
+      "name": "307",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 52,
+    "fields": {
+      "name": "308",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 53,
+    "fields": {
+      "name": "309",
+      "price":650000,
+      "capacity":2,
+      "room_type":1,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 54,
+    "fields": {
+      "name": "501",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 1
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 56,
+    "fields": {
+      "name": "502",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 57,
+    "fields": {
+      "name": "503",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 58,
+    "fields": {
+      "name": "504",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 59,
+    "fields": {
+      "name": "505",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 60,
+    "fields": {
+      "name": "506",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 61,
+    "fields": {
+      "name": "507",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 62,
+    "fields": {
+      "name": "508",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 4
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 63,
+    "fields": {
+      "name": "509",
+      "price":600000,
+      "capacity":2,
+      "room_type":2,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 64,
+    "fields": {
+      "name": "601",
+      "price":1200000,
+      "capacity":4,
+      "room_type":3,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 65,
+    "fields": {
+      "name": "602",
+      "price":1200000,
+      "capacity":4,
+      "room_type":3,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 66,
+    "fields": {
+      "name": "603",
+      "price":1200000,
+      "capacity":4,
+      "room_type":3,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 67,
+    "fields": {
+      "name": "604",
+      "price":1200000,
+      "capacity":4,
+      "room_type":3,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 68,
+    "fields": {
+      "name": "605",
+      "price":1200000,
+      "capacity":4,
+      "room_type":3,
+      "room_status": 2
+    }
+ },
+ {
+    "model": "hotelmanagement.room",
+    "pk": 69,
+    "fields": {
+      "name": "606",
+      "price":1200000,
+      "capacity":4,
+      "room_type":3,
+      "room_status": 2
+    }
+ },
+
+
+ {
+    "model": "hotelmanagement.booking",
+    "pk": 1,
+    "fields": {
+      "booking_code":"12345678910",
+      "adult":2,
+      "child":0,
+      "note":"có bf, khách 22h đến, có thể sẽ tt bằng thẻ",
+      "arrive_date":"2019-03-09",
+      "depart_date":"2019-03-25",
+      "is_breakfast": true,
+      "price_booking":612000,
+      "client":1,
+      "room":62
+    }
+ },
+ {
+    "model": "hotelmanagement.booking",
+    "pk": 2,
+    "fields": {
+      "booking_code":"76756545434",
+      "adult":1,
+      "child":0,
+      "note":"có bf, em ông chủ quán coffe Hàn Quốc bên cạnh, ko thu tiền của khách ông Kim sẽ thanh toán",
+      "arrive_date":"2019-03-09",
+      "depart_date":"2019-03-09",
+      "is_breakfast": true,
+      "price_booking":430000,
+      "client":4,
+      "room":52
+    }
+ },
+ {
+    "model": "hotelmanagement.booking",
+    "pk": 3,
+    "fields": {
+      "booking_code":"8787676565",
+      "adult":2,
+      "child":0,
+      "note":"có bf, ko show giá cho khách",
+      "arrive_date":"2019-03-05",
+      "depart_date":"2019-03-12",
+      "is_breakfast": true,
+      "price_booking":520000,
+      "client":2,
+      "room":43
+    }
+ },
+
+
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 1,
+    "fields": {
+      "fullname": "Adam Parker",
+      "booking":1
+    }
+ },
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 2,
+    "fields": {
+      "fullname": "Lee Su Wan",
+      "booking":2
+    }
+ },
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 3,
+    "fields": {
+      "fullname": "Erika Verdini",
+      "booking":3
+    }
+ }
 ]
+

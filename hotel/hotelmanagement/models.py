@@ -7,29 +7,51 @@ from django.db import models
 class Client(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 class RoomStatus(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class ProductType(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 class RoomType(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class PaymentType(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 # phase 2
 class Room(models.Model):
     name = models.CharField(max_length=100)
-    room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
+    room_type = models.ForeignKey(RoomType, related_name='rooms', on_delete=models.CASCADE)
     price = models.IntegerField(default=0)
     capacity = models.IntegerField(default=0)
+    room_status = models.ForeignKey(RoomStatus, related_name='room_list', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField(default=0)
-    product_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
+    product_type = models.ForeignKey(ProductType, related_name='products', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 #phase 3
 class Booking(models.Model):
@@ -41,29 +63,44 @@ class Booking(models.Model):
     depart_date = models.DateField()
     is_breakfast = models.BooleanField(default=True)
     price_booking = models.IntegerField(default=0)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    room = models.ForeignKey(RoomType, on_delete=models.CASCADE)
-    room_status = models.ForeignKey(RoomStatus, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, related_name='booking_clients', on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, related_name='booking_room', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.booking_code
 
 #phase 4
 class Guest(models.Model):
     fullname = models.CharField(max_length=150)
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    booking = models.ForeignKey(Booking, related_name='guests', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.fullname
 
 class MinibarCharge(models.Model):
+    price_confirm = models.IntegerField(default=0)
     quantity = models.IntegerField(default=0)
     date_order = models.DateTimeField(auto_now_add=True)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.date_order
 
 class RoomCharge(models.Model):
     price_confirm = models.IntegerField(default=0)
     date_charge = models.DateTimeField(auto_now_add=True)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.date_charge
+
 #phase 5
 class BookingPayment(models.Model):
     credit = models.IntegerField(default=0)
     date_pay = models.DateTimeField(auto_now_add=True)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
-    payment = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
+    payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.date_pay
