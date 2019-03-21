@@ -1,0 +1,2 @@
+_ load img from asset: <img alt="Vue logo" src="./assets/logo.png">
+_ load css/ js from public: <script src="<%= BASE_URL %>static/js/jquery2.0.3.min.js"></script>

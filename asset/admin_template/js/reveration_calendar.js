@@ -5,7 +5,6 @@ class MarkPoint {
 		this.date = date;
 	}
 }
-
 let mark_date_start = null;
 let mark_date_stop = null;
 
@@ -132,7 +131,13 @@ function fill_color(start, stop) {
 	}
 }
 
-$(window).resize(function () {
+// $('#table_booking').resize(function () {
+// 	console.log('aaaaaa');
+// 	fill_progress();
+// });
+
+$('#table_booking').addEventListener("resize", function(){
+	console.log('aaaaaa');
 	fill_progress();
 });
 
