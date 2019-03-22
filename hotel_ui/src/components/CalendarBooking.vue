@@ -29,7 +29,7 @@
             :class="item.room_status == 1 ? 'check-in' : item.room_status == 2 ? 'in-house': 'check-out'"
             :data-id="item.id"
             :key="item.id"
-            :style="{width: ((windowWidth/numberOfColumn)*item.length)-4 +'px',marginLeft: (windowWidth/numberOfColumn)*item.left+'px'}"
+            :style="{maxWidth: ((windowWidth/numberOfColumn)*item.length)-4 <= 0 ? (windowWidth/numberOfColumn) + 'px' : ((windowWidth/numberOfColumn)*item.length)-4 +'px',width: ((windowWidth/numberOfColumn)*item.length)-4 <= 0 ? (windowWidth/numberOfColumn) + 'px' : ((windowWidth/numberOfColumn)*item.length)-4 +'px',marginLeft: (windowWidth/numberOfColumn)*item.left+'px', whiteSpace: 'nowrap', overflow: 'hidden',}"
           >{{item.id + ' | '+ item.guest_name + ' | ' + item.client_name}}</button>
         </div>
       </div>
@@ -89,12 +89,12 @@ export default {
   data: function() {
     return {
       instance_date: {
-        start: parse("2019/03/11"),
-        stop: parse("2019/03/17")
+        start: parse("2019/03/10"),
+        stop: parse("2019/03/19")
       },
       select_date: {
-        start: parse("2019/03/11"),
-        stop: parse("2019/03/17")
+        start: null,
+        stop: null
       },
       room_list: [
         {

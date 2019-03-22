@@ -1,5 +1,5 @@
 <template>
-  <form role="form">
+  <form role="form" class="modal-open">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">

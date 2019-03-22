@@ -196,24 +196,15 @@
     "pk": 1,
     "fields": {
       "name": "Pepsi",
-<<<<<<< HEAD
       "price":15000,
       "product_type":1
     }
  },
- {
-=======
-      "price": 15000,
-      "product_type": 1,
-    }
-  },
   {
->>>>>>> ba2e3ec114b079049c5ca3adc66eabf7ee91d9a0
     "model": "hotelmanagement.product",
     "pk": 2,
     "fields": {
       "name": "Twister",
-<<<<<<< HEAD
       "price":15000,
       "product_type":1
     }
@@ -227,52 +218,27 @@
       "product_type":1
     }
  },
- {
-=======
-      "price": 15000,
-      "product_type": 1,
-    }
-  },
   {
-    "model": "hotelmanagement.product",
-    "pk": 3,
-    "fields": {
-      "name": "Aqua 500ml",
-      "price": 10000,
-      "product_type": 1,
-    }
-  },
-  {
->>>>>>> ba2e3ec114b079049c5ca3adc66eabf7ee91d9a0
     "model": "hotelmanagement.product",
     "pk": 4,
     "fields": {
       "name": "Revive",
-<<<<<<< HEAD
       "price":15000,
       "product_type":1
     }
  },
- {
-=======
-      "price": 15000,
-      "product_type": 1,
-    }
-  },
   {
->>>>>>> ba2e3ec114b079049c5ca3adc66eabf7ee91d9a0
     "model": "hotelmanagement.product",
     "pk": 5,
     "fields": {
       "name": "Breakfast",
-<<<<<<< HEAD
       "price":40000,
       "product_type":2
     }
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 5,
+    "pk": 6,
     "fields": {
       "name": "Shirt",
       "price":40000,
@@ -281,7 +247,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 6,
+    "pk": 7,
     "fields": {
       "name": "Pants",
       "price":20000,
@@ -290,51 +256,25 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 7,
+    "pk": 8,
     "fields": {
       "name": "Skirt",
       "price":40000,
       "product_type":3
     }
  },
- {
-=======
-      "price": 40000,
-      "product_type": 2,
-    }
-  },
   {
     "model": "hotelmanagement.product",
-    "pk": 6,
-    "fields": {
-      "name": "Shirt",
-      "price": 34000,
-      "product_type": 3,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 7,
-    "fields": {
-      "name": "Pants",
-      "price": 40000,
-      "product_type": 3,
-    }
-  },
-  {
->>>>>>> ba2e3ec114b079049c5ca3adc66eabf7ee91d9a0
-    "model": "hotelmanagement.product",
-    "pk": 8,
+    "pk": 9,
     "fields": {
       "name": "Jacket",
-<<<<<<< HEAD
       "price":70000,
       "product_type":3
     }
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 9,
+    "pk": 10,
     "fields": {
       "name": "Coat",
       "price":60000,
@@ -343,7 +283,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 10,
+    "pk": 11,
     "fields": {
       "name": "Room Card",
       "price":50000,
@@ -352,7 +292,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 11,
+    "pk": 12,
     "fields": {
       "name": "Capsule Card",
       "price":40000,
@@ -361,7 +301,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 12,
+    "pk": 13,
     "fields": {
       "name": "100% Early Check-in",
       "price":0,
@@ -370,7 +310,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 13,
+    "pk": 14,
     "fields": {
       "name": "50% Early Check-in",
       "price":0,
@@ -379,7 +319,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 14,
+    "pk": 15,
     "fields": {
       "name": "30% Early Check-in",
       "price":0,
@@ -388,7 +328,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 15,
+    "pk": 16,
     "fields": {
       "name": "100% Late Check-out",
       "price":0,
@@ -397,7 +337,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 16,
+    "pk": 17,
     "fields": {
       "name": "50% Late Check-out",
       "price":0,
@@ -406,7 +346,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 17,
+    "pk": 18,
     "fields": {
       "name": "30% Late Check-out",
       "price":0,
@@ -415,7 +355,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 18,
+    "pk": 19,
     "fields": {
       "name": "Scooter",
       "price":150000,
@@ -424,7 +364,7 @@
  },
  {
     "model": "hotelmanagement.product",
-    "pk": 19,
+    "pk": 20,
     "fields": {
       "name": "Normal Motobike",
       "price":120000,
@@ -440,92 +380,12 @@
       "product_type":7
     }
  },
-=======
-      "price": 60000,
-      "product_type": 3,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 9,
-    "fields": {
-      "name": "Skirt",
-      "price": 60000,
-      "product_type": 3,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 10,
-    "fields": {
-      "name": "Early Check-in 100%",
-      "price": 0,
-      "product_type": 5,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 11,
-    "fields": {
-      "name": "Early Check-in 50%",
-      "price": 0,
-      "product_type": 5,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 12,
-    "fields": {
-      "name": "Early Check-in 30%",
-      "price": 0,
-      "product_type": 5,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 13,
-    "fields": {
-      "name": "Late Check-out 100%",
-      "price": 0,
-      "product_type": 6,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 14,
-    "fields": {
-      "name": "Late Check-out 50%",
-      "price": 0,
-      "product_type": 6,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 15,
-    "fields": {
-      "name": "Late Check-out 30%",
-      "price": 0,
-      "product_type": 6,
-    }
-  },
-  {
-    "model": "hotelmanagement.product",
-    "pk": 16,
-    "fields": {
-      "name": "3% Surcharge",
-      "price": 0,
-      "product_type": 7,
-    }
-  },
-
->>>>>>> ba2e3ec114b079049c5ca3adc66eabf7ee91d9a0
 
 
   {
     "model": "hotelmanagement.room",
     "pk": 1,
     "fields": {
-<<<<<<< HEAD
       "name": "201#001",
       "price":150000,
       "capacity":1,
@@ -1347,98 +1207,3 @@
     }
  }
 ]
-
-=======
-      "name": "201",
-      "price": 150000,
-      "room_type": 7,
-      "capacity": 6
-    }
-  },
-  {
-    "model": "hotelmanagement.room",
-    "pk": 2,
-    "fields": {
-      "name": "202",
-      "price": 150000,
-      "room_type": 7,
-      "capacity": 6
-    }
-  },
-  {
-    "model": "hotelmanagement.room",
-    "pk": 3,
-    "fields": {
-      "name": "203",
-      "price": 150000,
-      "room_type": 7,
-      "capacity": 6
-    }
-  },
-  {
-    "model": "hotelmanagement.room",
-    "pk": 4,
-    "fields": {
-      "name": "204",
-      "price": 170000,
-      "room_type": 6,
-      "capacity": 12
-    }
-  },
-  {
-    "model": "hotelmanagement.room",
-    "pk": 5,
-    "fields": {
-      "name": "205",
-      "price": 170000,
-      "room_type": 6,
-      "capacity": 12
-    }
-  },
-  {
-    "model": "hotelmanagement.room",
-    "pk": 6,
-    "fields": {
-      "name": "206",
-      "price": 220000,
-      "room_type": 5,
-      "capacity": 8
-    }
-  },
-{
-    "model": "hotelmanagement.room",
-    "pk": 7,
-    "fields": {
-      "name": "207",
-      "price": 220000,
-      "room_type": 5,
-      "capacity": 8
-    }
-  },{
-    "model": "hotelmanagement.room",
-    "pk": 8,
-    "fields": {
-      "name": "208",
-      "price": 220000,
-      "room_type": 5,
-      "capacity": 8
-    }
-  },
-  {
-    "model": "hotelmanagement.room",
-    "pk": 9,
-    "fields": {
-      "name": "209",
-      "price": 220000,
-      "room_type": 5,
-      "capacity": 8
-    }
-  },
-
-
-
-
-
-
-]
->>>>>>> ba2e3ec114b079049c5ca3adc66eabf7ee91d9a0
