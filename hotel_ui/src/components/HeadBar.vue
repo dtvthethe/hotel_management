@@ -1,12 +1,14 @@
 <template>
   <div id="head-bar">
+    <router-link to="/">FrontDesk</router-link>
+    <router-link to="/calendar">calendar</router-link>
     <!--header start-->
     <header class="header fixed-top clearfix">
       <!--logo start-->
       <div class="brand">
         <a href="index.html" class="logo">Hoàng Lộc Hotel</a>
         <div class="sidebar-toggle-box">
-          <div class="fa fa-bars" @click=abc()></div>
+          <div class="fa fa-bars" @click="abc()"></div>
         </div>
       </div>
       <!--logo end-->
@@ -350,10 +352,14 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "HeadBar",
-  computed: { ...mapGetters({ aa: "isMenuBar", widthMenuBar:"widthMenuBar" }) },
-  methods: { ...mapActions({ abc: "switchMenu", setWidthMenu:"setWidthMenu" }) },
-  mounted:function(){
-    this.setWidthMenu(this.$refs.sidebar.getBoundingClientRect().width)
+  computed: {
+    ...mapGetters({ aa: "isMenuBar", widthMenuBar: "widthMenuBar" })
+  },
+  methods: {
+    ...mapActions({ abc: "switchMenu", setWidthMenu: "setWidthMenu" })
+  },
+  mounted: function() {
+    this.setWidthMenu(this.$refs.sidebar.getBoundingClientRect().width);
   }
 };
 </script>

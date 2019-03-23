@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc2ea73c-5c68-4de7-bc29-cf1044ba4ee4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirement.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirement.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/CalendarBooking.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/CalendarBooking.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/FrmBookingDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/FrmBookingDetail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/HeadBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/HeadBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/main.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,8 +81,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="1129" column="22" selection-start-line="1129" selection-start-column="22" selection-end-line="1129" selection-end-column="22" />
+            <state relative-caret-position="225">
+              <caret line="1122" column="36" lean-forward="true" selection-start-line="1122" selection-start-column="36" selection-end-line="1122" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -286,7 +279,7 @@
       <workItem from="1552119194190" duration="19000" />
       <workItem from="1553225695616" duration="317000" />
       <workItem from="1553263763443" duration="11762000" />
-      <workItem from="1553355378133" duration="9865000" />
+      <workItem from="1553355378133" duration="10053000" />
     </task>
     <servers />
   </component>
@@ -302,18 +295,17 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49831000" />
+    <option name="totallyTimeSpent" value="50019000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="734" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27382874" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3317757" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3317757" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39719626" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -463,8 +455,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="1129" column="22" selection-start-line="1129" selection-start-column="22" selection-end-line="1129" selection-end-column="22" />
+        <state relative-caret-position="225">
+          <caret line="1122" column="36" lean-forward="true" selection-start-line="1122" selection-start-column="36" selection-end-line="1122" selection-end-column="36" />
         </state>
       </provider>
     </entry>

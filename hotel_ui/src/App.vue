@@ -5,7 +5,7 @@
     <section id="main-content">
       <section class="wrapper">
         <section class="agile-grid">
-          <CalendarBooking></CalendarBooking>
+          <router-view></router-view>
         </section>
       </section>
       <!-- footer -->
@@ -22,14 +22,14 @@
 
 <script>
 import HeadBar from "./components/HeadBar";
-import CalendarBooking from './components/CalendarBooking';
+// import CalendarBooking from './components/CalendarBooking';
 // import FrontDesk from "./components/FrontDesk";
 
 export default {
   name: "app",
   components: {
     HeadBar,
-    CalendarBooking,
+    // CalendarBooking,
     // FrontDesk,
   }
 };
