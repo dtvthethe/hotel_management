@@ -38,17 +38,21 @@ class ProductListSerializer(ModelSerializer):
         model = Product
         fields = '__all__'
 
-
 class BookingListSerializer(ModelSerializer):
+    client = ClientListSerializer(many = False)
+    room = RoomListSerializer(many= False)
     class Meta:
         model = Booking
         fields = '__all__'
 
-
 class GuestListSerializer(ModelSerializer):
+    booking = BookingListSerializer(many = False)
     class Meta:
         model = Guest
         fields = '__all__'
+
+
+
 
 
 class MinibarChargeSerializer(ModelSerializer):

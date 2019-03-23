@@ -352,8 +352,8 @@
       <div role="tabpanel" class="tab-pane" id="foliodetail">
         <fieldset>
           <legend class>Payment</legend>
-          <div class="col-md-12"> 
-            <input type="button" class="btn btn-default" value="Add Payment" @click="controlModal"/>
+          <div class="col-md-12">
+            <input type="button" class="btn btn-default" value="Add Payment" @click="controlModal">
           </div>
           <div class="col-md-10">
             <table class="table table-fixed table-payment">
@@ -779,26 +779,29 @@
     <button type="submit" class="btn btn-info">Submit</button>
 
     <!-- Modal -->
-<div id="secondModal" class="modal fade col-md-6 col-md-offset-3 second-modal" :class="{in:modal.modalShow}" :style="{display:modal.display}" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <input type="button" class="close" value="×" @click="controlModal" />
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <input type="button" class="btn btn-default" value="Close" @click="controlModal" />
+    <div
+      id="secondModal"
+      class="modal fade col-md-6 col-md-offset-3 second-modal"
+      :class="{in:modal.modalShow}"
+      :style="{display:modal.display}"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <input type="button" class="close" value="×" @click="controlModal">
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <input type="button" class="btn btn-default" value="Close" @click="controlModal">
+          </div>
+        </div>
       </div>
     </div>
-
-  </div>
-</div>
-
   </form>
 </template>
 <script>
@@ -819,8 +822,8 @@ export default {
       },
       modal: {
         modalShow: false,
-        display: 'none'
-      },
+        display: "none"
+      }
     };
   },
   methods: {
@@ -830,14 +833,12 @@ export default {
     onSelectDateDepart: function(event) {
       this.disabledDatesArrive.from = event;
     },
-    controlModal:function(){
+    controlModal: function() {
       this.modal.modalShow = !this.modal.modalShow;
-      if(this.modal.display === 'none'){
-        this.modal.display = 'block';
-      }
-      else{
-        this.modal.display = 'none';
-
+      if (this.modal.display === "none") {
+        this.modal.display = "block";
+      } else {
+        this.modal.display = "none";
       }
     }
   }
@@ -884,7 +885,7 @@ export default {
 .table > thead > tr > th {
   padding: 7px !important;
 }
-.second-modal{
+.second-modal {
   height: 200px;
 }
 </style>

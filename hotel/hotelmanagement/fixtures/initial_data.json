@@ -852,7 +852,7 @@
       "price":260000,
       "capacity":1,
       "room_type":4,
-      "room_status": 2
+      "room_status": 5
     }
  },
  {
@@ -951,7 +951,7 @@
       "price":650000,
       "capacity":2,
       "room_type":1,
-      "room_status": 2
+      "room_status": 4
     }
  },
  {
@@ -1094,7 +1094,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 2
+      "room_status": 4
     }
  },
  {
@@ -1127,7 +1127,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 2
+      "room_status": 5
     }
  },
 
@@ -1180,6 +1180,102 @@
       "room":43
     }
  },
+ {
+    "model": "hotelmanagement.booking",
+    "pk": 4,
+    "fields": {
+      "booking_code":"8787676566",
+      "adult":2,
+      "child":0,
+      "note":"có bf, dau tien",
+      "arrive_date":"2019-03-03",
+      "depart_date":"2019-03-05",
+      "is_breakfast": true,
+      "price_booking":600000,
+      "client":1,
+      "room":65
+    }
+ },
+ {
+    "model": "hotelmanagement.booking",
+    "pk": 5,
+    "fields": {
+      "booking_code":"8787676567",
+      "adult":1,
+      "child":0,
+      "note":"có bf, cuoi cung",
+      "arrive_date":"2019-03-09",
+      "depart_date":"2019-03-12",
+      "is_breakfast": true,
+      "price_booking":600000,
+      "client":1,
+      "room":66
+    }
+ },
+   {
+    "model": "hotelmanagement.booking",
+    "pk": 6,
+    "fields": {
+      "booking_code":"8787676568",
+      "adult":2,
+      "child":0,
+      "note":"có bf, ko hien thi ben trai",
+      "arrive_date":"2019-02-25",
+      "depart_date":"2019-03-10",
+      "is_breakfast": true,
+      "price_booking":450000,
+      "client":1,
+      "room":67
+    }
+ },
+   {
+    "model": "hotelmanagement.booking",
+    "pk": 7,
+    "fields": {
+      "booking_code":"8787676569",
+      "adult":2,
+      "child":0,
+      "note":"có bf, ko hien thi ben phai",
+      "arrive_date":"2019-03-14",
+      "depart_date":"2019-03-16",
+      "is_breakfast": true,
+      "price_booking":550000,
+      "client":1,
+      "room":68
+    }
+ },
+   {
+    "model": "hotelmanagement.booking",
+    "pk": 8,
+    "fields": {
+      "booking_code":"8787676570",
+      "adult":2,
+      "child":0,
+      "note":"có bf, vuot qua",
+      "arrive_date":"2019-03-01",
+      "depart_date":"2019-03-20",
+      "is_breakfast": true,
+      "price_booking":620000,
+      "client":1,
+      "room":69
+    }
+ },
+   {
+    "model": "hotelmanagement.booking",
+    "pk": 9,
+    "fields": {
+      "booking_code":"8787676571",
+      "adult":2,
+      "child":0,
+      "note":"có bf, vuot qua",
+      "arrive_date":"2019-03-01",
+      "depart_date":"2019-03-10",
+      "is_breakfast": true,
+      "price_booking":620000,
+      "client":1,
+      "room":9
+    }
+ },
 
 
  {
@@ -1204,6 +1300,54 @@
     "fields": {
       "fullname": "Erika Verdini",
       "booking":3
+    }
+ },
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 4,
+    "fields": {
+      "fullname": "Caroline Bahr",
+      "booking":4
+    }
+ },
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 5,
+    "fields": {
+      "fullname": "Lucas Nowottny",
+      "booking":5
+    }
+ },
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 6,
+    "fields": {
+      "fullname": "Nadera",
+      "booking":6
+    }
+ },
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 7,
+    "fields": {
+      "fullname": "Charlotte Auxenfants",
+      "booking":7
+    }
+ },
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 8,
+    "fields": {
+      "fullname": "Frank Duschkowski",
+      "booking":8
+    }
+ },
+ {
+    "model": "hotelmanagement.guest",
+    "pk": 9,
+    "fields": {
+      "fullname": "Mr Dũng",
+      "booking":9
     }
  }
 ]

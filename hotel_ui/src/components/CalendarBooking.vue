@@ -1,12 +1,11 @@
 <template>
   <div id="calendar-booking" ref="tbbooking" @click="disableMenuContext">
-    <p>{{select_date}}</p>
     <div class="table-reveration noselect">
       <div class="tbheader">
-        <div class="tbcell">Rooms / Dates</div>
+        <div class="tbcell">R/D</div>
         <div class="tbcell" :key="dat_index" v-for="(dat, dat_index) in getDays">{{dat.date_format}}</div>
       </div>
-      <div class="tbrow" :key="room_index" v-for="(room, room_index) in room_list">
+      <div class="tbrow" :key="room_index" v-for="(room, room_index) in getRooms">
         <div class="tbcell" :style="{width: (windowWidth/numberOfColumn)+'px'}">{{room.name}}</div>
         <div
           class="tbcell tbcell-booking"
@@ -26,11 +25,17 @@
             oncontextmenu="return false"
             @mouseup="showContextMenuOnButton"
             v-for="item in getReverationByRoomId(room.id)"
-            :class="item.room_status == 1 ? 'check-in' : item.room_status == 2 ? 'in-house': 'check-out'"
+            :class="item.booking.room.room_status == 4 ? 'check-in' : item.booking.room.room_status == 5 ? 'in-house': 'check-out'"
             :data-id="item.id"
             :key="item.id"
-            :style="{maxWidth: ((windowWidth/numberOfColumn)*item.length)-4 <= 0 ? (windowWidth/numberOfColumn) + 'px' : ((windowWidth/numberOfColumn)*item.length)-4 +'px',width: ((windowWidth/numberOfColumn)*item.length)-4 <= 0 ? (windowWidth/numberOfColumn) + 'px' : ((windowWidth/numberOfColumn)*item.length)-4 +'px',marginLeft: (windowWidth/numberOfColumn)*item.left+'px', whiteSpace: 'nowrap', overflow: 'hidden',}"
-          >{{item.id + ' | '+ item.guest_name + ' | ' + item.client_name}}</button>
+            :style="{
+              maxWidth: ((windowWidth/numberOfColumn)*item.length)-5 <= 0 ? (windowWidth/numberOfColumn)-5 + 'px' : ((windowWidth/numberOfColumn)*item.length)-5 +'px',
+              width: ((windowWidth/numberOfColumn)*item.length)-5 <= 0 ? (windowWidth/numberOfColumn)-5 + 'px' : ((windowWidth/numberOfColumn)*item.length)-5 +'px',
+              marginLeft: (windowWidth/numberOfColumn)*item.left-8+'px', 
+              whiteSpace: 'nowrap', 
+              overflow: 'hidden',
+            }"
+          >{{item.id + ' | '+ item.fullname + ' | ' + item.booking.client.name}}</button>
         </div>
       </div>
     </div>
@@ -66,7 +71,7 @@
             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
           </header>
           <div class="panel-body">
-            <div class="">
+            <div class>
               <!-- Form here! -->
               <FrmBookingDetail></FrmBookingDetail>
               <!-- //Form here! -->
@@ -81,7 +86,7 @@
 
 <script>
 import { parse, differenceInDays, addDays, format } from "date-fns";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import FrmBookingDetail from "./FrmBookingDetail";
 
 export default {
@@ -89,137 +94,13 @@ export default {
   data: function() {
     return {
       instance_date: {
-        start: parse("2019/03/10"),
-        stop: parse("2019/03/19")
+        start: parse("2019/03/03"),
+        stop: parse("2019/03/12")
       },
       select_date: {
         start: null,
         stop: null
       },
-      room_list: [
-        {
-          id: 12,
-          name: "201"
-        },
-        {
-          id: 13,
-          name: "202"
-        },
-        {
-          id: 14,
-          name: "203"
-        },
-        {
-          id: 15,
-          name: "200"
-        },
-        {
-          id: 16,
-          name: "204"
-        },
-        {
-          id: 17,
-          name: "205"
-        },
-        {
-          id: 18,
-          name: "206"
-        },
-        {
-          id: 19,
-          name: "207"
-        }
-      ],
-      booking_list: [
-        {
-          id: 23,
-          guest_name: "Ng Van A 11 - 14",
-          from: parse("2019/03/11"),
-          to: parse("2019/03/14"),
-          client_name: "Booking.com",
-          room_status: 2,
-          id_room: 13,
-          left: 1,
-          length: 1
-        },
-        {
-          id: 24,
-          guest_name: "Hanie 14 - 16",
-          from: parse("2019/03/14"),
-          to: parse("2019/03/16"),
-          client_name: "Agoda",
-          room_status: 2,
-          id_room: 14,
-          left: 1,
-          length: 1
-        },
-        {
-          id: 26,
-          guest_name: "Abuluxu mu jjjj jj j j jjjj j jjjj 16-18",
-          from: parse("2019/03/16"),
-          to: parse("2019/03/18"),
-          client_name: "Walk-in",
-          room_status: 1,
-          id_room: 12,
-          left: 1,
-          length: 1
-        },
-        {
-          id: 27,
-          guest_name: "Den truoc 2-17",
-          from: parse("2019/03/02"),
-          to: parse("2019/03/17"),
-          client_name: "Expedia",
-          room_status: 3,
-          id_room: 16,
-          left: 1,
-          length: 1
-        },
-        {
-          id: 28,
-          guest_name: "Hai dau 11-18",
-          from: parse("2019/03/11"),
-          to: parse("2019/03/18"),
-          client_name: "Booking.com",
-          room_status: 2,
-          id_room: 17,
-          left: 1,
-          length: 1
-        },
-        {
-          id: 29,
-          guest_name: "Den sau 12-20",
-          from: parse("2019/03/12"),
-          to: parse("2019/03/20"),
-          client_name: "Agoda",
-          room_status: 2,
-          id_room: 18,
-          left: 1,
-          length: 1
-        },
-        {
-          id: 30,
-          guest_name: "Vo cuc 3/1-22/4",
-          from: parse("2019/01/03"),
-          to: parse("2019/04/22"),
-          client_name: "Booking.com",
-          room_status: 1,
-          id_room: 15,
-          left: 1,
-          length: 1
-        },
-        {
-          id: 31,
-          guest_name: "Mot tt tt hh hh",
-          from: parse("2019/03/13"),
-          to: parse("2019/03/13"),
-          client_name: "Boo",
-          room_status: 3,
-          id_room: 19,
-          left: 1,
-          length: 1
-        }
-      ],
       context_menu_list: [],
       windowWidth: 0,
       numberOfColumn: 0,
@@ -235,19 +116,20 @@ export default {
   },
   watch: {
     isMenuBar: function(oldIsMenuBar) {
-      // this.handleWindowResize();
-      // console.log(oldIsMenuBar, newIsMenuBar);
       if (oldIsMenuBar) {
         this.windowWidth = this.windowWidth - this.widthMenuBar;
       } else {
         this.windowWidth = this.windowWidth + this.widthMenuBar;
       }
-
-      // this.windowWidth  = this.$refs.tbbooking.getBoundingClientRect().width;
     }
   },
   computed: {
-    ...mapGetters({ isMenuBar: "isMenuBar", widthMenuBar: "widthMenuBar" }),
+    ...mapGetters({
+      isMenuBar: "isMenuBar",
+      widthMenuBar: "widthMenuBar",
+      getRooms: "getRooms",
+      getGuestBookings: "getGuestBookings"
+    }),
     getInstanceDays: function() {
       return differenceInDays(
         this.instance_date.stop,
@@ -272,6 +154,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      fetchRooms: "fetchRooms",
+      fetchGuestBookings: "fetchGuestBookings"
+    }),
     handleWindowResize() {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
     },
@@ -322,8 +208,9 @@ export default {
         event.which === 3 &&
         event.target.className.includes("bg-mark-select")
       ) {
-        this.contextMenuLeft = event.clientX;
-        this.contextMenuTop = event.clientY;
+        // console.log(event);
+        this.contextMenuLeft = event.pageX;
+        this.contextMenuTop = event.pageY;
         this.context_menu_visible = !this.context_menu_visible;
         this.context_menu_list = [
           {
@@ -338,8 +225,8 @@ export default {
         this.context_menu_visible = false;
       }
       if (event.which === 3) {
-        this.contextMenuLeft = event.clientX;
-        this.contextMenuTop = event.clientY;
+        this.contextMenuLeft = event.pageX;
+        this.contextMenuTop = event.pageY;
         this.context_menu_visible = !this.context_menu_visible;
         this.context_menu_list = [
           {
@@ -377,23 +264,38 @@ export default {
     },
     getReverationByRoomId: function(roomId) {
       let lst = [];
-      this.booking_list.forEach(item => {
-        if (item.id_room === roomId) {
+      this.getGuestBookings.forEach(item => {
+        if (item.booking.room.id === roomId) {
           let offsetLeft = 1;
           let widthProgressBar = 1;
-          let diffStart = differenceInDays(item.from, this.instance_date.start);
-          let diffStop = differenceInDays(item.to, this.instance_date.stop);
+          let diffStart = differenceInDays(
+            item.booking.arrive_date,
+            this.instance_date.start
+          );
+          let diffStop = differenceInDays(
+            item.booking.depart_date,
+            this.instance_date.stop
+          );
 
           // debugger;
           if (diffStart >= 0 && diffStop <= 0) {
             offsetLeft = diffStart + 1;
-            widthProgressBar = differenceInDays(item.to, item.from);
+            widthProgressBar = differenceInDays(
+              item.booking.depart_date,
+              item.booking.arrive_date
+            );
           } else {
             if (diffStart <= 0 && diffStop <= 0) {
               offsetLeft = 1;
               widthProgressBar =
-                differenceInDays(item.to, item.from) +
-                differenceInDays(item.from, this.instance_date.start);
+                differenceInDays(
+                  item.booking.depart_date,
+                  item.booking.arrive_date
+                ) +
+                differenceInDays(
+                  item.booking.arrive_date,
+                  this.instance_date.start
+                );
             } else if (diffStart >= 0 && diffStop >= 0) {
               offsetLeft = diffStart + 1;
               widthProgressBar = this.numberOfColumn - 1 - diffStart;
@@ -413,9 +315,17 @@ export default {
     }
   },
   mounted: function() {
+    // UI:
     this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
     window.addEventListener("resize", this.handleWindowResize);
     this.numberOfColumn = this.getDays.length + 1;
+
+    // Data:
+    this.fetchRooms();
+    this.fetchGuestBookings({
+      arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),
+      depart_date: format(this.instance_date.stop, "YYYY-MM-DD")
+    });
   },
   beforeDestroy: function() {
     window.removeEventListener("resize", this.handleWindowResize);
@@ -425,14 +335,15 @@ export default {
 
 <style scoped>
 .check-in {
-  background-color: green;
+  background-color: #27c24c;
 }
 .check-out {
-  background-color: purple;
+  background-color: #ff6c60;
 }
 .in-house {
-  background-color: #56563d;
+  background-color: #FCB322;
 }
+
 .bg-mark-select {
   background-color: #f9c9be63;
 }
