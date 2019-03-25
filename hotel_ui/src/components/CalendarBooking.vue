@@ -25,13 +25,13 @@
             oncontextmenu="return false"
             @mouseup="showContextMenuOnButton"
             v-for="item in getReverationByRoomId(room.id)"
-            :class="item.booking.room.room_status == 4 ? 'check-in' : item.booking.room.room_status == 5 ? 'in-house': 'check-out'"
+            :class="item.booking.room.room_status.id == 4 ? 'check-in' : item.booking.room.room_status.id == 5 ? 'in-house': 'check-out'"
             :data-id="item.id"
             :key="item.id"
             :style="{
               maxWidth: ((windowWidth/numberOfColumn)*item.length)-5 <= 0 ? (windowWidth/numberOfColumn)-5 + 'px' : ((windowWidth/numberOfColumn)*item.length)-5 +'px',
               width: ((windowWidth/numberOfColumn)*item.length)-5 <= 0 ? (windowWidth/numberOfColumn)-5 + 'px' : ((windowWidth/numberOfColumn)*item.length)-5 +'px',
-              marginLeft: (windowWidth/numberOfColumn)*item.left-8+'px', 
+              marginLeft: (windowWidth/numberOfColumn)*item.left+'px', 
               whiteSpace: 'nowrap', 
               overflow: 'hidden',
             }"

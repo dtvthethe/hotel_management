@@ -27,7 +27,7 @@ const mutations = {
         });
     },
     fetchGuestBookings: function(state, bk_date){
-        axios.get(URL_API+'api/guest_booking?arrive_date='+bk_date.arrive_date+'&depart_date='+bk_date.depart_date).then(res => {
+        axios.get(URL_API+'api/guest_bookings?arrive_date='+bk_date.arrive_date+'&depart_date='+bk_date.depart_date).then(res => {
             if (res.status == 200) {
                 state.guests_bookings = res.data;
             }

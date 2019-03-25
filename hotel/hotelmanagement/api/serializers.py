@@ -28,6 +28,7 @@ class PaymentTypeListSerializer(ModelSerializer):
 
 
 class RoomListSerializer(ModelSerializer):
+    room_status = RoomStatusListSerializer(many = False)
     class Meta:
         model = Room
         fields = '__all__'
@@ -39,20 +40,29 @@ class ProductListSerializer(ModelSerializer):
         fields = '__all__'
 
 class BookingListSerializer(ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+class BookingCalendarListSerializer(ModelSerializer):
     client = ClientListSerializer(many = False)
     room = RoomListSerializer(many= False)
     class Meta:
         model = Booking
         fields = '__all__'
 
+
 class GuestListSerializer(ModelSerializer):
-    booking = BookingListSerializer(many = False)
+    booking = BookingCalendarListSerializer(many = False)
     class Meta:
         model = Guest
         fields = '__all__'
 
-
-
+class GuestBookingListSerializer(ModelSerializer):
+    booking = BookingListSerializer(many = False)
+    class Meta:
+        model = Guest
+        fields = '__all__'
 
 
 class MinibarChargeSerializer(ModelSerializer):

@@ -1,7 +1,5 @@
 <template>
   <div id="head-bar">
-    <router-link to="/">FrontDesk</router-link>
-    <router-link to="/calendar">calendar</router-link>
     <!--header start-->
     <header class="header fixed-top clearfix">
       <!--logo start-->
@@ -238,16 +236,16 @@
         <div class="leftside-navigation">
           <ul class="sidebar-menu" id="nav-accordion">
             <li>
-              <a class="active" href="#">
+              <router-link to="/">
                 <i class="fa fa-first-order"></i>
                 <span>Front Desk</span>
-              </a>
+              </router-link>
             </li>
             <li>
-              <a href="#">
+              <router-link to="/calendar">
                 <i class="fa fa-calendar"></i>
                 <span>Calendar Booking</span>
-              </a>
+              </router-link>
             </li>
             <li>
               <a href="#">

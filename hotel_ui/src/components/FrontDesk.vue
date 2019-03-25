@@ -5,327 +5,26 @@
       <div class="toolbar"></div>
     </header>
     <div class="front-desk">
-      <div class="front-desk-group">
+      <div class="front-desk-group" :key="roomtype.id" v-for="roomtype in getRoomWithTypes">
         <div class="front-desk-title row">
-          <strong>Apartment</strong>
+          <strong>{{roomtype.name}}</strong>
         </div>
         <div class="front-desk-body row">
-          <div class="col-xs-3 col-md-1 room">
+          <div class="col-xs-3 col-md-2 room" :key="room.id" v-for="room in roomtype.rooms">
             <div
-              class="room-containt room-pending-check-out"
+              class="room-containt"
+              :class="fillColorToRoom(room.id)"
               oncontextmenu="return false"
               @mouseup="enableMenuContext"
             >
-              <p class="room-number">303</p>
-              <i class="fa fa-plane"></i>
-              <p class="room-status">Checkout</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div
-              class="room-containt room-pending-check-in"
-              oncontextmenu="return false"
-              @mouseup="enableMenuContext"
-            >
-              <p class="room-number">303</p>
-              <i class="fa fa-level-down"></i>
-              <p class="room-status">Check-in</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-block">
-              <p class="room-number">303</p>
-              <i class="fa fa-lock"></i>
-              <p class="room-status">Block</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-occupied">
-              <p class="room-number">303</p>
-              <i class="fa fa-smile-o"></i>
-              <p class="room-status">Occupied</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-odirty">
-              <p class="room-number">303</p>
-              <i class="fa fa-magnet"></i>
-              <p class="room-status">Dirty</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="front-desk-group">
-        <div class="front-desk-title row">
-          <strong>Villa</strong>
-        </div>
-        <div class="front-desk-body row">
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-pending-check-out">
-              <p class="room-number">303</p>
-              <i class="fa fa-plane"></i>
-              <p class="room-status">Checkout</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-pending-check-in">
-              <p class="room-number">303</p>
-              <i class="fa fa-level-down"></i>
-              <p class="room-status">Check-in</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-block">
-              <p class="room-number">303</p>
-              <i class="fa fa-lock"></i>
-              <p class="room-status">Block</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-occupied">
-              <p class="room-number">303</p>
-              <i class="fa fa-smile-o"></i>
-              <p class="room-status">Occupied</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-odirty">
-              <p class="room-number">303</p>
-              <i class="fa fa-magnet"></i>
-              <p class="room-status">Dirty</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="front-desk-group">
-        <div class="front-desk-title row">
-          <strong>Deluxe King(Double)</strong>
-        </div>
-        <div class="front-desk-body row">
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-pending-check-out">
-              <p class="room-number">303</p>
-              <i class="fa fa-plane"></i>
-              <p class="room-status">Checkout</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-pending-check-in">
-              <p class="room-number">303</p>
-              <i class="fa fa-level-down"></i>
-              <p class="room-status">Check-in</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-block">
-              <p class="room-number">303</p>
-              <i class="fa fa-lock"></i>
-              <p class="room-status">Block</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-occupied">
-              <p class="room-number">303</p>
-              <i class="fa fa-smile-o"></i>
-              <p class="room-status">Occupied</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-odirty">
-              <p class="room-number">303</p>
-              <i class="fa fa-magnet"></i>
-              <p class="room-status">Dirty</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
-            </div>
-          </div>
-          <div class="col-xs-3 col-md-1 room">
-            <div class="room-containt room-available">
-              <p class="room-number">303</p>
-              <i class="fa fa-check-circle"></i>
-              <p class="room-status">Available</p>
+              <p class="room-number">{{room.name}}</p>
+              <i
+                class="fa"
+                :class="fillColorToRoom(room.id) == 'room-pending-check-in'? 'fa-level-down':fillColorToRoom(room.id) == 'room-pending-check-out'?'fa fa-plane':fillColorToRoom(room.id) =='room-occupied'?'fa-smile-o':'fa-check-circle'"
+              ></i>
+              <p class="room-status">{{room.room_status.name}}</p>
+              <p class="guest-name">{{fillNameToRoom(room.id)}}</p>
+              <p class="room-stay">{{fillDateToRoom(room.id)}}</p>
             </div>
           </div>
         </div>
@@ -362,7 +61,7 @@
             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
           </header>
           <div class="panel-body">
-            <div class="">
+            <div class>
               <!-- Form here! -->
               <FrmBookingDetail></FrmBookingDetail>
               <!-- //Form here! -->
@@ -376,7 +75,9 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import FrmBookingDetail from "./FrmBookingDetail";
+import { parse, isSameDay, format } from "date-fns";
 
 export default {
   name: "FrontDesk",
@@ -401,14 +102,29 @@ export default {
           label: "Check-out",
           icon: "fa fa-pencil"
         }
-      ]
+      ],
+      session_date: parse("2019/03/09"),
+      data_fill: {
+        guest_name: "",
+        date_booking: ""
+      }
     };
   },
+  computed: {
+    ...mapGetters({
+      getRoomWithTypes: "getRoomWithTypes",
+      getBookings: "getBookings"
+    })
+  },
   methods: {
+    ...mapActions({
+      fetchRoomWithTypes: "fetchRoomWithTypes",
+      fetchBookings: "fetchBookings"
+    }),
     enableMenuContext: function(event) {
       if (event.which === 3) {
-        this.contextMenuLeft = event.clientX;
-        this.contextMenuTop = event.clientY;
+        this.contextMenuLeft = event.pageX;
+        this.contextMenuTop = event.pageY;
         this.context_menu_visible = !this.context_menu_visible;
       }
       if (event.which === 1) {
@@ -417,7 +133,58 @@ export default {
     },
     disableMenuContext: function(event) {
       this.context_menu_visible = false;
+    },
+    fillColorToRoom: function(roomId) {
+      let bookings = this.getBookings.filter(
+        item => item.booking.room == roomId
+      );
+      // debugger;
+      if (bookings.length === 1) {
+        if (isSameDay(bookings[0].booking.arrive_date, this.session_date)) {
+          return "room-pending-check-in";
+        }
+        if (isSameDay(bookings[0].booking.depart_date, this.session_date)) {
+          return "room-pending-check-out";
+        } else {
+          return "room-occupied";
+        }
+      } else if (bookings.length > 1) {
+        return "room-pending-check-out";
+      } else {
+        return "room-available";
+      }
+    },
+    fillNameToRoom: function(roomId) {
+      let bookings = this.getBookings.filter(
+        item => item.booking.room == roomId
+      );
+      // debugger;
+      if (bookings.length === 1) {
+        return bookings[0].fullname+'=='+bookings[0].booking.id;
+      } else {
+        return " --:--";
+      }
+    },
+    fillDateToRoom: function(roomId) {
+      let bookings = this.getBookings.filter(
+        item => item.booking.room == roomId
+      );
+      // debugger;
+      if (bookings.length >= 1) {
+        return (
+          format(parse(bookings[0].booking.arrive_date), 'DD/MM') +
+          " ~ " +
+          format(parse(bookings[0].booking.depart_date), 'DD/MM')
+        );
+      } else {
+        return "&nbsp;";
+      }
     }
+  },
+  mounted: function() {
+    // Data
+    this.fetchRoomWithTypes();
+    this.fetchBookings(format(this.session_date, "YYYY-MM-DD"));
   }
 };
 </script>
@@ -439,7 +206,7 @@ export default {
   font-size: 13px;
 }
 .room .room-containt {
-  height: 92px;
+  /* height: 92px; */
   width: 100%;
   border-radius: 4px;
   border: 1px solid #8873a2;
@@ -453,7 +220,9 @@ export default {
   padding: 2px 0px;
   font-weight: bold;
 }
-
+.room .room-block .room-number {
+  border-color: #000;
+}
 .room .room-containt i {
   font-size: x-large;
   margin: 11px 0px;
@@ -461,6 +230,15 @@ export default {
 .room .room-containt .room-status {
   font-size: small;
 }
+.room .guest-name {
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+}
+.room .room-stay {
+}
+
+/* room status */
 .room-pending-check-out {
   background-color: #f73557;
 }
@@ -470,9 +248,6 @@ export default {
 .room-block {
   background-color: #fff;
   color: #000 !important;
-}
-.room .room-block .room-number {
-  border-color: #000;
 }
 .room-occupied {
   background-color: #e9ad07;
