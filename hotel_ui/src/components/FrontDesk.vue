@@ -14,17 +14,43 @@
             <div
               class="room-containt"
               :class="fillColorToRoom(room.id)"
+              :data-room-status="room.room_status.id"
+              :data-booking-id="fillIDBookingToRoom(room.id)"
+              :data-room-id="room.id"
               oncontextmenu="return false"
               @mouseup="enableMenuContext"
             >
-              <p class="room-number">{{room.name}}</p>
+              <p
+                class="room-number"
+                :data-room-status="room.room_status.id"
+                :data-room-id="room.id"
+                :data-booking-id="fillIDBookingToRoom(room.id)"
+              >{{room.name}}</p>
               <i
                 class="fa"
+                :data-room-status="room.room_status.id"
+                :data-room-id="room.id"
+                :data-booking-id="fillIDBookingToRoom(room.id)"
                 :class="fillColorToRoom(room.id) == 'room-pending-check-in'? 'fa-level-down':fillColorToRoom(room.id) == 'room-pending-check-out'?'fa fa-plane':fillColorToRoom(room.id) =='room-occupied'?'fa-smile-o':'fa-check-circle'"
               ></i>
-              <p class="room-status">{{room.room_status.name}}</p>
-              <p class="guest-name">{{fillNameToRoom(room.id)}}</p>
-              <p class="room-stay">{{fillDateToRoom(room.id)}}</p>
+              <p
+                class="room-status"
+                :data-room-status="room.room_status.id"
+                :data-room-id="room.id"
+                :data-booking-id="fillIDBookingToRoom(room.id)"
+              >{{room.room_status.name}}</p>
+              <p
+                class="guest-name"
+                :data-room-status="room.room_status.id"
+                :data-room-id="room.id"
+                :data-booking-id="fillIDBookingToRoom(room.id)"
+              >{{fillNameToRoom(room.id)}}</p>
+              <p
+                class="room-stay"
+                :data-room-status="room.room_status.id"
+                :data-room-id="room.id"
+                :data-booking-id="fillIDBookingToRoom(room.id)"
+              >{{fillDateToRoom(room.id)}}</p>
             </div>
           </div>
         </div>
@@ -42,6 +68,7 @@
           data-target="#myModal"
           class="list-group-item"
           :key="index"
+          @click="loadDataDetail(item.alias)"
           v-for="(item, index) in context_menu_list"
         >
           <i :class="item.icon"></i>
@@ -89,40 +116,130 @@ export default {
       context_menu_visible: false,
       contextMenuLeft: 0,
       contextMenuTop: 0,
-      context_menu_list: [
-        {
-          label: "Detail",
-          icon: "fa fa-pencil"
-        },
-        {
-          label: "Check-in",
-          icon: "fa fa-pencil"
-        },
-        {
-          label: "Check-out",
-          icon: "fa fa-pencil"
-        }
-      ],
+      context_menu_list: [],
       session_date: parse("2019/03/09"),
       data_fill: {
         guest_name: "",
         date_booking: ""
-      }
+      },
+      data_booking: {
+        id: "",
+        action_name: "new",
+      },
+      room_selected_id:0,
+      booking_detail:{}
     };
   },
   computed: {
     ...mapGetters({
       getRoomWithTypes: "getRoomWithTypes",
-      getBookings: "getBookings"
+      getBookings: "getBookings",
     })
   },
   methods: {
     ...mapActions({
       fetchRoomWithTypes: "fetchRoomWithTypes",
-      fetchBookings: "fetchBookings"
+      fetchBookings: "fetchBookings",
+      fetchBookingDetail: "fetchBookingDetail",
+      setBookingDetailDeafault:"setBookingDetailDeafault",
+      setBookingRoom:'setBookingRoom'
     }),
     enableMenuContext: function(event) {
       if (event.which === 3) {
+        // set item menu context:
+        this.bookingId = event.target.dataset.bookingId;
+        this.room_selected_id = event.target.dataset.roomId;
+        switch (event.target.dataset.roomStatus) {
+          case "1": // dirty
+            this.context_menu_list = [
+              {
+                icon: "fa fa-thumbs-up",
+                label: "Clean Room",
+                alias: ""
+              }
+            ];
+            break;
+          case "2": // availble
+            this.context_menu_list = [
+              {
+                icon: "fa fa-thumbs-down",
+                label: "Post Dirty",
+                alias: ""
+              },
+              {
+                icon: "fa fa-plus",
+                label: "New Reveration",
+                alias: "new"
+              }
+            ];
+            break;
+          case "4": // check-in
+            this.context_menu_list = [
+              {
+                icon: "fa fa-thumbs-down",
+                label: "Open Detail",
+                alias: "detail"
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Check-in",
+                alias: ""
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Cancel",
+                alias: ""
+              },
+              {
+                icon: "fa fa-plus",
+                label: "No show",
+                alias: ""
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Change room",
+                alias: ""
+              }
+            ];
+            break;
+          case "5": // occupied
+            this.context_menu_list = [
+              {
+                icon: "fa fa-thumbs-down",
+                label: "Open Detail",
+                alias: "detail"
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Check-out",
+                alias: ""
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Bill",
+                alias: ""
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Room charge bill",
+                alias: ""
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Extra charge bill",
+                alias: ""
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Change room",
+                alias: ""
+              }
+            ];
+            break;
+          default:
+            this.context_menu_list = [];
+        }
+
         this.contextMenuLeft = event.pageX;
         this.contextMenuTop = event.pageY;
         this.context_menu_visible = !this.context_menu_visible;
@@ -131,7 +248,7 @@ export default {
         this.context_menu_visible = false;
       }
     },
-    disableMenuContext: function(event) {
+    disableMenuContext: function() {
       this.context_menu_visible = false;
     },
     fillColorToRoom: function(roomId) {
@@ -160,9 +277,19 @@ export default {
       );
       // debugger;
       if (bookings.length === 1) {
-        return bookings[0].fullname+'=='+bookings[0].booking.id;
+        return bookings[0].fullname;
       } else {
         return " --:--";
+      }
+    },
+    fillIDBookingToRoom: function(roomId) {
+      let bookings = this.getBookings.filter(
+        item => item.booking.room == roomId
+      );
+      if (bookings.length === 1) {
+        return bookings[0].booking.id;
+      } else {
+        return "";
       }
     },
     fillDateToRoom: function(roomId) {
@@ -172,12 +299,25 @@ export default {
       // debugger;
       if (bookings.length >= 1) {
         return (
-          format(parse(bookings[0].booking.arrive_date), 'DD/MM') +
+          format(parse(bookings[0].booking.arrive_date), "DD/MM") +
           " ~ " +
-          format(parse(bookings[0].booking.depart_date), 'DD/MM')
+          format(parse(bookings[0].booking.depart_date), "DD/MM")
         );
       } else {
         return "&nbsp;";
+      }
+    },
+    loadDataDetail: function(aliasName) {
+      this.data_booking = {
+        id: this.bookingId,
+        action_name: aliasName,
+      };
+      if(this.data_booking.action_name == 'detail' && this.data_booking.id){
+        this.fetchBookingDetail(this.data_booking);
+      }
+      else{
+        this.setBookingDetailDeafault();
+        this.setBookingRoom(this.room_selected_id);
       }
     }
   },

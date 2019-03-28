@@ -478,7 +478,7 @@
       "price":190000,
       "capacity":1,
       "room_type":6,
-      "room_status": 2
+      "room_status": 5
     }
  },
  {
@@ -863,7 +863,7 @@
       "price":260000,
       "capacity":1,
       "room_type":4,
-      "room_status": 3
+      "room_status": 2
     }
  },
  {
@@ -973,7 +973,7 @@
       "price":600000,
       "capacity":2,
       "room_type":2,
-      "room_status": 1
+      "room_status": 2
     }
  },
  {
@@ -1083,7 +1083,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 2
+      "room_status": 1
     }
  },
  {
@@ -1105,7 +1105,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 2
+      "room_status": 5
     }
  },
  {
@@ -1116,7 +1116,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 2
+      "room_status": 4
     }
  },
  {

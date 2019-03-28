@@ -1,5 +1,9 @@
 <template>
   <form role="form" class="modal-open">
+    <i>{{getBookingDetail}}</i>
+    <br>
+    <i>{{getBookingGuestDetail}}</i>
+
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
@@ -28,30 +32,42 @@
               <legend class>Booking Infomation</legend>
               <div class="form-group col-md-6">
                 <label for="booking-code">Booking Code</label>
-                <input type="text" class="form-control m-bot15" id="booking-code" maxlength="20">
+                <input
+                  type="text"
+                  class="form-control m-bot15"
+                  id="booking-code"
+                  maxlength="20"
+                  v-model="booking_code"
+                >
               </div>
               <div class="form-group col-md-6">
                 <label for="client">Client</label>
-                <select class="form-control m-bot15" id="client">
-                  <option>Option 1</option>
-                  <option>Option 2</option>
-                  <option>Option 3</option>
+                <select class="form-control m-bot15" id="client" v-model="client">
+                  <option
+                    :key="client.id"
+                    :value="client.id"
+                    v-for="client in getClients"
+                  >{{client.name}}</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
                 <label for="room-type">Room Type</label>
-                <select class="form-control m-bot15" id="room-type">
-                  <option>Option 1</option>
-                  <option>Option 2</option>
-                  <option>Option 3</option>
+                <select class="form-control m-bot15" id="room-type" v-model="roomtype_id" @change="setRoomToNull">
+                  <option
+                    :key="roomtype.id"
+                    :value="roomtype.id"
+                    v-for="roomtype in getRoomTypes"
+                  >{{roomtype.name}}</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
                 <label for="room">Room</label>
-                <select class="form-control m-bot15" id="room">
-                  <option>Option 1</option>
-                  <option>Option 2</option>
-                  <option>Option 3</option>
+                <select class="form-control m-bot15" id="room" v-model="room">
+                  <option
+                    :key="room.id"
+                    :value="room.id"
+                    v-for="room in getRooms(roomtype_id)"
+                  >{{room.name}}</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -61,7 +77,7 @@
                   type="number"
                   min="1"
                   max="100"
-                  value="1"
+                  v-model="adult"
                   id="adult"
                 >
               </div>
@@ -74,24 +90,34 @@
                   value="1"
                   max="100"
                   id="child"
+                  v-model="child"
                 >
               </div>
               <div class="checkbox col-md-3">
                 <label>
-                  <input type="checkbox" value>
+                  <input type="checkbox" v-model="is_breakfast">
                   Breakfast
                 </label>
               </div>
               <div class="form-group col-md-6">
-                <label for="room-rate">Room Rate</label>
-                <input class="form-control m-bot15" type="number" min="0" value="0" id="room-rate">
+                <label for="roomrate">Room Rate</label>
+                <input
+                  class="form-control m-bot15"
+                  type="number"
+                  min="0"
+                  max="999999999999"
+                  id="roomrate"
+                  v-model="price"
+                >
               </div>
               <div class="form-group col-md-6">
-                <i>25,000 (VND)</i>
+                <i>
+                  <MoneyFormat :value="price ? parseInt(price) : 0" locale="vn" currency-code="VND"></MoneyFormat>
+                </i>
               </div>
               <div class="form-group col-md-12">
                 <label for="note">Note</label>
-                <textarea class="form-control" rows="3" id="note" maxlength="500"></textarea>
+                <textarea class="form-control" rows="3" id="note" maxlength="500" v-model="note"></textarea>
               </div>
             </fieldset>
           </div>
@@ -105,6 +131,7 @@
                   format="dd/MM/yyyy"
                   @selected="onSelectDateArrive"
                   :disabledDates="disabledDatesArrive"
+                  v-model="arrive_date"
                 ></Datepicker>
               </div>
               <div class="form-group col-md-6">
@@ -114,6 +141,7 @@
                   format="dd/MM/yyyy"
                   @selected="onSelectDateDepart"
                   :disabledDates="disabledDatesDepart"
+                  v-model="depart_date"
                 ></Datepicker>
               </div>
               <div class="form-group col-md-12">
@@ -124,7 +152,7 @@
                     disabled
                     type="number"
                     min="0"
-                    value="0"
+                    v-model="durationTwoDate"
                     id="night"
                   >
                 </div>
@@ -134,7 +162,13 @@
               <legend class>Guest Infomation</legend>
               <div class="form-group col-md-12">
                 <label for="fullname">Full Name</label>
-                <input type="text" class="form-control m-bot15" id="fullname" maxlength="150">
+                <input
+                  type="text"
+                  class="form-control m-bot15"
+                  id="fullname"
+                  maxlength="150"
+                  v-model="fullname"
+                >
               </div>
             </fieldset>
           </div>
@@ -775,8 +809,7 @@
       </div>
       <!-- foliodetail -->
     </div>
-
-    <button type="submit" class="btn btn-info">Submit</button>
+    <input type="button" class="btn btn-info" value="Submit" @click="postReveration">
 
     <!-- Modal -->
     <div
@@ -806,11 +839,16 @@
 </template>
 <script>
 import Datepicker from "vuejs-datepicker";
+import { mapGetters, mapActions } from "vuex";
+import { differenceInDays } from "date-fns";
+import MoneyFormat from "vue-money-format";
+// import Booking from '../models/booking'
 
 export default {
   name: "FrmBookingDetail",
   components: {
-    Datepicker
+    Datepicker,
+    MoneyFormat
   },
   data: function() {
     return {
@@ -823,10 +861,166 @@ export default {
       modal: {
         modalShow: false,
         display: "none"
-      }
+      },
+      durationTwoDate: -1,
+      roomtype_id: -1
     };
   },
+  computed: {
+    ...mapGetters({
+      getBookingDetail: "getBookingDetail",
+      getBookingGuestDetail: "getBookingGuestDetail",
+      getClients: "getClients",
+      getRooms: "getRooms",
+      getRoomTypes: "getRoomTypes"
+    }),
+    booking_code: {
+      get() {
+        return this.getBookingDetail.booking_code;
+      },
+      set(value) {
+        this.setBookingCode(value);
+      }
+    },
+    adult: {
+      get() {
+        return this.getBookingDetail.adult;
+      },
+      set(value) {
+        this.setBookingAdult(value);
+      }
+    },
+    child: {
+      get() {
+        return this.getBookingDetail.child;
+      },
+      set(value) {
+        this.setBookingChild(value);
+      }
+    },
+    note: {
+      get() {
+        return this.getBookingDetail.note;
+      },
+      set(value) {
+        this.setBookingNote(value);
+      }
+    },
+    arrive_date: {
+      get() {
+        return this.getBookingDetail.arrive_date;
+      },
+      set(value) {
+        this.setBookingArriveDate(value);
+      }
+    },
+    depart_date: {
+      get() {
+        return this.getBookingDetail.depart_date;
+      },
+      set(value) {
+        this.setBookingDepartDate(value);
+      }
+    },
+    is_breakfast: {
+      get() {
+        return this.getBookingDetail.is_breakfast;
+      },
+      set(value) {
+        this.setBookingIsBreakfast(value);
+      }
+    },
+    price: {
+      get() {
+        return this.getBookingDetail.price_booking;
+      },
+      set(value) {
+        this.setBookingPriceBooking(value);
+      }
+    },
+    client: {
+      get() {
+        return this.getBookingDetail.client;
+      },
+      set(value) {
+        this.setBookingClient(value);
+      }
+    },
+    room: {
+      get() {
+        return this.getBookingDetail.room;
+      },
+      set(value) {
+        if (value){
+          this.setBookingRoom(value);
+        }
+        else{
+          this.setBookingRoom(null);
+        }
+      }
+    },
+    fullname: {
+      get() {
+        return this.getBookingGuestDetail.fullname;
+      },
+      set(value) {
+        this.setFullname(value);
+      }
+    }
+  },
+  watch: {
+    arrive_date() {
+      if (
+        this.getBookingDetail.arrive_date &&
+        this.getBookingDetail.depart_date
+      ) {
+        this.durationTwoDate = differenceInDays(
+          this.getBookingDetail.depart_date,
+          this.getBookingDetail.arrive_date
+        );
+      } else {
+        this.durationTwoDate = -1;
+      }
+    },
+    depart_date() {
+      if (
+        this.getBookingDetail.arrive_date &&
+        this.getBookingDetail.depart_date
+      ) {
+        this.durationTwoDate = differenceInDays(
+          this.getBookingDetail.depart_date,
+          this.getBookingDetail.arrive_date
+        );
+      } else {
+        this.durationTwoDate = -1;
+      }
+    },
+    room() {
+      if (this.getBookingDetail.room && this.getBookingDetail.room > 0) {
+        this.roomtype_id = this.getRooms(-1).find(
+          item => item.id == this.getBookingDetail.room
+        ).room_type;
+      }
+    },
+  },
   methods: {
+    ...mapActions({
+      setBookingCode: "setBookingCode",
+      setBookingAdult: "setBookingAdult",
+      setBookingChild: "setBookingChild",
+      setBookingNote: "setBookingNote",
+      setBookingArriveDate: "setBookingArriveDate",
+      setBookingDepartDate: "setBookingDepartDate",
+      setBookingIsBreakfast: "setBookingIsBreakfast",
+      setBookingPriceBooking: "setBookingPriceBooking",
+      setBookingClient: "setBookingClient",
+      setBookingRoom: "setBookingRoom",
+      setFullname: "setFullname",
+      fetchClientList: "fetchClientList",
+      fetchRooms: "fetchRooms",
+      fetchRoomTypeList: "fetchRoomTypeList",
+      postReveration: "postReveration"
+    }),
     onSelectDateArrive: function(event) {
       this.disabledDatesDepart.to = event;
     },
@@ -840,7 +1034,15 @@ export default {
       } else {
         this.modal.display = "none";
       }
+    },
+    setRoomToNull:function(){
+      this.setBookingRoom(null);
     }
+  },
+  mounted() {
+    this.fetchClientList();
+    this.fetchRooms();
+    this.fetchRoomTypeList();
   }
 };
 </script>

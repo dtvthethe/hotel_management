@@ -5,13 +5,14 @@
         <div class="tbcell">R/D</div>
         <div class="tbcell" :key="dat_index" v-for="(dat, dat_index) in getDays">{{dat.date_format}}</div>
       </div>
-      <div class="tbrow" :key="room_index" v-for="(room, room_index) in getRooms">
+      <div class="tbrow" :key="room_index" v-for="(room, room_index) in getRooms(-1)">
         <div class="tbcell" :style="{width: (windowWidth/numberOfColumn)+'px'}">{{room.name}}</div>
         <div
           class="tbcell tbcell-booking"
           oncontextmenu="return false"
           :data-index="dat_index1"
           :data-room-id="room_index"
+          :data-id="room.id"
           :data-date="dat.date_data_format"
           :style="{width: (windowWidth/numberOfColumn)+'px'}"
           :key="dat_index1+'0'+room_index"
@@ -29,9 +30,9 @@
             :data-id="item.id"
             :key="item.id"
             :style="{
-              maxWidth: ((windowWidth/numberOfColumn)*item.length)-5 <= 0 ? (windowWidth/numberOfColumn)-5 + 'px' : ((windowWidth/numberOfColumn)*item.length)-5 +'px',
-              width: ((windowWidth/numberOfColumn)*item.length)-5 <= 0 ? (windowWidth/numberOfColumn)-5 + 'px' : ((windowWidth/numberOfColumn)*item.length)-5 +'px',
-              marginLeft: (windowWidth/numberOfColumn)*item.left+'px', 
+              maxWidth: (((windowWidth/numberOfColumn)*item.length)-6) <= 0 ? ((windowWidth/numberOfColumn)-6) + 'px' : (((windowWidth/numberOfColumn)*item.length)-6) +'px',
+              width: (((windowWidth/numberOfColumn)*item.length)-6) <= 0 ? ((windowWidth/numberOfColumn)-6) + 'px' : (((windowWidth/numberOfColumn)*item.length)-6) +'px',
+              marginLeft: ((windowWidth/numberOfColumn)*item.left)+'px', 
               whiteSpace: 'nowrap', 
               overflow: 'hidden',
             }"
@@ -52,6 +53,7 @@
           data-target="#myModal"
           class="list-group-item"
           :key="index"
+          @click="loadDataDetail(item.alias)"
           v-for="(item, index) in context_menu_list"
         >
           <i :class="item.icon"></i>
@@ -100,6 +102,10 @@ export default {
       select_date: {
         start: null,
         stop: null
+      },
+      data_booking: {
+        id: "",
+        action_name: "new"
       },
       context_menu_list: [],
       windowWidth: 0,
@@ -156,7 +162,11 @@ export default {
   methods: {
     ...mapActions({
       fetchRooms: "fetchRooms",
-      fetchGuestBookings: "fetchGuestBookings"
+      fetchGuestBookings: "fetchGuestBookings",
+      setBookingDetailDeafault: "setBookingDetailDeafault",
+      setBookingRoom: "setBookingRoom",
+      setBookingArriveDate: "setBookingArriveDate",
+      setBookingDepartDate: "setBookingDepartDate"
     }),
     handleWindowResize() {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
@@ -173,6 +183,7 @@ export default {
         };
         this.select_date.start = target.date;
         this.select_date.stop = target.date;
+        this.data_booking.id = target.id;
       }
     },
     overMarkPoint: function(event) {
@@ -209,13 +220,15 @@ export default {
         event.target.className.includes("bg-mark-select")
       ) {
         // console.log(event);
+        // console.log(this.select_date);
         this.contextMenuLeft = event.pageX;
         this.contextMenuTop = event.pageY;
         this.context_menu_visible = !this.context_menu_visible;
         this.context_menu_list = [
           {
             label: "New Reveration",
-            icon: "fa fa-pencil"
+            icon: "fa fa-pencil",
+            alias: "new"
           }
         ];
       }
@@ -231,15 +244,18 @@ export default {
         this.context_menu_list = [
           {
             label: "Detail",
-            icon: "fa fa-pencil"
+            icon: "fa fa-pencil",
+            alias: "detail"
           },
           {
             label: "Check-in",
-            icon: "fa fa-pencil"
+            icon: "fa fa-pencil",
+            alias: "detail"
           },
           {
             label: "Check-out",
-            icon: "fa fa-pencil"
+            icon: "fa fa-pencil",
+            alias: "detail"
           }
         ];
       }
@@ -312,20 +328,34 @@ export default {
     },
     disableMenuContext: function() {
       this.context_menu_visible = false;
+    },
+    loadDataDetail: function(aliasName) {
+      this.data_booking.action_name = aliasName;
+      // console.log(this.data_booking);
+      if (this.data_booking.action_name == "detail" && this.data_booking.id) {
+        this.fetchBookingDetail(this.data_booking);
+      } else {
+        this.setBookingDetailDeafault();
+        this.setBookingRoom(this.data_booking.id);
+        this.setBookingArriveDate(parse(this.select_date.start));
+        this.setBookingDepartDate(addDays(this.select_date.stop, 1));
+      }
     }
   },
   mounted: function() {
     // UI:
-    this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
-    window.addEventListener("resize", this.handleWindowResize);
+    // console.log(this.$refs.tbbooking.getBoundingClientRect());
     this.numberOfColumn = this.getDays.length + 1;
-
+    window.addEventListener("resize", this.handleWindowResize);
     // Data:
     this.fetchRooms();
     this.fetchGuestBookings({
       arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),
       depart_date: format(this.instance_date.stop, "YYYY-MM-DD")
     });
+    // this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
+    setTimeout(()=>{this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width}, 1000);
+
   },
   beforeDestroy: function() {
     window.removeEventListener("resize", this.handleWindowResize);
@@ -341,7 +371,7 @@ export default {
   background-color: #ff6c60;
 }
 .in-house {
-  background-color: #FCB322;
+  background-color: #fcb322;
 }
 
 .bg-mark-select {

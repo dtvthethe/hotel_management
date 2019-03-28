@@ -7,8 +7,13 @@ const state = {
 }
 
 const getters = {
-    getRooms: function (state) {
-        return state.rooms;
+    getRooms: (state) => (id) =>  {
+        if(id == -1){
+            return state.rooms;
+        }
+        else{
+            return state.rooms.filter(item => item.room_type == id);
+        }
     },
     getGuestBookings: function (state) {
         return state.guests_bookings;

@@ -88,3 +88,14 @@ class RoomTypeListSerializer(ModelSerializer):
     class Meta:
         model = RoomType
         fields = '__all__'
+
+# Create:
+class GuestCreateSerializer(ModelSerializer):
+    class Meta:
+        model = Guest
+        fields = '__all__'
+
+class BookingCreateSerializer(ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = '__all__'
