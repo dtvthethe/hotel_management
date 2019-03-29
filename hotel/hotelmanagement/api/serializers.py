@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, StringRelatedField
+from rest_framework.serializers import ModelSerializer
 from hotelmanagement.models import Room, Booking, Guest, RoomStatus, Client, ProductType, Product, RoomCharge, MinibarCharge, BookingPayment, RoomType, PaymentType
 
 
@@ -96,6 +96,36 @@ class GuestCreateSerializer(ModelSerializer):
         fields = '__all__'
 
 class BookingCreateSerializer(ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+# Retrieve:
+class BookingDetailSerializer(ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+
+class GuestBookingDetailSerializer(ModelSerializer):
+    booking = BookingDetailSerializer(many = False)
+    class Meta:
+        model = Guest
+        fields = '__all__'
+
+# Update
+class GuestUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Guest
+        fields = '__all__'
+
+class BookingUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+# Delete
+class BookingDeleteSerializer(ModelSerializer):
     class Meta:
         model = Booking
         fields = '__all__'

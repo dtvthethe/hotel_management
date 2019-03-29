@@ -12,4 +12,7 @@ urlpatterns = [
     path('new_reveration', views.BokingCreateAPIView().as_view(), name='createreveration'),
     path('clients', views.ClientListAPIView().as_view(), name='clientlist'),
     path('roomtypes', views.RoomRoomTypesListAPIView().as_view(), name='roomtypelist'),
+    path('guestbookingdetail/<int:pk>', views.GuestBookingRetrieveAPIView().as_view(), name='guestbookingdetail'),
+    path('reveration_update/<int:pk>', views.ReverationUpdateAPIView().as_view(), name='reverationupdate'),
+    path('reveration_delete/<int:pk>', views.BookingDestroyAPIView.as_view(), name='reverationdelete'),
 ]

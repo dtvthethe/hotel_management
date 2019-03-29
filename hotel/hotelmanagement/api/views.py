@@ -1,8 +1,9 @@
 from django.db.models import Q
-from rest_framework.generics import ListAPIView, CreateAPIView
-from hotelmanagement.models import RoomType, RoomStatus, Room, Client, Guest
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from hotelmanagement.models import RoomType, Booking, Room, Client, Guest
 from .serializers import RoomListSerializer, RoomTypeListSerializer, GuestListSerializer, GuestBookingListSerializer, \
-    GuestCreateSerializer, BookingCreateSerializer, ClientListSerializer
+    GuestCreateSerializer, BookingCreateSerializer, ClientListSerializer, GuestBookingDetailSerializer, \
+    GuestUpdateSerializer, BookingUpdateSerializer, BookingDeleteSerializer
 
 
 class RoomListAPIView(ListAPIView):
@@ -52,6 +53,8 @@ class ClientListAPIView(ListAPIView):
     queryset = Client.objects.all()
 
 
+# Create:
+
 class GuestCreateAPIView(CreateAPIView):
     serializer_class = GuestCreateSerializer
 
@@ -63,4 +66,30 @@ class BokingCreateAPIView(CreateAPIView):
     def perform_create(self, serializer):
         booking = serializer.save()
         Guest.objects.create(fullname=self.request.data['guest']['fullname'], booking_id=booking.pk)
+
+# Retrieve:
+
+class GuestBookingRetrieveAPIView(RetrieveAPIView):
+    serializer_class = GuestBookingDetailSerializer
+    queryset = Guest.objects.all()
+
+# Update:
+# class GuestUpdateAPIView(UpdateAPIView):
+#     serializer_class = GuestUpdateSerializer
+
+class ReverationUpdateAPIView(UpdateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingUpdateSerializer
+
+    def perform_update(self, serializer):
+        serializer.save()
+        guest = self.request.data['guest']
+        Guest.objects.filter(pk=self.request.data['guest']['id']).update(fullname = guest['fullname'])
+
+#Delete:
+class BookingDestroyAPIView(DestroyAPIView):
+    serializer_class = BookingDeleteSerializer
+    queryset = Booking.objects.all()
+
+    # def perform_destroy(self, instance):
 

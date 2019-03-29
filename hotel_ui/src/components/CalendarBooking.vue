@@ -28,6 +28,7 @@
             v-for="item in getReverationByRoomId(room.id)"
             :class="item.booking.room.room_status.id == 4 ? 'check-in' : item.booking.room.room_status.id == 5 ? 'in-house': 'check-out'"
             :data-id="item.id"
+            :data-booking-id="item.booking.id"
             :key="item.id"
             :style="{
               maxWidth: (((windowWidth/numberOfColumn)*item.length)-6) <= 0 ? ((windowWidth/numberOfColumn)-6) + 'px' : (((windowWidth/numberOfColumn)*item.length)-6) +'px',
@@ -63,7 +64,7 @@
     </div>
     <!-- //Menu Context -->
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade paddingright" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <header class="panel-heading">
@@ -166,7 +167,9 @@ export default {
       setBookingDetailDeafault: "setBookingDetailDeafault",
       setBookingRoom: "setBookingRoom",
       setBookingArriveDate: "setBookingArriveDate",
-      setBookingDepartDate: "setBookingDepartDate"
+      setBookingDepartDate: "setBookingDepartDate",
+      fetchGuestBookingDetail:"fetchGuestBookingDetail",
+      deleteReveration:"deleteReveration"
     }),
     handleWindowResize() {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
@@ -228,7 +231,8 @@ export default {
           {
             label: "New Reveration",
             icon: "fa fa-pencil",
-            alias: "new"
+            alias: "new",
+            confirm_popup: false,
           }
         ];
       }
@@ -241,21 +245,25 @@ export default {
         this.contextMenuLeft = event.pageX;
         this.contextMenuTop = event.pageY;
         this.context_menu_visible = !this.context_menu_visible;
+        this.data_booking.id = event.target.dataset.bookingId;
         this.context_menu_list = [
           {
             label: "Detail",
             icon: "fa fa-pencil",
-            alias: "detail"
+            alias: "detail",
+            confirm_popup: false,
           },
           {
             label: "Check-in",
             icon: "fa fa-pencil",
-            alias: "detail"
+            alias: "",
+            confirm_popup: true,
           },
           {
-            label: "Check-out",
+            label: "Cancel",
             icon: "fa fa-pencil",
-            alias: "detail"
+            alias: "delete",
+            confirm_popup: true,
           }
         ];
       }
@@ -331,10 +339,13 @@ export default {
     },
     loadDataDetail: function(aliasName) {
       this.data_booking.action_name = aliasName;
-      // console.log(this.data_booking);
       if (this.data_booking.action_name == "detail" && this.data_booking.id) {
-        this.fetchBookingDetail(this.data_booking);
-      } else {
+        this.fetchGuestBookingDetail(this.data_booking);
+      } 
+      else if(this.data_booking.action_name == 'delete' && this.data_booking.id){
+        this.deleteReveration(this.data_booking);
+      }
+      else {
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.data_booking.id);
         this.setBookingArriveDate(parse(this.select_date.start));

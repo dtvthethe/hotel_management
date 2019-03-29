@@ -49,6 +49,9 @@ label{
 	font-weight: normal;
     font-size: smaller;
 }
+.paddingright{
+	padding-right: 0px !important;
+}
 /* //model */
 
 /* tab bar */

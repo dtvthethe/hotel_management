@@ -1,9 +1,5 @@
 <template>
   <form role="form" class="modal-open">
-    <i>{{getBookingDetail}}</i>
-    <br>
-    <i>{{getBookingGuestDetail}}</i>
-
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
@@ -809,7 +805,7 @@
       </div>
       <!-- foliodetail -->
     </div>
-    <input type="button" class="btn btn-info" value="Submit" @click="postReveration">
+    <input type="button" class="btn btn-info" value="Submit" @click="saveReveration">
 
     <!-- Modal -->
     <div
@@ -840,7 +836,7 @@
 <script>
 import Datepicker from "vuejs-datepicker";
 import { mapGetters, mapActions } from "vuex";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, addDays } from "date-fns";
 import MoneyFormat from "vue-money-format";
 // import Booking from '../models/booking'
 
@@ -969,7 +965,7 @@ export default {
     }
   },
   watch: {
-    arrive_date() {
+    arrive_date(newValue) {
       if (
         this.getBookingDetail.arrive_date &&
         this.getBookingDetail.depart_date
@@ -981,8 +977,10 @@ export default {
       } else {
         this.durationTwoDate = -1;
       }
+      this.disabledDatesDepart.to = addDays(newValue, 0);
+      
     },
-    depart_date() {
+    depart_date(newValue) {
       if (
         this.getBookingDetail.arrive_date &&
         this.getBookingDetail.depart_date
@@ -994,6 +992,7 @@ export default {
       } else {
         this.durationTwoDate = -1;
       }
+      this.disabledDatesArrive.from = newValue;
     },
     room() {
       if (this.getBookingDetail.room && this.getBookingDetail.room > 0) {
@@ -1019,7 +1018,8 @@ export default {
       fetchClientList: "fetchClientList",
       fetchRooms: "fetchRooms",
       fetchRoomTypeList: "fetchRoomTypeList",
-      postReveration: "postReveration"
+      postReveration: "postReveration",
+      updateReveration:"updateReveration"
     }),
     onSelectDateArrive: function(event) {
       this.disabledDatesDepart.to = event;
@@ -1037,6 +1037,14 @@ export default {
     },
     setRoomToNull:function(){
       this.setBookingRoom(null);
+    },
+    saveReveration:function(){
+      if(this.getBookingDetail.id > 0 && this.getBookingGuestDetail.id > 0){
+        this.updateReveration();
+      }
+      else{
+        this.postReveration();
+      }
     }
   },
   mounted() {

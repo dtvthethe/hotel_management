@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { format } from 'date-fns'
+import { format, parse } from 'date-fns'
 import { URL_API } from '../config'
 import Booking from '../../models/booking'
 import Guest from '../../models/guest'
@@ -26,10 +26,6 @@ const getters = {
     }
 }
 const mutations = {
-    setBookingDetail: function (state) {
-        state.booking_detail = 'hihihi';
-        state.booking_guest_detail = 'hahaha';
-    },
     setBookingDetailDeafault: function (state) {
         state.booking_detail = new Booking();
         state.booking_guest_detail = new Guest();
@@ -54,6 +50,20 @@ const mutations = {
             }
         });
     },
+    fetchGuestBookingDetail: function (state, data) {
+        state.booking_detail = new Booking();
+        state.booking_guest_detail = new Guest();
+        axios.get(URL_API + 'api/guestbookingdetail/' + data.id).then(res => {
+            if (res.status == 200) {
+                state.booking_guest_detail.fullname = res.data.fullname;
+                state.booking_guest_detail.id = res.data.id;
+                state.booking_guest_detail.booking = res.data.booking.id;
+                state.booking_detail = res.data.booking;
+                state.booking_detail.arrive_date = parse(res.data.booking.arrive_date);
+                state.booking_detail.depart_date = parse(res.data.booking.depart_date);
+            }
+        });
+    },
     postReveration: function (state) {
         let booking = {
             ...state.booking_detail,
@@ -63,11 +73,21 @@ const mutations = {
         };
         axios.post(URL_API + 'api/new_reveration',
             booking
-        ).then(res => {
-            console.log(res);
-        }).catch(ex => {
-            console.log(ex);
-        })
+        ).then().catch();
+    },
+    updateReveration:function(state){
+        let booking = {
+            ...state.booking_detail,
+            arrive_date: format(state.booking_detail.arrive_date, 'YYYY-MM-DD'),
+            depart_date: format(state.booking_detail.depart_date, 'YYYY-MM-DD'),
+            guest: state.booking_guest_detail
+        };
+        axios.put(URL_API + 'api/reveration_update/'+state.booking_detail.id,
+            booking
+        ).then().catch()
+    },
+    deleteReveration:function(state, data){
+        axios.delete(URL_API + 'api/reveration_delete/'+data.id).then().catch()
     },
 
     setBookingCode(state, value) {
@@ -107,8 +127,8 @@ const mutations = {
 
 }
 const actions = {
-    fetchBookingDetail: function ({ commit }, data) {
-        commit('setBookingDetail', data);
+    fetchGuestBookingDetail: function ({ commit }, data) {
+        commit('fetchGuestBookingDetail', data);
     },
     setBookingDetailDeafault: function ({ commit }) {
         commit('setBookingDetailDeafault');
@@ -121,6 +141,12 @@ const actions = {
     },
     postReveration: function ({ commit }) {
         commit('postReveration');
+    },
+    updateReveration:function({commit}){
+        commit('updateReveration');
+    },
+    deleteReveration:function({commit}, data){
+        commit('deleteReveration', data);
     },
 
     setBookingCode({ commit }, value) {

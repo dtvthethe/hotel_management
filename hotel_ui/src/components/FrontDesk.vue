@@ -78,7 +78,7 @@
     </div>
     <!-- //Menu Context -->
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade remove paddingright" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <header class="panel-heading">
@@ -140,9 +140,10 @@ export default {
     ...mapActions({
       fetchRoomWithTypes: "fetchRoomWithTypes",
       fetchBookings: "fetchBookings",
-      fetchBookingDetail: "fetchBookingDetail",
+      fetchGuestBookingDetail: "fetchGuestBookingDetail",
       setBookingDetailDeafault:"setBookingDetailDeafault",
-      setBookingRoom:'setBookingRoom'
+      setBookingRoom:'setBookingRoom',
+      deleteReveration:'deleteReveration'
     }),
     enableMenuContext: function(event) {
       if (event.which === 3) {
@@ -155,7 +156,8 @@ export default {
               {
                 icon: "fa fa-thumbs-up",
                 label: "Clean Room",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               }
             ];
             break;
@@ -164,12 +166,14 @@ export default {
               {
                 icon: "fa fa-thumbs-down",
                 label: "Post Dirty",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
                 label: "New Reveration",
-                alias: "new"
+                alias: "new",
+                confirm_popup:false,
               }
             ];
             break;
@@ -178,27 +182,32 @@ export default {
               {
                 icon: "fa fa-thumbs-down",
                 label: "Open Detail",
-                alias: "detail"
+                alias: "detail",
+                confirm_popup:false,
               },
               {
                 icon: "fa fa-plus",
                 label: "Check-in",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
                 label: "Cancel",
-                alias: ""
+                alias: "delete",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
                 label: "No show",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
                 label: "Change room",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               }
             ];
             break;
@@ -313,7 +322,10 @@ export default {
         action_name: aliasName,
       };
       if(this.data_booking.action_name == 'detail' && this.data_booking.id){
-        this.fetchBookingDetail(this.data_booking);
+        this.fetchGuestBookingDetail(this.data_booking);
+      }
+      else if(this.data_booking.action_name == 'delete' && this.data_booking.id){
+        this.deleteReveration(this.data_booking)
       }
       else{
         this.setBookingDetailDeafault();
