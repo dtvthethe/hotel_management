@@ -34,6 +34,12 @@ class PaymentType(models.Model):
     def __str__(self):
         return self.name
 
+class BookingStatus(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 # phase 2
 class Room(models.Model):
     name = models.CharField(max_length=100)
@@ -65,6 +71,7 @@ class Booking(models.Model):
     price_booking = models.IntegerField(default=0)
     client = models.ForeignKey(Client, related_name='booking_clients', on_delete=models.CASCADE)
     room = models.ForeignKey(Room, related_name='booking_room', on_delete=models.CASCADE)
+    booking_status = models.ForeignKey(BookingStatus, related_name= 'status', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.booking_code

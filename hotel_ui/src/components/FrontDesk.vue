@@ -64,11 +64,11 @@
     >
       <ul class="list-group">
         <li
-          data-toggle="modal"
-          data-target="#myModal"
+          :data-toggle="item.confirm_popup ? '' : 'modal'"
+          :data-target="item.confirm_popup ? '' : '#myModal'"
           class="list-group-item"
           :key="index"
-          @click="loadDataDetail(item.alias)"
+          @click="onContextMenuItemClick(item.alias)"
           v-for="(item, index) in context_menu_list"
         >
           <i :class="item.icon"></i>
@@ -216,32 +216,38 @@ export default {
               {
                 icon: "fa fa-thumbs-down",
                 label: "Open Detail",
-                alias: "detail"
+                alias: "detail",
+                confirm_popup:false,
               },
               {
                 icon: "fa fa-plus",
                 label: "Check-out",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
                 label: "Bill",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
                 label: "Room charge bill",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
                 label: "Extra charge bill",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
                 label: "Change room",
-                alias: ""
+                alias: "",
+                confirm_popup:true,
               }
             ];
             break;
@@ -316,7 +322,7 @@ export default {
         return "&nbsp;";
       }
     },
-    loadDataDetail: function(aliasName) {
+    onContextMenuItemClick: function(aliasName) {
       this.data_booking = {
         id: this.bookingId,
         action_name: aliasName,
@@ -325,11 +331,14 @@ export default {
         this.fetchGuestBookingDetail(this.data_booking);
       }
       else if(this.data_booking.action_name == 'delete' && this.data_booking.id){
-        this.deleteReveration(this.data_booking)
+        this.deleteReveration(this.data_booking);
       }
-      else{
+      else if(this.data_booking.action_name == 'new'){
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.room_selected_id);
+      }
+      else{
+        return;
       }
     }
   },

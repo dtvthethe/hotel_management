@@ -50,20 +50,6 @@
       "name": "Block"
     }
   },
-  {
-    "model": "hotelmanagement.roomstatus",
-    "pk": 4,
-    "fields": {
-      "name": "Check-in"
-    }
-  },
-  {
-    "model": "hotelmanagement.roomstatus",
-    "pk": 5,
-    "fields": {
-      "name": "Occupied"
-    }
-  },
 
 
   {
@@ -113,6 +99,28 @@
     "pk": 7,
     "fields": {
       "name": "Extra Charge"
+    }
+  },
+
+  {
+    "model": "hotelmanagement.bookingstatus",
+    "pk": 1,
+    "fields": {
+      "name": "Check-in"
+    }
+  },
+  {
+    "model": "hotelmanagement.bookingstatus",
+    "pk": 2,
+    "fields": {
+      "name": "Occupied"
+    }
+  },
+ {
+    "model": "hotelmanagement.bookingstatus",
+    "pk": 3,
+    "fields": {
+      "name": "Check-out"
     }
   },
 
@@ -478,7 +486,7 @@
       "price":190000,
       "capacity":1,
       "room_type":6,
-      "room_status": 5
+      "room_status": 2
     }
  },
  {
@@ -489,7 +497,7 @@
       "price":190000,
       "capacity":1,
       "room_type":6,
-      "room_status": 2
+      "room_status": 3
     }
  },
  {
@@ -852,7 +860,7 @@
       "price":260000,
       "capacity":1,
       "room_type":4,
-      "room_status": 5
+      "room_status": 2
     }
  },
  {
@@ -951,7 +959,7 @@
       "price":650000,
       "capacity":2,
       "room_type":1,
-      "room_status": 4
+      "room_status": 2
     }
  },
  {
@@ -1050,7 +1058,7 @@
       "price":600000,
       "capacity":2,
       "room_type":2,
-      "room_status": 4
+      "room_status": 2
     }
  },
  {
@@ -1094,7 +1102,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 4
+      "room_status": 2
     }
  },
  {
@@ -1105,7 +1113,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 5
+      "room_status": 2
     }
  },
  {
@@ -1116,7 +1124,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 4
+      "room_status": 2
     }
  },
  {
@@ -1127,7 +1135,7 @@
       "price":1200000,
       "capacity":4,
       "room_type":3,
-      "room_status": 5
+      "room_status": 2
     }
  },
 
@@ -1145,7 +1153,8 @@
       "is_breakfast": true,
       "price_booking":612000,
       "client":1,
-      "room":62
+      "room":62,
+      "booking_status":1
     }
  },
  {
@@ -1161,7 +1170,8 @@
       "is_breakfast": true,
       "price_booking":430000,
       "client":4,
-      "room":52
+      "room":52,
+      "booking_status":1
     }
  },
  {
@@ -1177,7 +1187,8 @@
       "is_breakfast": true,
       "price_booking":520000,
       "client":2,
-      "room":43
+      "room":43,
+      "booking_status":2
     }
  },
  {
@@ -1193,7 +1204,8 @@
       "is_breakfast": true,
       "price_booking":600000,
       "client":1,
-      "room":65
+      "room":65,
+      "booking_status":3
     }
  },
  {
@@ -1209,7 +1221,8 @@
       "is_breakfast": true,
       "price_booking":600000,
       "client":1,
-      "room":66
+      "room":66,
+      "booking_status":1
     }
  },
    {
@@ -1225,7 +1238,8 @@
       "is_breakfast": true,
       "price_booking":450000,
       "client":1,
-      "room":67
+      "room":67,
+      "booking_status":2
     }
  },
    {
@@ -1241,7 +1255,8 @@
       "is_breakfast": true,
       "price_booking":550000,
       "client":1,
-      "room":68
+      "room":68,
+      "booking_status":1
     }
  },
    {
@@ -1257,7 +1272,8 @@
       "is_breakfast": true,
       "price_booking":620000,
       "client":1,
-      "room":69
+      "room":69,
+      "booking_status":2
     }
  },
    {
@@ -1273,7 +1289,8 @@
       "is_breakfast": true,
       "price_booking":620000,
       "client":1,
-      "room":9
+      "room":9,
+      "booking_status":2
     }
  },
 

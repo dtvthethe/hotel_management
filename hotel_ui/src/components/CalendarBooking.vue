@@ -50,11 +50,11 @@
     >
       <ul class="list-group">
         <li
-          data-toggle="modal"
-          data-target="#myModal"
+          :data-toggle="item.confirm_popup ? '' : 'modal'"
+          :data-target="item.confirm_popup ? '' : '#myModal'"
           class="list-group-item"
           :key="index"
-          @click="loadDataDetail(item.alias)"
+          @click="onContextMenuItemClick(item.alias)"
           v-for="(item, index) in context_menu_list"
         >
           <i :class="item.icon"></i>
@@ -337,7 +337,7 @@ export default {
     disableMenuContext: function() {
       this.context_menu_visible = false;
     },
-    loadDataDetail: function(aliasName) {
+    onContextMenuItemClick: function(aliasName) {
       this.data_booking.action_name = aliasName;
       if (this.data_booking.action_name == "detail" && this.data_booking.id) {
         this.fetchGuestBookingDetail(this.data_booking);
@@ -345,11 +345,14 @@ export default {
       else if(this.data_booking.action_name == 'delete' && this.data_booking.id){
         this.deleteReveration(this.data_booking);
       }
-      else {
+      else if(this.data_booking.action_name == 'new'){
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.data_booking.id);
         this.setBookingArriveDate(parse(this.select_date.start));
         this.setBookingDepartDate(addDays(this.select_date.stop, 1));
+      }
+      else{
+        return;
       }
     }
   },
