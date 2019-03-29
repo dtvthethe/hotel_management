@@ -26,9 +26,10 @@
             oncontextmenu="return false"
             @mouseup="showContextMenuOnButton"
             v-for="item in getReverationByRoomId(room.id)"
-            :class="item.booking.room.room_status.id == 4 ? 'check-in' : item.booking.room.room_status.id == 5 ? 'in-house': 'check-out'"
+            :class="item.booking.booking_status.id == 1 ? 'check-in' : item.booking.booking_status.id == 2 ? 'in-house': 'check-out'"
             :data-id="item.id"
             :data-booking-id="item.booking.id"
+            :data-booking-status-id="item.booking.booking_status.id"
             :key="item.id"
             :style="{
               maxWidth: (((windowWidth/numberOfColumn)*item.length)-6) <= 0 ? ((windowWidth/numberOfColumn)-6) + 'px' : (((windowWidth/numberOfColumn)*item.length)-6) +'px',
@@ -64,7 +65,13 @@
     </div>
     <!-- //Menu Context -->
     <!-- Modal -->
-    <div class="modal fade paddingright" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div
+      class="modal fade paddingright"
+      id="myModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+    >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <header class="panel-heading">
@@ -168,8 +175,8 @@ export default {
       setBookingRoom: "setBookingRoom",
       setBookingArriveDate: "setBookingArriveDate",
       setBookingDepartDate: "setBookingDepartDate",
-      fetchGuestBookingDetail:"fetchGuestBookingDetail",
-      deleteReveration:"deleteReveration"
+      fetchGuestBookingDetail: "fetchGuestBookingDetail",
+      deleteReveration: "deleteReveration"
     }),
     handleWindowResize() {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
@@ -232,7 +239,7 @@ export default {
             label: "New Reveration",
             icon: "fa fa-pencil",
             alias: "new",
-            confirm_popup: false,
+            confirm_popup: false
           }
         ];
       }
@@ -246,26 +253,71 @@ export default {
         this.contextMenuTop = event.pageY;
         this.context_menu_visible = !this.context_menu_visible;
         this.data_booking.id = event.target.dataset.bookingId;
-        this.context_menu_list = [
-          {
-            label: "Detail",
-            icon: "fa fa-pencil",
-            alias: "detail",
-            confirm_popup: false,
-          },
-          {
-            label: "Check-in",
-            icon: "fa fa-pencil",
-            alias: "",
-            confirm_popup: true,
-          },
-          {
-            label: "Cancel",
-            icon: "fa fa-pencil",
-            alias: "delete",
-            confirm_popup: true,
-          }
-        ];
+
+        switch (event.target.dataset.bookingStatusId) {
+          case "1": // check-in
+            this.context_menu_list = [
+              {
+                label: "Detail",
+                icon: "fa fa-pencil",
+                alias: "detail",
+                confirm_popup: false
+              },
+              {
+                label: "Check-in",
+                icon: "fa fa-pencil",
+                alias: "",
+                confirm_popup: true
+              },
+              {
+                label: "Cancel",
+                icon: "fa fa-pencil",
+                alias: "delete",
+                confirm_popup: true
+              }
+            ];
+            break;
+          case "2": // occupied
+            this.context_menu_list = [
+              {
+                label: "Detail",
+                icon: "fa fa-pencil",
+                alias: "detail",
+                confirm_popup: false
+              },
+              {
+                label: "Check-out",
+                icon: "fa fa-pencil",
+                alias: "",
+                confirm_popup: true
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Room charge bill",
+                alias: "",
+                confirm_popup:true,
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Extra charge bill",
+                alias: "",
+                confirm_popup:true,
+              },
+            ];
+            break;
+          case "3": // check-out => chi nen lam chuc nang nay o phan calendar
+            this.context_menu_list = [
+              {
+                icon: "fa fa-thumbs-down",
+                label: "Open Detail",
+                alias: "detail",
+                confirm_popup:false,
+              }
+            ];
+            break;
+          default:
+            this.context_menu_list = [];
+        }
       }
     },
     fill_color: function(start, stop) {
@@ -341,17 +393,17 @@ export default {
       this.data_booking.action_name = aliasName;
       if (this.data_booking.action_name == "detail" && this.data_booking.id) {
         this.fetchGuestBookingDetail(this.data_booking);
-      } 
-      else if(this.data_booking.action_name == 'delete' && this.data_booking.id){
+      } else if (
+        this.data_booking.action_name == "delete" &&
+        this.data_booking.id
+      ) {
         this.deleteReveration(this.data_booking);
-      }
-      else if(this.data_booking.action_name == 'new'){
+      } else if (this.data_booking.action_name == "new") {
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.data_booking.id);
         this.setBookingArriveDate(parse(this.select_date.start));
         this.setBookingDepartDate(addDays(this.select_date.stop, 1));
-      }
-      else{
+      } else {
         return;
       }
     }
@@ -368,8 +420,9 @@ export default {
       depart_date: format(this.instance_date.stop, "YYYY-MM-DD")
     });
     // this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
-    setTimeout(()=>{this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width}, 1000);
-
+    setTimeout(() => {
+      this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
+    }, 1000);
   },
   beforeDestroy: function() {
     window.removeEventListener("resize", this.handleWindowResize);

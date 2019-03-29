@@ -13,8 +13,8 @@
           <div class="col-xs-3 col-md-2 room" :key="room.id" v-for="room in roomtype.rooms">
             <div
               class="room-containt"
-              :class="fillColorToRoom(room.id)"
-              :data-room-status="room.room_status.id"
+              :class="fillColorToRoom(room.id) ? fillColorToRoom(room.id): room.room_status.id == 1 ?'room-odirty' : room.room_status.id == 3 ? 'room-block':'room-available'"
+              :data-room-status="fillIDStatusToRoom(room.id) ? 'bk_'+fillIDStatusToRoom(room.id) : 'rm_'+room.room_status.id"
               :data-booking-id="fillIDBookingToRoom(room.id)"
               :data-room-id="room.id"
               oncontextmenu="return false"
@@ -22,32 +22,32 @@
             >
               <p
                 class="room-number"
-                :data-room-status="room.room_status.id"
+                :data-room-status="fillIDStatusToRoom(room.id) ? 'bk_'+fillIDStatusToRoom(room.id) : 'rm_'+room.room_status.id"
                 :data-room-id="room.id"
                 :data-booking-id="fillIDBookingToRoom(room.id)"
               >{{room.name}}</p>
               <i
                 class="fa"
-                :data-room-status="room.room_status.id"
+                :data-room-status="fillIDStatusToRoom(room.id) ? 'bk_'+fillIDStatusToRoom(room.id) : 'rm_'+room.room_status.id"
                 :data-room-id="room.id"
                 :data-booking-id="fillIDBookingToRoom(room.id)"
-                :class="fillColorToRoom(room.id) == 'room-pending-check-in'? 'fa-level-down':fillColorToRoom(room.id) == 'room-pending-check-out'?'fa fa-plane':fillColorToRoom(room.id) =='room-occupied'?'fa-smile-o':'fa-check-circle'"
+                :class="fillColorToRoom(room.id) == 'room-pending-check-in'? 'fa-level-down':fillColorToRoom(room.id) == 'room-pending-check-out'?'fa fa-plane':fillColorToRoom(room.id) =='room-occupied'?'fa-smile-o': room.room_status.id == 1 ? 'fa-tint': room.room_status.id == 3 ?'fa-lock':'fa-check-circle'"
               ></i>
               <p
                 class="room-status"
-                :data-room-status="room.room_status.id"
+                :data-room-status="fillIDStatusToRoom(room.id) ? 'bk_'+fillIDStatusToRoom(room.id) : 'rm_'+room.room_status.id"
                 :data-room-id="room.id"
                 :data-booking-id="fillIDBookingToRoom(room.id)"
               >{{room.room_status.name}}</p>
               <p
                 class="guest-name"
-                :data-room-status="room.room_status.id"
+                :data-room-status="fillIDStatusToRoom(room.id) ? 'bk_'+fillIDStatusToRoom(room.id) : 'rm_'+room.room_status.id"
                 :data-room-id="room.id"
                 :data-booking-id="fillIDBookingToRoom(room.id)"
               >{{fillNameToRoom(room.id)}}</p>
               <p
                 class="room-stay"
-                :data-room-status="room.room_status.id"
+                :data-room-status="fillIDStatusToRoom(room.id) ? 'bk_'+fillIDStatusToRoom(room.id) : 'rm_'+room.room_status.id"
                 :data-room-id="room.id"
                 :data-booking-id="fillIDBookingToRoom(room.id)"
               >{{fillDateToRoom(room.id)}}</p>
@@ -118,16 +118,18 @@ export default {
       contextMenuTop: 0,
       context_menu_list: [],
       session_date: parse("2019/03/09"),
-      data_fill: {
-        guest_name: "",
-        date_booking: ""
-      },
       data_booking: {
         id: "",
         action_name: "new",
       },
       room_selected_id:0,
-      booking_detail:{}
+      booking_detail:{},
+      data_style_booking_field:{
+        booking_dates:'&nbsp;',
+        class_name:'room-available',
+        guest_name:'',
+        id_booking:null
+      }
     };
   },
   computed: {
@@ -151,22 +153,28 @@ export default {
         this.bookingId = event.target.dataset.bookingId;
         this.room_selected_id = event.target.dataset.roomId;
         switch (event.target.dataset.roomStatus) {
-          case "1": // dirty
+          case "rm_1": // dirty
             this.context_menu_list = [
               {
                 icon: "fa fa-thumbs-up",
                 label: "Clean Room",
-                alias: "",
+                alias: "clean",
                 confirm_popup:true,
+              },
+              {
+                icon: "fa fa-plus",
+                label: "Block room",
+                alias: "block",
+                confirm_popup:false,
               }
             ];
             break;
-          case "2": // availble
+          case "rm_2": // availble
             this.context_menu_list = [
               {
                 icon: "fa fa-thumbs-down",
                 label: "Post Dirty",
-                alias: "",
+                alias: "dirty",
                 confirm_popup:true,
               },
               {
@@ -177,7 +185,23 @@ export default {
               }
             ];
             break;
-          case "4": // check-in
+          case "rm_3": // block
+            this.context_menu_list = [
+              {
+                icon: "fa fa-thumbs-down",
+                label: "Post Dirty",
+                alias: "dirty",
+                confirm_popup:true,
+              },
+              {
+                icon: "fa fa-thumbs-down",
+                label: "Unblock room",
+                alias: "unblock",
+                confirm_popup:true,
+              }
+            ];
+            break;
+          case "bk_1": // check-in
             this.context_menu_list = [
               {
                 icon: "fa fa-thumbs-down",
@@ -211,7 +235,7 @@ export default {
               }
             ];
             break;
-          case "5": // occupied
+          case "bk_2": // occupied
             this.context_menu_list = [
               {
                 icon: "fa fa-thumbs-down",
@@ -222,12 +246,6 @@ export default {
               {
                 icon: "fa fa-plus",
                 label: "Check-out",
-                alias: "",
-                confirm_popup:true,
-              },
-              {
-                icon: "fa fa-plus",
-                label: "Bill",
                 alias: "",
                 confirm_popup:true,
               },
@@ -251,6 +269,16 @@ export default {
               }
             ];
             break;
+          // case "bk_3": // check-out => chi nen lam chuc nang nay o phan calendar
+          //   this.context_menu_list = [
+          //     {
+          //       icon: "fa fa-thumbs-down",
+          //       label: "Open Detail",
+          //       alias: "detail",
+          //       confirm_popup:false,
+          //     }
+          //   ];
+          //   break;
           default:
             this.context_menu_list = [];
         }
@@ -266,60 +294,98 @@ export default {
     disableMenuContext: function() {
       this.context_menu_visible = false;
     },
-    fillColorToRoom: function(roomId) {
+    getOnceBookingToShow: function(roomId) {
       let bookings = this.getBookings.filter(
         item => item.booking.room == roomId
       );
-      // debugger;
-      if (bookings.length === 1) {
-        if (isSameDay(bookings[0].booking.arrive_date, this.session_date)) {
-          return "room-pending-check-in";
+      if(bookings.length > 1){ // co 2 booking trong cung  ngay -> 1 bk out 1bk in => out
+        let reser =  bookings.filter(item => item.booking.booking_status.id == 2);
+        if(reser){ // return bk pendding out
+          return reser[0];
         }
-        if (isSameDay(bookings[0].booking.depart_date, this.session_date)) {
-          return "room-pending-check-out";
-        } else {
-          return "room-occupied";
+        else{ // ko co bk occupied => 2 check bk pedding in
+          let resers =  bookings.filter(item => item.booking.booking_status.id == 1);
+          if(resers.length == 1){// return bk pedding in
+            return resers[0];
+          }
+          else if(resers.length > 1){// 2 bk => 1 bk by house, 1 bk by day
+            //1 : 2 bk same date:
+            let bks = resers.filter(item => isSameDay(parse(item.booking.arrive_date), parse(item.booking.depart_date)) == true);
+            if(bks.length == 1){
+              return bks[0];
+            }
+            else if(bks.length > 1){
+              return bks[0];
+            }
+            else{
+              return null;
+            }
+          }
+          else{
+            return null;
+          }
         }
-      } else if (bookings.length > 1) {
-        return "room-pending-check-out";
-      } else {
-        return "room-available";
+
+      }
+      else if(bookings.length == 1){
+        return bookings[0];
+      }
+      else{
+        return null;
+      }
+    },
+    fillColorToRoom:function(roomId){
+      let booking = this.getOnceBookingToShow(roomId);
+      if(booking){
+        if(booking.booking.booking_status.id == 1){
+          return 'room-pending-check-in';
+        }
+        else{
+          return 'room-pending-check-out';
+        }
+      }
+      else{
+        return null;
       }
     },
     fillNameToRoom: function(roomId) {
-      let bookings = this.getBookings.filter(
-        item => item.booking.room == roomId
-      );
-      // debugger;
-      if (bookings.length === 1) {
-        return bookings[0].fullname;
-      } else {
-        return " --:--";
+      let booking = this.getOnceBookingToShow(roomId);
+      if(booking){
+        return booking.fullname;
+      }
+      else{
+        return '--:--';
       }
     },
     fillIDBookingToRoom: function(roomId) {
-      let bookings = this.getBookings.filter(
-        item => item.booking.room == roomId
-      );
-      if (bookings.length === 1) {
-        return bookings[0].booking.id;
-      } else {
-        return "";
+      let booking = this.getOnceBookingToShow(roomId);
+      if(booking){
+        return booking.booking.id;
+      }
+      else{
+        return '';
       }
     },
     fillDateToRoom: function(roomId) {
-      let bookings = this.getBookings.filter(
-        item => item.booking.room == roomId
-      );
-      // debugger;
-      if (bookings.length >= 1) {
+      let booking = this.getOnceBookingToShow(roomId);
+      if(booking){
         return (
-          format(parse(bookings[0].booking.arrive_date), "DD/MM") +
+          format(parse(booking.booking.arrive_date), "DD/MM") +
           " ~ " +
-          format(parse(bookings[0].booking.depart_date), "DD/MM")
+          format(parse(booking.booking.depart_date), "DD/MM")
         );
-      } else {
-        return "&nbsp;";
+      }
+      else{
+        return '_';
+      }
+    },
+    fillIDStatusToRoom: function(roomId) {
+      let booking = this.getOnceBookingToShow(roomId);
+      if(booking){
+        return booking.booking.booking_status.id;
+      }
+      else{
+        return null;
       }
     },
     onContextMenuItemClick: function(aliasName) {
@@ -395,8 +461,6 @@ export default {
   overflow: hidden;
   width: 100%;
   white-space: nowrap;
-}
-.room .room-stay {
 }
 
 /* room status */

@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
-from hotelmanagement.models import Room, Booking, Guest, RoomStatus, Client, ProductType, Product, RoomCharge, MinibarCharge, BookingPayment, RoomType, PaymentType
+from hotelmanagement.models import Room, Booking, Guest, RoomStatus, Client, ProductType, Product, RoomCharge, \
+    MinibarCharge, BookingPayment, RoomType, PaymentType, BookingStatus
 
 
 class ClientListSerializer(ModelSerializer):
@@ -39,14 +40,23 @@ class ProductListSerializer(ModelSerializer):
         model = Product
         fields = '__all__'
 
+
+class BookingStatusListSerializer(ModelSerializer):
+    class Meta:
+        model = BookingStatus
+        fields = '__all__'
+
 class BookingListSerializer(ModelSerializer):
+    booking_status = BookingStatusListSerializer(many=False)
     class Meta:
         model = Booking
         fields = '__all__'
 
+
 class BookingCalendarListSerializer(ModelSerializer):
     client = ClientListSerializer(many = False)
     room = RoomListSerializer(many= False)
+    booking_status = BookingStatusListSerializer(many=False)
     class Meta:
         model = Booking
         fields = '__all__'
