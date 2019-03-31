@@ -78,7 +78,13 @@
     </div>
     <!-- //Menu Context -->
     <!-- Modal -->
-    <div class="modal fade remove paddingright" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div
+      class="modal fade remove paddingright"
+      id="myModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+    >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <header class="panel-heading">
@@ -120,15 +126,15 @@ export default {
       session_date: parse("2019/03/09"),
       data_booking: {
         id: "",
-        action_name: "new",
+        action_name: "new"
       },
-      room_selected_id:0,
-      booking_detail:{},
-      data_style_booking_field:{
-        booking_dates:'&nbsp;',
-        class_name:'room-available',
-        guest_name:'',
-        id_booking:null
+      room_selected_id: 0,
+      booking_detail: {},
+      data_style_booking_field: {
+        booking_dates: "&nbsp;",
+        class_name: "room-available",
+        guest_name: "",
+        id_booking: null
       }
     };
   },
@@ -136,6 +142,7 @@ export default {
     ...mapGetters({
       getRoomWithTypes: "getRoomWithTypes",
       getBookings: "getBookings",
+      getRooms: "getRooms"
     })
   },
   methods: {
@@ -143,9 +150,12 @@ export default {
       fetchRoomWithTypes: "fetchRoomWithTypes",
       fetchBookings: "fetchBookings",
       fetchGuestBookingDetail: "fetchGuestBookingDetail",
-      setBookingDetailDeafault:"setBookingDetailDeafault",
-      setBookingRoom:'setBookingRoom',
-      deleteReveration:'deleteReveration'
+      setBookingDetailDeafault: "setBookingDetailDeafault",
+      setBookingRoom: "setBookingRoom",
+      deleteReveration: "deleteReveration",
+      updateBooking:"updateBooking",
+      removeBookings: "removeBookings",
+      setFrmType: 'setFrmType'
     }),
     enableMenuContext: function(event) {
       if (event.which === 3) {
@@ -159,13 +169,13 @@ export default {
                 icon: "fa fa-thumbs-up",
                 label: "Clean Room",
                 alias: "clean",
-                confirm_popup:true,
+                confirm_popup: true
               },
               {
                 icon: "fa fa-plus",
                 label: "Block room",
                 alias: "block",
-                confirm_popup:false,
+                confirm_popup: false
               }
             ];
             break;
@@ -175,13 +185,13 @@ export default {
                 icon: "fa fa-thumbs-down",
                 label: "Post Dirty",
                 alias: "dirty",
-                confirm_popup:true,
+                confirm_popup: true
               },
               {
                 icon: "fa fa-plus",
                 label: "New Reveration",
                 alias: "new",
-                confirm_popup:false,
+                confirm_popup: false
               }
             ];
             break;
@@ -191,13 +201,13 @@ export default {
                 icon: "fa fa-thumbs-down",
                 label: "Post Dirty",
                 alias: "dirty",
-                confirm_popup:true,
+                confirm_popup: true
               },
               {
                 icon: "fa fa-thumbs-down",
                 label: "Unblock room",
                 alias: "unblock",
-                confirm_popup:true,
+                confirm_popup: true
               }
             ];
             break;
@@ -207,31 +217,31 @@ export default {
                 icon: "fa fa-thumbs-down",
                 label: "Open Detail",
                 alias: "detail",
-                confirm_popup:false,
+                confirm_popup: false
               },
               {
                 icon: "fa fa-plus",
                 label: "Check-in",
                 alias: "",
-                confirm_popup:true,
+                confirm_popup: true
+              },
+              {
+                icon: "fa fa-expand",
+                label: "Change room",
+                alias: "change",
+                confirm_popup: true
               },
               {
                 icon: "fa fa-plus",
                 label: "Cancel",
                 alias: "delete",
-                confirm_popup:true,
+                confirm_popup: true
               },
               {
                 icon: "fa fa-plus",
                 label: "No show",
                 alias: "",
-                confirm_popup:true,
-              },
-              {
-                icon: "fa fa-plus",
-                label: "Change room",
-                alias: "",
-                confirm_popup:true,
+                confirm_popup: true
               }
             ];
             break;
@@ -241,31 +251,31 @@ export default {
                 icon: "fa fa-thumbs-down",
                 label: "Open Detail",
                 alias: "detail",
-                confirm_popup:false,
+                confirm_popup: false
               },
               {
                 icon: "fa fa-plus",
                 label: "Check-out",
                 alias: "",
-                confirm_popup:true,
+                confirm_popup: true
+              },
+              {
+                icon: "fa fa-expand",
+                label: "Change room",
+                alias: "change",
+                confirm_popup: true
               },
               {
                 icon: "fa fa-plus",
                 label: "Room charge bill",
                 alias: "",
-                confirm_popup:true,
+                confirm_popup: true
               },
               {
                 icon: "fa fa-plus",
                 label: "Extra charge bill",
                 alias: "",
-                confirm_popup:true,
-              },
-              {
-                icon: "fa fa-plus",
-                label: "Change room",
-                alias: "",
-                confirm_popup:true,
+                confirm_popup: true
               }
             ];
             break;
@@ -298,112 +308,157 @@ export default {
       let bookings = this.getBookings.filter(
         item => item.booking.room == roomId
       );
-      if(bookings.length > 1){ // co 2 booking trong cung  ngay -> 1 bk out 1bk in => out
-        let reser =  bookings.filter(item => item.booking.booking_status.id == 2);
-        if(reser){ // return bk pendding out
+      if (bookings.length > 1) {
+        // co 2 booking trong cung  ngay -> 1 bk out 1bk in => out
+        let reser = bookings.filter(
+          item => item.booking.booking_status.id == 2
+        );
+        if (reser) {
+          // return bk pendding out
           return reser[0];
-        }
-        else{ // ko co bk occupied => 2 check bk pedding in
-          let resers =  bookings.filter(item => item.booking.booking_status.id == 1);
-          if(resers.length == 1){// return bk pedding in
+        } else {
+          // ko co bk occupied => 2 check bk pedding in
+          let resers = bookings.filter(
+            item => item.booking.booking_status.id == 1
+          );
+          if (resers.length == 1) {
+            // return bk pedding in
             return resers[0];
-          }
-          else if(resers.length > 1){// 2 bk => 1 bk by house, 1 bk by day
+          } else if (resers.length > 1) {
+            // 2 bk => 1 bk by house, 1 bk by day
             //1 : 2 bk same date:
-            let bks = resers.filter(item => isSameDay(parse(item.booking.arrive_date), parse(item.booking.depart_date)) == true);
-            if(bks.length == 1){
+            let bks = resers.filter(
+              item =>
+                isSameDay(
+                  parse(item.booking.arrive_date),
+                  parse(item.booking.depart_date)
+                ) == true
+            );
+            if (bks.length == 1) {
               return bks[0];
-            }
-            else if(bks.length > 1){
+            } else if (bks.length > 1) {
               return bks[0];
-            }
-            else{
+            } else {
               return null;
             }
-          }
-          else{
+          } else {
             return null;
           }
         }
-
-      }
-      else if(bookings.length == 1){
+      } else if (bookings.length == 1) {
         return bookings[0];
-      }
-      else{
+      } else {
         return null;
       }
     },
-    fillColorToRoom:function(roomId){
+    fillColorToRoom: function(roomId) {
       let booking = this.getOnceBookingToShow(roomId);
-      if(booking){
-        if(booking.booking.booking_status.id == 1){
-          return 'room-pending-check-in';
+      if (booking) {
+        if (booking.booking.booking_status.id == 1) {
+          return "room-pending-check-in";
+        } else {
+          return "room-pending-check-out";
         }
-        else{
-          return 'room-pending-check-out';
-        }
-      }
-      else{
+      } else {
         return null;
       }
     },
     fillNameToRoom: function(roomId) {
       let booking = this.getOnceBookingToShow(roomId);
-      if(booking){
+      if (booking) {
         return booking.fullname;
-      }
-      else{
-        return '--:--';
+      } else {
+        return "--:--";
       }
     },
     fillIDBookingToRoom: function(roomId) {
       let booking = this.getOnceBookingToShow(roomId);
-      if(booking){
+      if (booking) {
         return booking.booking.id;
-      }
-      else{
-        return '';
+      } else {
+        return "";
       }
     },
     fillDateToRoom: function(roomId) {
       let booking = this.getOnceBookingToShow(roomId);
-      if(booking){
+      if (booking) {
         return (
           format(parse(booking.booking.arrive_date), "DD/MM") +
           " ~ " +
           format(parse(booking.booking.depart_date), "DD/MM")
         );
-      }
-      else{
-        return '_';
+      } else {
+        return "_";
       }
     },
     fillIDStatusToRoom: function(roomId) {
       let booking = this.getOnceBookingToShow(roomId);
-      if(booking){
+      if (booking) {
         return booking.booking.booking_status.id;
-      }
-      else{
+      } else {
         return null;
       }
     },
     onContextMenuItemClick: function(aliasName) {
       this.data_booking = {
         id: this.bookingId,
-        action_name: aliasName,
+        action_name: aliasName
       };
-      if(this.data_booking.action_name == 'detail' && this.data_booking.id){
+      if (this.data_booking.action_name == "detail" && this.data_booking.id) {
         this.fetchGuestBookingDetail(this.data_booking);
-      }
-      else if(this.data_booking.action_name == 'delete' && this.data_booking.id){
-        this.deleteReveration(this.data_booking);
-      }
-      else if(this.data_booking.action_name == 'new'){
+        this.setFrmType({type: 'fo', method:'edit', session_date:format(this.session_date, "YYYY-MM-DD")});
+      } else if (
+        this.data_booking.action_name == "delete" &&
+        this.data_booking.id
+      ) {
+        this.$dialog
+          .confirm("Do you want to cancel this reservation?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            setTimeout(() => {
+              this.deleteReveration(this.data_booking).then(()=>{
+                this.removeBookings(this.data_booking.id);
+                dialog.close();
+              });
+            }, 2500);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      } else if (this.data_booking.action_name == "new") {
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.room_selected_id);
-      }
-      else{
+        this.setFrmType({type: 'fo', method:'new', session_date:format(this.session_date, "YYYY-MM-DD")});
+      } else if (this.data_booking.action_name == "change") {
+        this.$dialog
+          .confirm(
+            { rooms: this.getRooms(-1) },
+            {
+              loader: true,
+              view: "CHANGE_ROOM_POPUP_CONFIRM"
+            }
+          )
+          .then(dialog => {
+            // on OK click
+            setTimeout(() => {
+              let booking = this.getBookings.find(
+                item => item.id == this.data_booking.id
+              ).booking;
+              booking.room = dialog.data.id;
+              this.updateBooking(booking).then(()=>{
+                dialog.close();
+              });
+              
+            }, 2500);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      } else {
         return;
       }
     }

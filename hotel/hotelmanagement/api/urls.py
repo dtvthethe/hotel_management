@@ -14,5 +14,7 @@ urlpatterns = [
     path('roomtypes', views.RoomRoomTypesListAPIView().as_view(), name='roomtypelist'),
     path('guestbookingdetail/<int:pk>', views.GuestBookingRetrieveAPIView().as_view(), name='guestbookingdetail'),
     path('reveration_update/<int:pk>', views.ReverationUpdateAPIView().as_view(), name='reverationupdate'),
+    path('booking_update/<int:pk>', views.BookingUpdateAPIView().as_view(), name='bookingupdate'),
     path('reveration_delete/<int:pk>', views.BookingDestroyAPIView.as_view(), name='reverationdelete'),
 ]
+

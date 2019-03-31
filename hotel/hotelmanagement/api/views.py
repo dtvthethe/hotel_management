@@ -68,14 +68,15 @@ class BokingCreateAPIView(CreateAPIView):
         Guest.objects.create(fullname=self.request.data['guest']['fullname'], booking_id=booking.pk)
 
 # Retrieve:
-
 class GuestBookingRetrieveAPIView(RetrieveAPIView):
     serializer_class = GuestBookingDetailSerializer
     queryset = Guest.objects.all()
 
 # Update:
-# class GuestUpdateAPIView(UpdateAPIView):
-#     serializer_class = GuestUpdateSerializer
+class BookingUpdateAPIView(UpdateAPIView):
+    serializer_class = BookingUpdateSerializer
+    queryset = Booking.objects.all()
+
 
 class ReverationUpdateAPIView(UpdateAPIView):
     queryset = Booking.objects.all()

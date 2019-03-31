@@ -35,6 +35,13 @@ const mutations = {
                 state.bookings = [];
             }
         });
+    },
+    removeBookings:function(state, id){
+        let bk = state.bookings.find(item => item.id == id);
+        if (bk){
+            let index = state.bookings.indexOf(bk);
+            state.bookings.splice(index, 1);
+        }
     }
 }
 
@@ -44,6 +51,9 @@ const actions = {
     },
     fetchBookings: function({commit}, session_date){
         commit('fetchBookings', session_date);
+    },
+    removeBookings({commit}, id){
+        commit('removeBookings', id);
     }
 }
 

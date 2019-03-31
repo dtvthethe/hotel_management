@@ -48,7 +48,12 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="room-type">Room Type</label>
-                <select class="form-control m-bot15" id="room-type" v-model="roomtype_id" @change="setRoomToNull">
+                <select
+                  class="form-control m-bot15"
+                  id="room-type"
+                  v-model="roomtype_id"
+                  @change="setRoomToNull"
+                >
                   <option
                     :key="roomtype.id"
                     :value="roomtype.id"
@@ -805,7 +810,7 @@
       </div>
       <!-- foliodetail -->
     </div>
-    <input type="button" class="btn btn-info" value="Submit" @click="saveReveration">
+    <input type="button" class="btn btn-info" data-dismiss="modal" value="Submit" @click="saveReveration">
 
     <!-- Modal -->
     <div
@@ -823,7 +828,7 @@
             <h4 class="modal-title">Modal Header</h4>
           </div>
           <div class="modal-body">
-            <p>Some text in the modal.</p>
+            <p>Some text in the modal</p>
           </div>
           <div class="modal-footer">
             <input type="button" class="btn btn-default" value="Close" @click="controlModal">
@@ -868,7 +873,8 @@ export default {
       getBookingGuestDetail: "getBookingGuestDetail",
       getClients: "getClients",
       getRooms: "getRooms",
-      getRoomTypes: "getRoomTypes"
+      getRoomTypes: "getRoomTypes",
+      getFrmType: "getFrmType"
     }),
     booking_code: {
       get() {
@@ -947,10 +953,9 @@ export default {
         return this.getBookingDetail.room;
       },
       set(value) {
-        if (value){
+        if (value) {
           this.setBookingRoom(value);
-        }
-        else{
+        } else {
           this.setBookingRoom(null);
         }
       }
@@ -978,7 +983,6 @@ export default {
         this.durationTwoDate = -1;
       }
       this.disabledDatesDepart.to = addDays(newValue, 0);
-      
     },
     depart_date(newValue) {
       if (
@@ -1000,7 +1004,7 @@ export default {
           item => item.id == this.getBookingDetail.room
         ).room_type;
       }
-    },
+    }
   },
   methods: {
     ...mapActions({
@@ -1019,7 +1023,10 @@ export default {
       fetchRooms: "fetchRooms",
       fetchRoomTypeList: "fetchRoomTypeList",
       postReveration: "postReveration",
-      updateReveration:"updateReveration"
+      updateReveration: "updateReveration",
+      fetchGuestBookingDetail: "fetchGuestBookingDetail",
+      fetchGuestBookings: "fetchGuestBookings",
+      fetchBookings: "fetchBookings"
     }),
     onSelectDateArrive: function(event) {
       this.disabledDatesDepart.to = event;
@@ -1035,15 +1042,44 @@ export default {
         this.modal.display = "none";
       }
     },
-    setRoomToNull:function(){
+    setRoomToNull: function() {
       this.setBookingRoom(null);
     },
-    saveReveration:function(){
-      if(this.getBookingDetail.id > 0 && this.getBookingGuestDetail.id > 0){
+    saveReveration: function() {
+      if (this.getBookingDetail.id > 0 && this.getBookingGuestDetail.id > 0) {
         this.updateReveration();
-      }
-      else{
+        if(this.getFrmType.method == 'edit'){
+          if(this.getFrmType.type == 'fo'){
+            setTimeout(() => {
+              this.fetchBookings(this.getFrmType.session_date);
+            }, 2000);
+          }
+          if(this.getFrmType.type == 'ca'){
+            setTimeout(() => {
+              this.fetchGuestBookings({
+                arrive_date: this.getFrmType.date_start,
+                depart_date: this.getFrmType.date_stop
+              });
+            }, 2000);
+          }
+        }
+      } else {
         this.postReveration();
+        if (this.getFrmType.method == "new") {
+          if (this.getFrmType.type == "fo") {
+              setTimeout(() => {
+                this.fetchBookings(this.getFrmType.session_date);
+              }, 2000);
+          }
+          if (this.getFrmType.type == "ca") {
+              setTimeout(() => {
+                this.fetchGuestBookings({
+                    arrive_date: this.getFrmType.date_start,
+                    depart_date: this.getFrmType.date_stop
+                });
+              }, 2000);
+          }
+        }
       }
     }
   },

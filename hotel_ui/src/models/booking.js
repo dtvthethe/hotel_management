@@ -11,5 +11,6 @@ export default class Booking {
         this.price_booking = 0;
         this.client = 0;
         this.room = 0;
+        this.booking_status = 0
     }
 }

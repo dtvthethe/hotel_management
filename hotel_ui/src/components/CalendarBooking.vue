@@ -142,7 +142,7 @@ export default {
       isMenuBar: "isMenuBar",
       widthMenuBar: "widthMenuBar",
       getRooms: "getRooms",
-      getGuestBookings: "getGuestBookings"
+      getGuestBookings: "getGuestBookings",
     }),
     getInstanceDays: function() {
       return differenceInDays(
@@ -176,7 +176,10 @@ export default {
       setBookingArriveDate: "setBookingArriveDate",
       setBookingDepartDate: "setBookingDepartDate",
       fetchGuestBookingDetail: "fetchGuestBookingDetail",
-      deleteReveration: "deleteReveration"
+      deleteReveration: "deleteReveration",
+      updateBooking:"updateBooking",
+      removeCalendarBooking:"removeCalendarBooking",
+      setFrmType:"setFrmType"
     }),
     handleWindowResize() {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
@@ -270,6 +273,12 @@ export default {
                 confirm_popup: true
               },
               {
+                icon: "fa fa-expand",
+                label: "Change room",
+                alias: "change",
+                confirm_popup:true,
+              },
+              {
                 label: "Cancel",
                 icon: "fa fa-pencil",
                 alias: "delete",
@@ -290,6 +299,12 @@ export default {
                 icon: "fa fa-pencil",
                 alias: "",
                 confirm_popup: true
+              },
+              {
+                icon: "fa fa-expand",
+                label: "Change room",
+                alias: "change",
+                confirm_popup:true,
               },
               {
                 icon: "fa fa-plus",
@@ -393,17 +408,70 @@ export default {
       this.data_booking.action_name = aliasName;
       if (this.data_booking.action_name == "detail" && this.data_booking.id) {
         this.fetchGuestBookingDetail(this.data_booking);
+        this.setFrmType({type: 'ca', method:'edit', date_start: format(this.instance_date.start, "YYYY-MM-DD"),date_stop: format(this.instance_date.stop, "YYYY-MM-DD")});
       } else if (
         this.data_booking.action_name == "delete" &&
         this.data_booking.id
       ) {
-        this.deleteReveration(this.data_booking);
+        this.$dialog
+          .confirm("Do you want to cancel this reservation?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            setTimeout(() => {
+              this.deleteReveration(this.data_booking).then(()=>{
+                this.removeCalendarBooking(this.data_booking.id);
+                dialog.close();
+              });
+              
+            }, 2500);
+          })
+          .catch(() => {
+            // on cancel click
+          });
       } else if (this.data_booking.action_name == "new") {
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.data_booking.id);
         this.setBookingArriveDate(parse(this.select_date.start));
         this.setBookingDepartDate(addDays(this.select_date.stop, 1));
-      } else {
+        this.setFrmType({type: 'ca', method:'new', date_start: format(this.instance_date.start, "YYYY-MM-DD"),date_stop: format(this.instance_date.stop, "YYYY-MM-DD")});
+      }
+      else if (this.data_booking.action_name == "change") {
+        this.$dialog
+          .confirm(
+            { rooms: this.getRooms(-1) },
+            {
+              loader: true,
+              view: "CHANGE_ROOM_POPUP_CONFIRM"
+            }
+          )
+          .then(dialog => {
+            // on OK click
+            setTimeout(() => {
+              let booking = this.getGuestBookings.find(
+                item => item.id == this.data_booking.id
+              ).booking;
+              booking.room.id = dialog.data.id;
+              let reser = {
+                ...booking,
+                room: dialog.data.id,
+                booking_status: booking.booking_status.id,
+                client: booking.client.id
+              }
+              this.updateBooking(reser).then(()=>{
+                dialog.close();
+              });
+              
+            }, 2500);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      } 
+      else {
         return;
       }
     }

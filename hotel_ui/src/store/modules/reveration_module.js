@@ -5,6 +5,13 @@ import Booking from '../../models/booking'
 import Guest from '../../models/guest'
 
 const state = {
+    frm_type: {
+        type: 'fo', //  fo, ca
+        method: 'new',// new, edit
+        session_date: null,
+        date_start: null,
+        date_stop: null,
+    },
     booking_detail: {},
     booking_guest_detail: {},
     clients: [],
@@ -23,6 +30,9 @@ const getters = {
     },
     getRoomTypes: function (state) {
         return state.room_types;
+    },
+    getFrmType(state) {
+        return state.frm_type;
     }
 }
 const mutations = {
@@ -69,25 +79,26 @@ const mutations = {
             ...state.booking_detail,
             arrive_date: format(state.booking_detail.arrive_date, 'YYYY-MM-DD'),
             depart_date: format(state.booking_detail.depart_date, 'YYYY-MM-DD'),
-            guest: state.booking_guest_detail
+            guest: state.booking_guest_detail,
+            booking_status: 1,
         };
         axios.post(URL_API + 'api/new_reveration',
             booking
         ).then().catch();
     },
-    updateReveration:function(state){
+    updateReveration: function (state) {
         let booking = {
             ...state.booking_detail,
             arrive_date: format(state.booking_detail.arrive_date, 'YYYY-MM-DD'),
             depart_date: format(state.booking_detail.depart_date, 'YYYY-MM-DD'),
-            guest: state.booking_guest_detail
+            guest: state.booking_guest_detail,
         };
-        axios.put(URL_API + 'api/reveration_update/'+state.booking_detail.id,
+        axios.put(URL_API + 'api/reveration_update/' + state.booking_detail.id,
             booking
         ).then().catch()
     },
-    deleteReveration:function(state, data){
-        axios.delete(URL_API + 'api/reveration_delete/'+data.id).then().catch()
+    deleteReveration: function (state, data) {
+        axios.delete(URL_API + 'api/reveration_delete/' + data.id).then().catch()
     },
 
     setBookingCode(state, value) {
@@ -124,6 +135,9 @@ const mutations = {
     setFullname(state, value) {
         state.booking_guest_detail.fullname = value;
     },
+    setFrmType(state, frm_type) {
+        state.frm_type = frm_type;
+    },
 
 }
 const actions = {
@@ -139,13 +153,13 @@ const actions = {
     fetchRoomTypeList: function ({ commit }) {
         commit('fetchRoomTypeList');
     },
-    postReveration: function ({ commit }) {
-        commit('postReveration');
+    postReveration: function (context) {
+        context.commit('postReveration');
     },
-    updateReveration:function({commit}){
+    updateReveration: function ({ commit }) {
         commit('updateReveration');
     },
-    deleteReveration:function({commit}, data){
+    deleteReveration: function ({ commit }, data) {
         commit('deleteReveration', data);
     },
 
@@ -182,6 +196,9 @@ const actions = {
     setFullname({ commit }, value) {
         commit('setFullname', value);
     },
+    setFrmType({ commit }, frm_type) {
+        commit('setFrmType', frm_type);
+    }
 }
 
 export default {
