@@ -1,5 +1,7 @@
 <template>
-  <form role="form" class="modal-open">
+  <form role="form" id="frmbookingdetail" class="modal-open">
+        <a class="btn btn-sm btn-default" @click="onAddMiniBarClick">Add</a>
+
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
@@ -112,9 +114,7 @@
                 >
               </div>
               <div class="form-group col-md-6">
-                <i>
-                  <MoneyFormat :value="price ? parseInt(price) : 0" locale="vn" currency-code="VND"></MoneyFormat>
-                </i>
+                <i>{{ price ? parseInt(price) : 0 | currency }}</i>
               </div>
               <div class="form-group col-md-12">
                 <label for="note">Note</label>
@@ -178,7 +178,43 @@
       <!-- //reservation -->
       <!-- extracharge -->
       <div role="tabpanel" class="tab-pane" id="extracharge">
-        <button data-toggle="modal" class="btn btn-sm btn-default">Add</button>
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="producttypeid">Product Type</label>
+            <select class="form-control m-bot15" id="producttypeid" v-model="product_type_id">
+              <option :key="pro.id" :value="pro.id" v-for="pro in getProductTypes">{{pro.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="productid">Product</label>
+            <select class="form-control m-bot15" id="productid" v-model="product.id" @change="onProductSelected">
+              <option :key="pro.id" :value="pro.id" v-for="pro in filterProducts">{{pro.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="price">Price</label>
+            <input
+                  class="form-control m-bot15"
+                  type="number"
+                  min="0"
+                  max="999999999999"
+                  id="price"
+                  v-model="product.price"
+                >
+          </div>
+          <div class="form-group col-md-3">
+            <label for="productquantity">Quantity</label>
+            <input
+                  class="form-control m-bot15"
+                  type="number"
+                  min="1"
+                  value="1"
+                  max="100"
+                  id="productquantity"
+                  v-model="product.quantity"
+                >
+          </div>
+        </div>
 
         <table class="table table-fixed table-minibar">
           <thead>
@@ -203,182 +239,6 @@
                 a
               </td>
             </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">
-                a
-                a
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -388,7 +248,7 @@
         <fieldset>
           <legend class>Payment</legend>
           <div class="col-md-12">
-            <input type="button" class="btn btn-default" value="Add Payment" @click="controlModal">
+            <input type="button" class="btn btn-default" value="Add Payment">
           </div>
           <div class="col-md-10">
             <table class="table table-fixed table-payment">
@@ -603,8 +463,8 @@
 
         <fieldset>
           <legend class>All Guest Transactions</legend>
-          <button data-toggle="modal" class="btn btn-warning btn-sm">Add Room Charge</button>
-          <button data-toggle="modal" class="btn btn-default btn-sm">Folio Tranfer</button>
+          <button class="btn btn-warning btn-sm">Add Room Charge</button>
+          <button class="btn btn-default btn-sm">Folio Tranfer</button>
           <table class="table table-fixed table-transaction">
             <thead>
               <tr>
@@ -628,228 +488,52 @@
                   a
                 </td>
               </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
+           
             </tbody>
           </table>
         </fieldset>
       </div>
       <!-- foliodetail -->
     </div>
-    <input type="button" class="btn btn-info" data-dismiss="modal" value="Submit" @click="saveReveration">
+    <input
+      type="button"
+      class="btn btn-info"
+      data-dismiss="modal"
+      value="Submit"
+      @click="saveReveration"
+    >
 
     <!-- Modal -->
-    <div
-      id="secondModal"
-      class="modal fade col-md-6 col-md-offset-3 second-modal"
-      :class="{in:modal.modalShow}"
-      :style="{display:modal.display}"
-      role="dialog"
-    >
+    <div id="secondModal" class="modal fade col-md-6 col-md-offset-3 second-modal" role="dialog">
       <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <input type="button" class="close" value="×" @click="controlModal">
+            <input type="button" class="close" value="×">
             <h4 class="modal-title">Modal Header</h4>
           </div>
           <div class="modal-body">
             <p>Some text in the modal</p>
           </div>
           <div class="modal-footer">
-            <input type="button" class="btn btn-default" value="Close" @click="controlModal">
+            <input type="button" class="btn btn-default" value="Close">
           </div>
         </div>
       </div>
     </div>
+
   </form>
 </template>
 <script>
-import Datepicker from "vuejs-datepicker";
-import { mapGetters, mapActions } from "vuex";
-import { differenceInDays, addDays } from "date-fns";
-import MoneyFormat from "vue-money-format";
-// import Booking from '../models/booking'
+
+import Datepicker from "vuejs-datepicker"
+import { mapGetters, mapActions } from "vuex"
+import { differenceInDays, addDays } from "date-fns"
 
 export default {
   name: "FrmBookingDetail",
   components: {
     Datepicker,
-    MoneyFormat
   },
   data: function() {
     return {
@@ -859,12 +543,14 @@ export default {
       disabledDatesDepart: {
         to: null
       },
-      modal: {
-        modalShow: false,
-        display: "none"
-      },
       durationTwoDate: -1,
-      roomtype_id: -1
+      roomtype_id: -1,
+      product_type_id:-1,
+      product:{
+        id : -1,
+        quantity: 1,
+        price: 0,
+      },
     };
   },
   computed: {
@@ -874,7 +560,9 @@ export default {
       getClients: "getClients",
       getRooms: "getRooms",
       getRoomTypes: "getRoomTypes",
-      getFrmType: "getFrmType"
+      getFrmType: "getFrmType",
+      getProducts: "getProducts",
+      getProductTypes: "getProductTypes"
     }),
     booking_code: {
       get() {
@@ -967,6 +655,14 @@ export default {
       set(value) {
         this.setFullname(value);
       }
+    },
+    filterProducts(){
+      if(this.product_type_id > 0){
+        return this.getProducts.filter(item => item.product_type == this.product_type_id);
+      }
+      else{
+        return [];
+      }
     }
   },
   watch: {
@@ -1026,7 +722,9 @@ export default {
       updateReveration: "updateReveration",
       fetchGuestBookingDetail: "fetchGuestBookingDetail",
       fetchGuestBookings: "fetchGuestBookings",
-      fetchBookings: "fetchBookings"
+      fetchBookings: "fetchBookings",
+      fetchProducts: "fetchProducts",
+      fetchProductTypes: "fetchProductTypes"
     }),
     onSelectDateArrive: function(event) {
       this.disabledDatesDepart.to = event;
@@ -1034,27 +732,19 @@ export default {
     onSelectDateDepart: function(event) {
       this.disabledDatesArrive.from = event;
     },
-    controlModal: function() {
-      this.modal.modalShow = !this.modal.modalShow;
-      if (this.modal.display === "none") {
-        this.modal.display = "block";
-      } else {
-        this.modal.display = "none";
-      }
-    },
     setRoomToNull: function() {
       this.setBookingRoom(null);
     },
     saveReveration: function() {
       if (this.getBookingDetail.id > 0 && this.getBookingGuestDetail.id > 0) {
         this.updateReveration();
-        if(this.getFrmType.method == 'edit'){
-          if(this.getFrmType.type == 'fo'){
+        if (this.getFrmType.method == "edit") {
+          if (this.getFrmType.type == "fo") {
             setTimeout(() => {
               this.fetchBookings(this.getFrmType.session_date);
             }, 2000);
           }
-          if(this.getFrmType.type == 'ca'){
+          if (this.getFrmType.type == "ca") {
             setTimeout(() => {
               this.fetchGuestBookings({
                 arrive_date: this.getFrmType.date_start,
@@ -1067,26 +757,32 @@ export default {
         this.postReveration();
         if (this.getFrmType.method == "new") {
           if (this.getFrmType.type == "fo") {
-              setTimeout(() => {
-                this.fetchBookings(this.getFrmType.session_date);
-              }, 2000);
+            setTimeout(() => {
+              this.fetchBookings(this.getFrmType.session_date);
+            }, 2000);
           }
           if (this.getFrmType.type == "ca") {
-              setTimeout(() => {
-                this.fetchGuestBookings({
-                    arrive_date: this.getFrmType.date_start,
-                    depart_date: this.getFrmType.date_stop
-                });
-              }, 2000);
+            setTimeout(() => {
+              this.fetchGuestBookings({
+                arrive_date: this.getFrmType.date_start,
+                depart_date: this.getFrmType.date_stop
+              });
+            }, 2000);
           }
         }
       }
-    }
+    },
+    onProductSelected(){
+      this.product.price = this.getProducts.find(item => item.id == this.product.id).price;
+    },
+    onAddMiniBarClick(){},
   },
   mounted() {
     this.fetchClientList();
     this.fetchRooms();
     this.fetchRoomTypeList();
+    this.fetchProducts();
+    this.fetchProductTypes();
   }
 };
 </script>

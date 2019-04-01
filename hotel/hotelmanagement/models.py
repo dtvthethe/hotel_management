@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Init data: https://code.djangoproject.com/wiki/Fixtures
 
@@ -87,7 +88,7 @@ class Guest(models.Model):
 class MinibarCharge(models.Model):
     price_confirm = models.IntegerField(default=0)
     quantity = models.IntegerField(default=0)
-    date_order = models.DateTimeField(auto_now_add=True)
+    date_order = models.DateTimeField(default=timezone.now)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
@@ -96,7 +97,7 @@ class MinibarCharge(models.Model):
 
 class RoomCharge(models.Model):
     price_confirm = models.IntegerField(default=0)
-    date_charge = models.DateTimeField(auto_now_add=True)
+    date_charge = models.DateTimeField(default=timezone.now)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -105,7 +106,8 @@ class RoomCharge(models.Model):
 #phase 5
 class BookingPayment(models.Model):
     credit = models.IntegerField(default=0)
-    date_pay = models.DateTimeField(auto_now_add=True)
+    date_pay = models.DateTimeField(default=timezone.now)
+    desciption = models.CharField(max_length=200)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
 

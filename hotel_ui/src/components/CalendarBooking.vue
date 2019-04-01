@@ -474,7 +474,7 @@ export default {
       else {
         return;
       }
-    }
+    },
   },
   mounted: function() {
     // UI:

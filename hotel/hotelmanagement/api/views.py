@@ -1,9 +1,11 @@
 from django.db.models import Q
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
-from hotelmanagement.models import RoomType, Booking, Room, Client, Guest
+from hotelmanagement.models import RoomType, Booking, Room, Client, Guest, Product, ProductType, MinibarCharge, \
+    BookingPayment, RoomCharge
 from .serializers import RoomListSerializer, RoomTypeListSerializer, GuestListSerializer, GuestBookingListSerializer, \
     GuestCreateSerializer, BookingCreateSerializer, ClientListSerializer, GuestBookingDetailSerializer, \
-    GuestUpdateSerializer, BookingUpdateSerializer, BookingDeleteSerializer
+    GuestUpdateSerializer, BookingUpdateSerializer, BookingDeleteSerializer, ProductListSerializer, \
+    ProducTypeListSerializer, MinibarChargeSerializer, BookingPaymentSerializer, RoomChargeSerializer
 
 
 class RoomListAPIView(ListAPIView):
@@ -53,12 +55,45 @@ class ClientListAPIView(ListAPIView):
     queryset = Client.objects.all()
 
 
+class ProductTypesListAPIView(ListAPIView):
+    serializer_class = ProducTypeListSerializer
+    queryset = ProductType.objects.all()
+
+class ProductListAPIView(ListAPIView):
+    serializer_class = ProductListSerializer
+    queryset = Product.objects.all()
+
+class MinibarChargeListAPIView(ListAPIView):
+    serializer_class = MinibarChargeSerializer
+    queryset = None
+    def get_queryset(self):
+        booking_id = self.request.query_params.get('booking_id', None)
+        if booking_id is not None:
+            queryset = MinibarCharge.objects.all().filter(booking_id=booking_id)
+        return queryset
+
+class BookingPaymentListAPIView(ListAPIView):
+    serializer_class = BookingPaymentSerializer
+    queryset = None
+    def get_queryset(self):
+        booking_id = self.request.query_params.get('booking_id', None)
+        if booking_id is not None:
+            queryset = BookingPayment.objects.all().filter(booking_id=booking_id)
+        return queryset
+
+class RoomChargeListAPIView(ListAPIView):
+    serializer_class = RoomChargeSerializer
+    queryset = None
+    def get_queryset(self):
+        booking_id = self.request.query_params.get('booking_id', None)
+        if booking_id is not None:
+            queryset = RoomCharge.objects.all().filter(booking_id=booking_id)
+        return queryset
+
 # Create:
 
 class GuestCreateAPIView(CreateAPIView):
     serializer_class = GuestCreateSerializer
-
-
 
 class BokingCreateAPIView(CreateAPIView):
     serializer_class = BookingCreateSerializer
@@ -66,6 +101,15 @@ class BokingCreateAPIView(CreateAPIView):
     def perform_create(self, serializer):
         booking = serializer.save()
         Guest.objects.create(fullname=self.request.data['guest']['fullname'], booking_id=booking.pk)
+
+class MinibarChargeCreateAPIView(CreateAPIView):
+    serializer_class = MinibarChargeSerializer
+
+class BookingPaymentCreateAPIView(CreateAPIView):
+    serializer_class = BookingPaymentSerializer
+
+class RoomChargeCreateAPIView(CreateAPIView):
+    serializer_class = RoomChargeSerializer
 
 # Retrieve:
 class GuestBookingRetrieveAPIView(RetrieveAPIView):
@@ -87,10 +131,32 @@ class ReverationUpdateAPIView(UpdateAPIView):
         guest = self.request.data['guest']
         Guest.objects.filter(pk=self.request.data['guest']['id']).update(fullname = guest['fullname'])
 
+class MinibarChargeUpdateAPIView(UpdateAPIView):
+    queryset = MinibarCharge.objects.all()
+    serializer_class = MinibarChargeSerializer
+
+class BookingPaymentUpdateAPIView(UpdateAPIView):
+    queryset = BookingPayment.objects.all()
+    serializer_class = BookingPaymentSerializer
+
+class RoomChargeUpdateAPIView(UpdateAPIView):
+    queryset = RoomCharge.objects.all()
+    serializer_class = RoomChargeSerializer
+
 #Delete:
 class BookingDestroyAPIView(DestroyAPIView):
     serializer_class = BookingDeleteSerializer
     queryset = Booking.objects.all()
 
-    # def perform_destroy(self, instance):
+class MinibarChargeDestroyAPIView(DestroyAPIView):
+    serializer_class = MinibarChargeSerializer
+    queryset = MinibarCharge.objects.all()
+
+class BookingPaymentDestroyAPIView(DestroyAPIView):
+    serializer_class = BookingPaymentSerializer
+    queryset = BookingPayment.objects.all()
+
+class RoomChargeDestroyAPIView(DestroyAPIView):
+    serializer_class = RoomChargeSerializer
+    queryset = RoomCharge.objects.all()
 
