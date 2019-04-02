@@ -4,6 +4,7 @@ import store from './store'
 import router from './router'
 import VuejsDialog from 'vuejs-dialog'
 import VueCurrencyFilter from 'vue-currency-filter'
+import VModal from 'vue-js-modal'
 import ChangeRoomPopupConfirm from './components/ChangeRoomPopupConfirm'
 // import MinibarPopupConfirm from './components/MinibarPopupConfirm'
 
@@ -34,6 +35,8 @@ Vue.use(VuejsDialog, dialogOptions)
 Vue.use(VueCurrencyFilter, currencyFilterOption)
 Vue.dialog.registerComponent('CHANGE_ROOM_POPUP_CONFIRM', ChangeRoomPopupConfirm);
 // Vue.dialog.registerComponent('MINIBAR_POPUP_CONFIRM', MinibarPopupConfirm);
+Vue.use(VModal, { componentName: "popup-modal" })
+
 
 new Vue({
   router,

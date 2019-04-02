@@ -1,6 +1,10 @@
 <template>
   <form role="form" id="frmbookingdetail" class="modal-open">
+    
+        <a class="btn btn-sm btn-default" data-toggle="modal" data-target="#secondModal" >Second modal</a>
         <a class="btn btn-sm btn-default" @click="onAddMiniBarClick">Add</a>
+        <a class="btn btn-sm btn-default" @click="show">Show popup</a>
+        <a class="btn btn-sm btn-default" @click="show2">Show popup2</a>
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -178,44 +182,6 @@
       <!-- //reservation -->
       <!-- extracharge -->
       <div role="tabpanel" class="tab-pane" id="extracharge">
-        <div class="row">
-          <div class="form-group col-md-3">
-            <label for="producttypeid">Product Type</label>
-            <select class="form-control m-bot15" id="producttypeid" v-model="product_type_id">
-              <option :key="pro.id" :value="pro.id" v-for="pro in getProductTypes">{{pro.name}}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="productid">Product</label>
-            <select class="form-control m-bot15" id="productid" v-model="product.id" @change="onProductSelected">
-              <option :key="pro.id" :value="pro.id" v-for="pro in filterProducts">{{pro.name}}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="price">Price</label>
-            <input
-                  class="form-control m-bot15"
-                  type="number"
-                  min="0"
-                  max="999999999999"
-                  id="price"
-                  v-model="product.price"
-                >
-          </div>
-          <div class="form-group col-md-3">
-            <label for="productquantity">Quantity</label>
-            <input
-                  class="form-control m-bot15"
-                  type="number"
-                  min="1"
-                  value="1"
-                  max="100"
-                  id="productquantity"
-                  v-model="product.quantity"
-                >
-          </div>
-        </div>
-
         <table class="table table-fixed table-minibar">
           <thead>
             <tr>
@@ -509,7 +475,7 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <input type="button" class="close" value="×">
+            <input type="button" class="close" value="×" data-toggle="modal" data-target="#secondModal">
             <h4 class="modal-title">Modal Header</h4>
           </div>
           <div class="modal-body">
@@ -521,7 +487,57 @@
         </div>
       </div>
     </div>
+    <popup-modal name="hello-world" :clickToClose="false">
+      <div class="row">
+          <div class="form-group col-md-3">
+            <label for="producttypeid">Product Type</label>
+            <select class="form-control m-bot15" id="producttypeid" v-model="product_type_id">
+              <option :key="pro.id" :value="pro.id" v-for="pro in getProductTypes">{{pro.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="productid">Product</label>
+            <select class="form-control m-bot15" id="productid" v-model="product.id" @change="onProductSelected">
+              <option :key="pro.id" :value="pro.id" v-for="pro in filterProducts">{{pro.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="price">Price</label>
+            <input
+                  class="form-control m-bot15"
+                  type="number"
+                  min="0"
+                  max="999999999999"
+                  id="price"
+                  v-model="product.price"
+                >
+          </div>
+          <div class="form-group col-md-3">
+            <label for="productquantity">Quantity</label>
+            <input
+                  class="form-control m-bot15"
+                  type="number"
+                  min="1"
+                  value="1"
+                  max="100"
+                  id="productquantity"
+                  v-model="product.quantity"
+                >
+          </div>
+        </div>
 
+      <input type="button" value="Save">
+      <input type="button" value="Close" @click="hide">
+
+    </popup-modal>
+    <popup-modal name="hello-world2" :clickToClose="false">
+      hello, world! 2222
+      <input type="text" >
+
+      <input type="button" value="Save">
+      <input type="button" value="Close" @click="hide2">
+
+    </popup-modal>
   </form>
 </template>
 <script>
@@ -776,6 +792,18 @@ export default {
       this.product.price = this.getProducts.find(item => item.id == this.product.id).price;
     },
     onAddMiniBarClick(){},
+    show () {
+      this.$modal.show('hello-world');
+    },
+    hide () {
+      this.$modal.hide('hello-world');
+    },
+    show2 () {
+      this.$modal.show('hello-world2');
+    },
+    hide2 () {
+      this.$modal.hide('hello-world2');
+    }
   },
   mounted() {
     this.fetchClientList();
