@@ -1,11 +1,5 @@
 <template>
   <form role="form" id="frmbookingdetail" class="modal-open">
-    
-        <a class="btn btn-sm btn-default" data-toggle="modal" data-target="#secondModal" >Second modal</a>
-        <a class="btn btn-sm btn-default" @click="onAddMiniBarClick">Add</a>
-        <a class="btn btn-sm btn-default" @click="show">Show popup</a>
-        <a class="btn btn-sm btn-default" @click="show2">Show popup2</a>
-
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
@@ -182,6 +176,7 @@
       <!-- //reservation -->
       <!-- extracharge -->
       <div role="tabpanel" class="tab-pane" id="extracharge">
+        <a class="btn btn-sm btn-default" @click="show('minibar-popup', 'new')">Add new</a>
         <table class="table table-fixed table-minibar">
           <thead>
             <tr>
@@ -194,270 +189,147 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
-              <td class="col-md-2">johndoe@email.com</td>
-              <td class="col-md-2">John</td>
-              <td class="col-md-2">Doe</td>
+            <tr :key="item.id" v-for="item in getMinibarCharges">
+              <td class="col-md-2">{{item.date_order | dateFormat('DD/MM/YYYY HH:mm:ss')}}</td>
+              <td class="col-md-2">{{item.product.name}}</td>
+              <td class="col-md-2">{{item.quantity}}</td>
+              <td class="col-md-2">{{item.price_confirm | currency }}</td>
+              <td class="col-md-2">{{item.price_confirm * item.quantity | currency }}</td>
               <td class="col-md-2">
-                a
-                a
+                <a style="cursor: pointer;" @click="show('minibar-popup', 'edit', item.id)">Edit</a> |
+                <a style="cursor: pointer;" @click="deleteMinibar(item.id)">Delete</a>
               </td>
             </tr>
           </tbody>
         </table>
+        <p>Total comes to: {{totalPrice | currency}}</p>
       </div>
       <!-- //extracharge -->
       <!-- foliodetail -->
       <div role="tabpanel" class="tab-pane" id="foliodetail">
-        <fieldset>
-          <legend class>Payment</legend>
-          <div class="col-md-12">
-            <input type="button" class="btn btn-default" value="Add Payment">
-          </div>
-          <div class="col-md-10">
-            <table class="table table-fixed table-payment">
+        <div class="row">
+          <fieldset class="col-md-2">
+            <legend class>Payment</legend>
+            <div>
+              <p>{{balanceTotal | currency}}</p>
+              <p>{{strFolioTranfer}}</p>
+            </div>
+          </fieldset>
+          <fieldset class="col-md-10">
+            <legend class>Payment</legend>
+            <div>
+              <a
+                class="btn btn-sm btn-default"
+                @click="showPaymentPopup('payment-popup', 'new')"
+              >Add Payment</a>
+            </div>
+            <div class="col-md-12">
+              <table class="table table-fixed table-payment">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Date</th>
+                    <th class="col-md-2">Credit</th>
+                    <th class="col-md-2">Payment</th>
+                    <th class="col-md-4">Desciption</th>
+                    <th class="col-md-2">Option</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr :key="item.id" v-for="item in getBookingPayments">
+                    <td class="col-md-2">{{item.date_pay | dateFormat('DD/MM/YYYY HH:mm:ss')}}</td>
+                    <td class="col-md-2">{{item.credit | currency}}</td>
+                    <td class="col-md-2">{{item.payment_type.name}}</td>
+                    <td class="col-md-4">{{item.desciption}}</td>
+                    <td class="col-md-2">
+                      <a
+                        style="cursor: pointer;"
+                        @click="show('payment-popup', 'edit', item.id)"
+                      >Edit</a> |
+                      <a
+                        style="cursor: pointer;"
+                        @click="deleteBookingPaymentClick(item.id)"
+                      >Delete</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </fieldset>
+        </div>
+        <div class="row">
+          <fieldset class="col-md-12">
+            <legend class>All Guest Transactions</legend>
+            <a class="btn btn-sm btn-warning" @click="addRoomCharge()">Add Room Charge</a>
+            <a
+              class="btn btn-sm btn-default"
+              :class="{'disabled' : disableButtonByFolioTranferBooking}"
+              @click="transferFolio()"
+            >Folio Transfer</a>
+            <a
+              class="btn btn-sm btn-danger"
+              :class="{'disabled' : disableButtonByFolioTranferBooking2}"
+              @click="cancelTransferFolio()"
+            >Cancel Folio Transfer</a>
+            <table class="table table-fixed table-transaction">
               <thead>
                 <tr>
                   <th class="col-md-2">Date</th>
-                  <th class="col-md-2">Product</th>
-                  <th class="col-md-2">Quantity</th>
+                  <th class="col-md-1">Room</th>
+                  <th class="col-md-3">Product</th>
                   <th class="col-md-2">Price</th>
+                  <th class="col-md-1">Quantity</th>
                   <th class="col-md-2">Total</th>
-                  <th class="col-md-2">Option</th>
+                  <th class="col-md-1">Option</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">johndoe@email.com</td>
-                  <td class="col-md-2">John</td>
-                  <td class="col-md-2">Doe</td>
-                  <td class="col-md-2">
-                    a
-                    a
+                <tr :key="item.id" v-for="item in allTransferRoomChargeMinibar">
+                  <td
+                    class="col-md-2"
+                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                  >{{item.date_order | dateFormat('DD/MM/YYYY HH:mm:ss')}}</td>
+                  <td
+                    class="col-md-1"
+                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                  >{{item.room_name}}</td>
+                  <td
+                    class="col-md-3"
+                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                  >{{item.product_name}}</td>
+                  <td
+                    class="col-md-2"
+                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                  >{{item.price_confirm | currency}}</td>
+                  <td
+                    class="col-md-1"
+                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                  >{{item.quantity}}</td>
+                  <td
+                    class="col-md-2"
+                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                  >{{item.total | currency}}</td>
+                  <td
+                    class="col-md-1"
+                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                  >
+                    <span v-if="item.show_option" style="display: inline">
+                      <a
+                        style="cursor: pointer;"
+                        @click="show('roomcharge-popup', 'edit', item.item_id)"
+                      >Edit</a> |
+                      <a
+                        style="cursor: pointer;"
+                        @click="deleteRoomChargeClick(item.item_id)"
+                      >Delete</a>
+                    </span>
+                    <span v-else>&emsp;</span>
                   </td>
                 </tr>
               </tbody>
             </table>
-          </div>
-          <div class="col-md-2">
-            <p>
-              Balance:
-              <i>0</i>
-            </p>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend class>All Guest Transactions</legend>
-          <button class="btn btn-warning btn-sm">Add Room Charge</button>
-          <button class="btn btn-default btn-sm">Folio Tranfer</button>
-          <table class="table table-fixed table-transaction">
-            <thead>
-              <tr>
-                <th class="col-md-2">Date</th>
-                <th class="col-md-2">Product</th>
-                <th class="col-md-2">Quantity</th>
-                <th class="col-md-2">Price</th>
-                <th class="col-md-2">Total</th>
-                <th class="col-md-2">Option</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">johndoe@email.com</td>
-                <td class="col-md-2">John</td>
-                <td class="col-md-2">Doe</td>
-                <td class="col-md-2">
-                  a
-                  a
-                </td>
-              </tr>
-           
-            </tbody>
-          </table>
-        </fieldset>
+            <p>Total = {{allTransferRoomChargeMinibarToTal | currency}}</p>
+          </fieldset>
+        </div>
       </div>
       <!-- foliodetail -->
     </div>
@@ -469,87 +341,130 @@
       @click="saveReveration"
     >
 
-    <!-- Modal -->
-    <div id="secondModal" class="modal fade col-md-6 col-md-offset-3 second-modal" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <input type="button" class="close" value="×" data-toggle="modal" data-target="#secondModal">
-            <h4 class="modal-title">Modal Header</h4>
-          </div>
-          <div class="modal-body">
-            <p>Some text in the modal</p>
-          </div>
-          <div class="modal-footer">
-            <input type="button" class="btn btn-default" value="Close">
-          </div>
+    <!-- minibar popup -->
+    <popup-modal name="minibar-popup" :clickToClose="false">
+      <div class="row">
+        <div class="form-group col-md-3">
+          <label for="producttypeid">Product Type</label>
+          <select
+            class="form-control m-bot15"
+            id="producttypeid"
+            v-model="product_type_id"
+            @change="onProductTypeSelected"
+          >
+            <option :key="pro.id" :value="pro.id" v-for="pro in getProductTypes">{{pro.name}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="productid">Product</label>
+          <select
+            class="form-control m-bot15"
+            id="productid"
+            v-model="minibarcharge.product"
+            @change="onProductSelected"
+          >
+            <option :key="pro.id" :value="pro.id" v-for="pro in filterProducts">{{pro.name}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="price">Price</label>
+          <input
+            class="form-control m-bot15"
+            type="number"
+            min="0"
+            max="999999999999"
+            id="price"
+            v-model="minibarcharge.price_confirm"
+          >
+        </div>
+        <div class="form-group col-md-3">
+          <label for="productquantity">Quantity</label>
+          <input
+            class="form-control m-bot15"
+            type="number"
+            min="1"
+            value="1"
+            max="100"
+            id="productquantity"
+            v-model="minibarcharge.quantity"
+          >
         </div>
       </div>
-    </div>
-    <popup-modal name="hello-world" :clickToClose="false">
-      <div class="row">
-          <div class="form-group col-md-3">
-            <label for="producttypeid">Product Type</label>
-            <select class="form-control m-bot15" id="producttypeid" v-model="product_type_id">
-              <option :key="pro.id" :value="pro.id" v-for="pro in getProductTypes">{{pro.name}}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="productid">Product</label>
-            <select class="form-control m-bot15" id="productid" v-model="product.id" @change="onProductSelected">
-              <option :key="pro.id" :value="pro.id" v-for="pro in filterProducts">{{pro.name}}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="price">Price</label>
-            <input
-                  class="form-control m-bot15"
-                  type="number"
-                  min="0"
-                  max="999999999999"
-                  id="price"
-                  v-model="product.price"
-                >
-          </div>
-          <div class="form-group col-md-3">
-            <label for="productquantity">Quantity</label>
-            <input
-                  class="form-control m-bot15"
-                  type="number"
-                  min="1"
-                  value="1"
-                  max="100"
-                  id="productquantity"
-                  v-model="product.quantity"
-                >
-          </div>
-        </div>
 
-      <input type="button" value="Save">
-      <input type="button" value="Close" @click="hide">
-
+      <input type="button" value="Save" @click="onSaveMiniBarClick()">
+      <input type="button" value="Close" @click="hide('minibar-popup')">
     </popup-modal>
-    <popup-modal name="hello-world2" :clickToClose="false">
-      hello, world! 2222
-      <input type="text" >
+    <!-- //minibar popup -->
 
-      <input type="button" value="Save">
-      <input type="button" value="Close" @click="hide2">
-
+    <!-- popup payment -->
+    <popup-modal name="payment-popup" :clickToClose="false">
+      Credit:
+      <input type="number" v-model="bookingpayment.credit">
+      <i>{{bookingpayment.credit | currency}}</i>
+      <br>desciption:
+      <input type="text" maxlength="200" v-model="bookingpayment.desciption">
+      <br>Payment type:
+      <select
+        class="form-control m-bot15"
+        id="paymenttype"
+        v-model="bookingpayment.payment_type"
+      >
+        <option :key="item.id" :value="item.id" v-for="item in getPaymentTypes">{{item.name}}</option>
+      </select>
+      <input type="button" value="Save" @click="onSavePaymentClick()">
+      <input type="button" value="Close" @click="hide('payment-popup')">
     </popup-modal>
+    <!--// popup payment -->
+
+    <!-- popup payment -->
+    <popup-modal name="roomcharge-popup" :clickToClose="false">
+      Room rate:
+      <input type="number" v-model="roomcharge.price_confirm">
+      <i>{{roomcharge.price_confirm | currency}}</i>
+      <br>
+
+      <input type="button" value="Save" @click="onSaveRoomChargeClick()">
+      <input type="button" value="Close" @click="hide('roomcharge-popup')">
+    </popup-modal>
+    <!--// popup payment -->
+
+    <!-- popup foliotransfer -->
+    <popup-modal name="foliotransfer-popup" :clickToClose="false">
+      Folio ID:
+      <input type="text" v-model="folio_transfer.id_folio_transfer">
+      <i>{{messageErrorFolioTransfer}}</i>
+      <br>
+      <div :key="item.id" v-for="item in folio_transfer.typeoffoliotransfers">
+        <input
+          name="foliotransfer"
+          type="radio"
+          v-model="folio_transfer.id_folio_transfer_select"
+          :value="item.id"
+          :id="'foliotransfer-id'+item.id"
+        >
+        <label :for="'foliotransfer-id'+item.id">{{item.name}}</label>
+      </div>
+
+      <input
+        type="button"
+        value="Save"
+        :disabled="messageErrorFolioTransfer"
+        @click="onSaveFolioTransferClick()"
+      >
+      <input type="button" value="Close" @click="hide('foliotransfer-popup')">
+    </popup-modal>
+    <!--// popup foliotransfer -->
   </form>
 </template>
 <script>
-
-import Datepicker from "vuejs-datepicker"
-import { mapGetters, mapActions } from "vuex"
-import { differenceInDays, addDays } from "date-fns"
+import Datepicker from "vuejs-datepicker";
+import { mapGetters, mapActions } from "vuex";
+import { differenceInDays, addDays, format, isSameDay, parse } from "date-fns";
 
 export default {
   name: "FrmBookingDetail",
   components: {
-    Datepicker,
+    Datepicker
   },
   data: function() {
     return {
@@ -561,12 +476,45 @@ export default {
       },
       durationTwoDate: -1,
       roomtype_id: -1,
-      product_type_id:-1,
-      product:{
-        id : -1,
+      product_type_id: -1,
+      second_popup_status: "",
+      minibarcharge: {
+        price_confirm: 0,
         quantity: 1,
-        price: 0,
+        booking: 0,
+        product: 0
       },
+      bookingpayment: {
+        credit: 0,
+        desciption: null,
+        booking: -1,
+        payment_type: -1
+      },
+      roomcharge: {
+        price_confirm: 0,
+        date_charge: null,
+        date_session: null,
+        booking: -1
+      },
+      id_editing: 0,
+      folio_transfer: {
+        id_folio_transfer: null,
+        id_folio_transfer_select: 1,
+        typeoffoliotransfers: [
+          {
+            id: 1,
+            name: "All charge"
+          },
+          {
+            id: 2,
+            name: "Room charge"
+          },
+          {
+            id: 3,
+            name: "Extra charge"
+          }
+        ]
+      }
     };
   },
   computed: {
@@ -578,7 +526,17 @@ export default {
       getRoomTypes: "getRoomTypes",
       getFrmType: "getFrmType",
       getProducts: "getProducts",
-      getProductTypes: "getProductTypes"
+      getProductTypes: "getProductTypes",
+      getMinibarCharges: "getMinibarCharges",
+      getMinibarChargeById: "getMinibarChargeById",
+      getBookingPayments: "getBookingPayments",
+      getBookingPaymentById: "getBookingPaymentById",
+      getRoomCharges: "getRoomCharges",
+      getRoomChargeById: "getRoomChargeById",
+      getPaymentTypes: "getPaymentTypes",
+      getSessionDate: "getSessionDate",
+      getMinibarChargeByBooking: "getMinibarChargeByBooking",
+      getBookingByMiniAndRoomCharge: "getBookingByMiniAndRoomCharge"
     }),
     booking_code: {
       get() {
@@ -672,12 +630,195 @@ export default {
         this.setFullname(value);
       }
     },
-    filterProducts(){
-      if(this.product_type_id > 0){
-        return this.getProducts.filter(item => item.product_type == this.product_type_id);
+    filterProducts() {
+      if (this.product_type_id > 0) {
+        return this.getProducts.filter(
+          item => item.product_type == this.product_type_id
+        );
+      } else {
+        return this.getProducts;
       }
-      else{
-        return [];
+    },
+    totalPrice() {
+      let total = 0;
+      this.getMinibarCharges.forEach(item => {
+        total += item.price_confirm * item.quantity;
+      });
+      return total;
+    },
+    disableButtonByFolioTranferBooking() {
+      if (this.getBookingDetail.booking_status == 3) {
+        return true; // disable
+      } else if (this.getBookingByMiniAndRoomCharge.length > 0) {
+        return true; // disable
+      } else {
+        let roomCharge = this.getBookingDetail
+          .booking_folio_transfer_roomcharge;
+        let minibarCharge = this.getBookingDetail
+          .booking_folio_transfer_minibarcharge;
+        if (roomCharge == undefined && minibarCharge == undefined) {
+          return false;
+        } else if (roomCharge == null && minibarCharge == null) {
+          return false;
+        } else {
+          return true;
+        }
+        // return false;
+      }
+    },
+    disableButtonByFolioTranferBooking2() {
+      if (this.getBookingDetail.booking_status == 3) {
+        return true; // disable
+      } else if (this.getBookingByMiniAndRoomCharge.length > 0) {
+        return true; // disable
+      } else {
+        let roomCharge = this.getBookingDetail
+          .booking_folio_transfer_roomcharge;
+        let minibarCharge = this.getBookingDetail
+          .booking_folio_transfer_minibarcharge;
+        if (roomCharge == undefined && minibarCharge == undefined) {
+          return true;
+        } else if (roomCharge == null && minibarCharge == null) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    },
+    messageErrorFolioTransfer() {
+      if (
+        this.folio_transfer.id_folio_transfer == this.getBookingGuestDetail.id
+      ) {
+        return "Can't set to this Folio ID.";
+      }
+      return null;
+    },
+    allTransferRoomChargeMinibar() {
+      let allRoomChargeMinibars = [];
+      // minibar
+      if (this.getMinibarChargeByBooking.length > 0) {
+        this.getMinibarChargeByBooking.forEach(item => {
+          allRoomChargeMinibars.push({
+            item_id: item.id,
+            booking_id: item.booking.id,
+            date_order: item.date_order,
+            room_name: item.booking.room.name,
+            product_name: item.product.name,
+            price_confirm: item.price_confirm,
+            quantity: item.quantity,
+            total: item.quantity * item.price_confirm,
+            type_item: "minibar",
+            show_option: false
+          });
+        });
+      }
+      // room
+      if (this.getRoomCharges.length > 0) {
+        this.getRoomCharges.forEach(item => {
+          allRoomChargeMinibars.push({
+            item_id: item.id,
+            booking_id: item.booking.id,
+            date_order: item.date_charge,
+            room_name: item.booking.room.name,
+            product_name: "Room Charge",
+            price_confirm: item.price_confirm,
+            quantity: 1,
+            total: item.price_confirm,
+            type_item: "room",
+            show_option:
+              this.getBookingGuestDetail.id == item.booking.id ? true : false
+          });
+        });
+      }
+      return allRoomChargeMinibars;
+    },
+    allTransferRoomChargeMinibarToTal() {
+      let total_folio = 0;
+      // minibar
+      if (this.getMinibarChargeByBooking.length > 0) {
+        this.getMinibarChargeByBooking.forEach(item => {
+          total_folio += item.quantity * item.price_confirm;
+        });
+      }
+      // room
+      if (this.getRoomCharges.length > 0) {
+        this.getRoomCharges.forEach(item => {
+          total_folio += item.price_confirm;
+        });
+      }
+      return total_folio;
+    },
+    balanceTotal() {
+      if (this.getBookingGuestDetail.id == undefined) {
+        return 0;
+      }
+      let totalPayment = 0;
+      let totalBalance = 0;
+
+      this.getBookingPayments.forEach(item => {
+        totalPayment += item.credit;
+      });
+
+      if (
+        this.getBookingDetail.booking_folio_transfer_minibarcharge == null &&
+        this.getBookingDetail.booking_folio_transfer_roomcharge == null
+      ) {
+        return this.allTransferRoomChargeMinibarToTal - totalPayment;
+      } else {
+        if (this.getBookingDetail.booking_folio_transfer_roomcharge == null) {
+          // room charge
+          if (this.getRoomCharges.length > 0) {
+            this.getRoomCharges.forEach(item => {
+              totalBalance += item.price_confirm;
+            });
+          }
+        }
+
+        if (
+          this.getBookingDetail.booking_folio_transfer_minibarcharge == null
+        ) {
+          // minibar
+          if (this.getMinibarChargeByBooking.length > 0) {
+            this.getMinibarChargeByBooking.forEach(item => {
+              totalBalance += item.quantity * item.price_confirm;
+            });
+          }
+        }
+        return totalBalance - totalPayment;
+      }
+    },
+    strFolioTranfer() {
+      if (this.getBookingGuestDetail.id == undefined) {
+        return 0;
+      }
+      let iDFolio = 0;
+      let strFolio = "";
+
+      if (
+        this.getBookingDetail.booking_folio_transfer_minibarcharge == null &&
+        this.getBookingDetail.booking_folio_transfer_roomcharge == null
+      ) {
+        return "";
+      } else {
+        if (this.getBookingDetail.booking_folio_transfer_roomcharge != null) {
+          // room charge
+          iDFolio = this.getBookingDetail.booking_folio_transfer_roomcharge;
+          strFolio += "Room Charge";
+        }
+
+        if (
+          this.getBookingDetail.booking_folio_transfer_minibarcharge != null
+        ) {
+          // minibar
+          iDFolio = this.getBookingDetail.booking_folio_transfer_minibarcharge;
+          if (strFolio == "") {
+            strFolio += "Minibar Charge";
+          } else {
+            strFolio += ", Minibar Charge";
+          }
+        }
+
+        return "Folio ID:" + iDFolio + "(" + strFolio + ")";
       }
     }
   },
@@ -740,7 +881,21 @@ export default {
       fetchGuestBookings: "fetchGuestBookings",
       fetchBookings: "fetchBookings",
       fetchProducts: "fetchProducts",
-      fetchProductTypes: "fetchProductTypes"
+      fetchProductTypes: "fetchProductTypes",
+      postMinibarCharge: "postMinibarCharge",
+      fetchMinibarCharges: "fetchMinibarCharges",
+      putMinibarCharge: "putMinibarCharge",
+      deleteMinibarCharge: "deleteMinibarCharge",
+      fetchBookingPayments: "fetchBookingPayments",
+      postBookingPayment: "postBookingPayment",
+      putBookingPayment: "putBookingPayment",
+      deleteBookingPayment: "deleteBookingPayment",
+      fetchRoomCharges: "fetchRoomCharges",
+      postRoomCharge: "postRoomCharge",
+      putRoomCharge: "putRoomCharge",
+      deleteRoomCharge: "deleteRoomCharge",
+      updateBookingFolioTransfer: "updateBookingFolioTransfer",
+      fetchMinibarChargeByBooking: "fetchMinibarChargeByBooking"
     }),
     onSelectDateArrive: function(event) {
       this.disabledDatesDepart.to = event;
@@ -788,34 +943,292 @@ export default {
         }
       }
     },
-    onProductSelected(){
-      this.product.price = this.getProducts.find(item => item.id == this.product.id).price;
+    onProductTypeSelected() {
+      this.minibarcharge.price_confirm = 0;
     },
-    onAddMiniBarClick(){},
-    show () {
-      this.$modal.show('hello-world');
+    onProductSelected() {
+      this.minibarcharge.price_confirm = this.getProducts.find(
+        item => item.id == this.minibarcharge.product
+      ).price;
     },
-    hide () {
-      this.$modal.hide('hello-world');
+    onSaveMiniBarClick() {
+      if (this.second_popup_status == "new") {
+        let data = {
+          ...this.minibarcharge,
+          booking: this.getBookingGuestDetail.id
+        };
+        this.postMinibarCharge(data);
+        setTimeout(() => {
+          this.fetchMinibarCharges(this.getBookingGuestDetail.id);
+          this.fetchMinibarChargeByBooking(this.getBookingGuestDetail.id);
+          this.$modal.hide("minibar-popup");
+        }, 2000);
+      }
+      if (this.second_popup_status == "edit") {
+        this.putMinibarCharge({
+          data: this.minibarcharge,
+          id: this.id_editing
+        });
+        setTimeout(() => {
+          this.fetchMinibarCharges(this.getBookingGuestDetail.id);
+          this.fetchMinibarChargeByBooking(this.getBookingGuestDetail.id);
+          this.$modal.hide("minibar-popup");
+        }, 2000);
+      }
     },
-    show2 () {
-      this.$modal.show('hello-world2');
+    show(popup_name, status, id = 0) {
+      if (id > 0) {
+        if (popup_name == "minibar-popup") {
+          let minidt = this.getMinibarChargeById(id);
+          this.id_editing = id;
+          this.minibarcharge = {
+            price_confirm: minidt.price_confirm,
+            quantity: minidt.quantity,
+            booking: minidt.booking,
+            product: minidt.product.id
+          };
+          this.product_type_id = minidt.product.product_type;
+        }
+        if (popup_name == "payment-popup") {
+          let bkpayment = this.getBookingPaymentById(id);
+          this.id_editing = id;
+          this.bookingpayment = {
+            credit: bkpayment.credit,
+            desciption: bkpayment.desciption,
+            booking: bkpayment.booking,
+            payment_type: bkpayment.payment_type.id
+          };
+        }
+        if (popup_name == "roomcharge-popup") {
+          let roomcharge = this.getRoomChargeById(id);
+          this.id_editing = id;
+          this.roomcharge = {
+            price_confirm: roomcharge.price_confirm,
+            date_charge: roomcharge.date_charge,
+            date_session: roomcharge.date_session,
+            booking: roomcharge.booking
+          };
+        }
+      }
+      this.second_popup_status = status;
+      this.$modal.show(popup_name);
     },
-    hide2 () {
-      this.$modal.hide('hello-world2');
+    hide(popup_name) {
+      this.second_popup_status = "";
+      this.$modal.hide(popup_name);
+    },
+    deleteMinibar(id) {
+      this.$dialog
+        .confirm("Do you want to remove this item?", {
+          loader: true,
+          okText: "Yes",
+          cancelText: "No"
+        })
+        .then(dialog => {
+          // on OK click
+          this.deleteMinibarCharge(id);
+
+          setTimeout(() => {
+            this.fetchMinibarCharges(this.getBookingGuestDetail.id);
+            dialog.close();
+          }, 2000);
+        })
+        .catch(() => {
+          // on cancel click
+        });
+    },
+    deleteBookingPaymentClick(id) {
+      this.$dialog
+        .confirm("Do you want to remove this item?", {
+          loader: true,
+          okText: "Yes",
+          cancelText: "No"
+        })
+        .then(dialog => {
+          // on OK click
+          this.deleteBookingPayment(id);
+
+          setTimeout(() => {
+            this.fetchBookingPayments(this.getBookingGuestDetail.id);
+            dialog.close();
+          }, 2000);
+        })
+        .catch(() => {
+          // on cancel click
+        });
+    },
+    deleteRoomChargeClick(id) {
+      this.$dialog
+        .confirm("Do you want to remove this item?", {
+          loader: true,
+          okText: "Yes",
+          cancelText: "No"
+        })
+        .then(dialog => {
+          // on OK click
+          this.deleteRoomCharge(id);
+
+          setTimeout(() => {
+            this.fetchRoomCharges(this.getBookingGuestDetail.id);
+            dialog.close();
+          }, 2000);
+        })
+        .catch(() => {
+          // on cancel click
+        });
+    },
+    onSavePaymentClick() {
+      if (this.second_popup_status == "new") {
+        let data = {
+          ...this.bookingpayment,
+          booking: this.getBookingGuestDetail.id
+        };
+        this.postBookingPayment(data);
+        setTimeout(() => {
+          this.fetchBookingPayments(this.getBookingGuestDetail.id);
+          this.$modal.hide("payment-popup");
+        }, 2000);
+      }
+      if (this.second_popup_status == "edit") {
+        this.putBookingPayment({
+          data: this.bookingpayment,
+          id: this.id_editing
+        });
+        setTimeout(() => {
+          this.fetchBookingPayments(this.getBookingGuestDetail.id);
+          this.$modal.hide("payment-popup");
+        }, 2000);
+      }
+    },
+    onSaveRoomChargeClick() {
+      if (this.second_popup_status == "edit") {
+        this.putRoomCharge({
+          data: {
+            price_confirm:this.roomcharge.price_confirm,
+          },
+          id: this.id_editing
+        });
+        setTimeout(() => {
+          this.fetchRoomCharges(this.getBookingGuestDetail.id);
+          this.$modal.hide("roomcharge-popup");
+        }, 2000);
+      }
+    },
+    addRoomCharge() {
+      let data = {
+        booking: this.getBookingGuestDetail.id,
+        price_confirm: this.price,
+        date_session: format(this.getSessionDate, "YYYY-MM-DD")
+      };
+      if (
+        this.getRoomCharges.length == 0 ||
+        !this.getRoomCharges.find(item =>
+          isSameDay(parse(this.getSessionDate), parse(item.date_session))
+        )
+      ) {
+        this.$dialog
+          .confirm("Do you want to add room charge?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.postRoomCharge(data);
+
+            setTimeout(() => {
+              this.fetchRoomCharges(this.getBookingGuestDetail.id);
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+    },
+    showPaymentPopup(popup_name, status) {
+      this.second_popup_status = status;
+      this.$modal.show(popup_name);
+    },
+    transferFolio() {
+      this.$modal.show("foliotransfer-popup");
+    },
+    onSaveFolioTransferClick() {
+      let data = null;
+      if (this.folio_transfer.id_folio_transfer_select == 1) {
+        data = {
+          booking_folio_transfer_roomcharge: this.folio_transfer
+            .id_folio_transfer,
+          booking_folio_transfer_minibarcharge: this.folio_transfer
+            .id_folio_transfer
+        };
+        this.updateBookingFolioTransfer({
+          id: this.getBookingGuestDetail.id,
+          data: data
+        });
+      } else if (this.folio_transfer.id_folio_transfer_select == 2) {
+        data = {
+          booking_folio_transfer_roomcharge: this.folio_transfer
+            .id_folio_transfer,
+          booking_folio_transfer_minibarcharge: null
+        };
+        this.updateBookingFolioTransfer({
+          id: this.getBookingGuestDetail.id,
+          data: data
+        });
+      } else if (this.folio_transfer.id_folio_transfer_select == 3) {
+        data = {
+          booking_folio_transfer_roomcharge: null,
+          booking_folio_transfer_minibarcharge: this.folio_transfer
+            .id_folio_transfer
+        };
+        this.updateBookingFolioTransfer({
+          id: this.getBookingGuestDetail.id,
+          data: data
+        });
+      }
+      setTimeout(() => {
+        this.fetchGuestBookingDetail({ id: this.getBookingGuestDetail.id });
+        this.$modal.hide("foliotransfer-popup");
+      }, 2000);
+    },
+    cancelTransferFolio() {
+      this.$dialog
+        .confirm("Do you want to cancel Folio Transfer?", {
+          loader: true,
+          okText: "Yes",
+          cancelText: "No"
+        })
+        .then(dialog => {
+          // on OK click
+          let data = {
+            booking_folio_transfer_roomcharge: null,
+            booking_folio_transfer_minibarcharge: null
+          };
+          this.updateBookingFolioTransfer({
+            id: this.getBookingGuestDetail.id,
+            data: data
+          });
+
+          setTimeout(() => {
+            this.fetchGuestBookingDetail({ id: this.getBookingGuestDetail.id });
+            dialog.close();
+          }, 2000);
+        })
+        .catch(() => {
+          // on cancel click
+        });
     }
   },
   mounted() {
+    this.fetchProducts();
+    this.fetchProductTypes();
     this.fetchClientList();
     this.fetchRooms();
     this.fetchRoomTypeList();
-    this.fetchProducts();
-    this.fetchProductTypes();
   }
 };
 </script>
-
-
 
 <style>
 .table-minibar tbody {
@@ -857,5 +1270,13 @@ export default {
 }
 .second-modal {
   height: 200px;
+}
+.transfer-other-room {
+  background-color: yellow;
+  color: red !important;
+}
+.transfer-other-minibar {
+  background-color: yellowgreen;
+  color: red !important;
 }
 </style>

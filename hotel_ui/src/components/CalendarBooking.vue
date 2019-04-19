@@ -1,96 +1,102 @@
 <template>
-  <div id="calendar-booking" ref="tbbooking" @click="disableMenuContext">
-    <div class="table-reveration noselect">
-      <div class="tbheader">
-        <div class="tbcell">R/D</div>
-        <div class="tbcell" :key="dat_index" v-for="(dat, dat_index) in getDays">{{dat.date_format}}</div>
-      </div>
-      <div class="tbrow" :key="room_index" v-for="(room, room_index) in getRooms(-1)">
-        <div class="tbcell" :style="{width: (windowWidth/numberOfColumn)+'px'}">{{room.name}}</div>
-        <div
-          class="tbcell tbcell-booking"
-          oncontextmenu="return false"
-          :data-index="dat_index1"
-          :data-room-id="room_index"
-          :data-id="room.id"
-          :data-date="dat.date_data_format"
-          :style="{width: (windowWidth/numberOfColumn)+'px'}"
-          :key="dat_index1+'0'+room_index"
-          :id="dat_index1+'_'+room_index"
-          @mousedown="startMarkPoint"
-          @mouseup="stopMarkPoint"
-          v-for="(dat, dat_index1) in getDays"
-        ></div>
-        <div class="booking-bar">
-          <button
+  <div>
+    <header class="agileits-box-header clearfix">
+      <h3>Calendar Booking</h3>
+      <div class="toolbar"></div>
+    </header>
+    <div id="calendar-booking" ref="tbbooking" @click="disableMenuContext">
+      <div class="table-reveration noselect">
+        <div class="tbheader">
+          <div class="tbcell">R/D</div>
+          <div class="tbcell" :key="dat_index" v-for="(dat, dat_index) in getDays">{{dat.date_format}}</div>
+        </div>
+        <div class="tbrow" :key="room_index" v-for="(room, room_index) in getRooms(-1)">
+          <div class="tbcell" :style="{width: (windowWidth/numberOfColumn)+'px'}">{{room.name}}</div>
+          <div
+            class="tbcell tbcell-booking"
             oncontextmenu="return false"
-            @mouseup="showContextMenuOnButton"
-            v-for="item in getReverationByRoomId(room.id)"
-            :class="item.booking.booking_status.id == 1 ? 'check-in' : item.booking.booking_status.id == 2 ? 'in-house': 'check-out'"
-            :data-id="item.id"
-            :data-booking-id="item.booking.id"
-            :data-booking-status-id="item.booking.booking_status.id"
-            :key="item.id"
-            :style="{
-              maxWidth: (((windowWidth/numberOfColumn)*item.length)-6) <= 0 ? ((windowWidth/numberOfColumn)-6) + 'px' : (((windowWidth/numberOfColumn)*item.length)-6) +'px',
-              width: (((windowWidth/numberOfColumn)*item.length)-6) <= 0 ? ((windowWidth/numberOfColumn)-6) + 'px' : (((windowWidth/numberOfColumn)*item.length)-6) +'px',
-              marginLeft: ((windowWidth/numberOfColumn)*item.left)+'px', 
-              whiteSpace: 'nowrap', 
-              overflow: 'hidden',
-            }"
-          >{{item.id + ' | '+ item.fullname + ' | ' + item.booking.client.name}}</button>
+            :data-index="dat_index1"
+            :data-room-id="room_index"
+            :data-id="room.id"
+            :data-date="dat.date_data_format"
+            :style="{width: (windowWidth/numberOfColumn)+'px'}"
+            :key="dat_index1+'0'+room_index"
+            :id="dat_index1+'_'+room_index"
+            @mousedown="startMarkPoint"
+            @mouseup="stopMarkPoint"
+            v-for="(dat, dat_index1) in getDays"
+          ></div>
+          <div class="booking-bar">
+            <button
+              oncontextmenu="return false"
+              @mouseup="showContextMenuOnButton"
+              v-for="item in getReverationByRoomId(room.id)"
+              :class="item.booking.booking_status.id == 1 ? 'check-in' : item.booking.booking_status.id == 2 ? 'in-house': 'check-out'"
+              :data-id="item.id"
+              :data-booking-id="item.booking.id"
+              :data-booking-status-id="item.booking.booking_status.id"
+              :key="item.id"
+              :style="{
+                maxWidth: (((windowWidth/numberOfColumn)*item.length)-6) <= 0 ? ((windowWidth/numberOfColumn)-6) + 'px' : (((windowWidth/numberOfColumn)*item.length)-6) +'px',
+                width: (((windowWidth/numberOfColumn)*item.length)-6) <= 0 ? ((windowWidth/numberOfColumn)-6) + 'px' : (((windowWidth/numberOfColumn)*item.length)-6) +'px',
+                marginLeft: ((windowWidth/numberOfColumn)*item.left)+'px', 
+                whiteSpace: 'nowrap', 
+                overflow: 'hidden',
+              }"
+            >{{item.id + ' | '+ item.fullname + ' | ' + item.booking.client.name}}</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Menu Context -->
-    <div
-      class="row context-menu"
-      v-show="context_menu_visible"
-      :style="{left:contextMenuLeft+'px', top:contextMenuTop+'px'}"
-    >
-      <ul class="list-group">
-        <li
-          :data-toggle="item.confirm_popup ? '' : 'modal'"
-          :data-target="item.confirm_popup ? '' : '#myModal'"
-          class="list-group-item"
-          :key="index"
-          @click="onContextMenuItemClick(item.alias)"
-          v-for="(item, index) in context_menu_list"
-        >
-          <i :class="item.icon"></i>
-          {{item.label}}
-        </li>
-      </ul>
-    </div>
-    <!-- //Menu Context -->
-    <!-- Modal -->
-    <div
-      class="modal fade paddingright"
-      id="myModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="myModalLabel"
-    >
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <header class="panel-heading">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </header>
-          <div class="panel-body">
-            <div class>
-              <!-- Form here! -->
-              <FrmBookingDetail></FrmBookingDetail>
-              <!-- //Form here! -->
+      <!-- Menu Context -->
+      <div
+        class="row context-menu"
+        v-show="context_menu_visible"
+        :style="{left:contextMenuLeft+'px', top:contextMenuTop+'px'}"
+      >
+        <ul class="list-group">
+          <li
+            :data-toggle="item.confirm_popup ? '' : 'modal'"
+            :data-target="item.confirm_popup ? '' : '#myModal'"
+            class="list-group-item"
+            :key="index"
+            @click="onContextMenuItemClick(item.alias)"
+            v-for="(item, index) in context_menu_list"
+          >
+            <i :class="item.icon"></i>
+            {{item.label}}
+          </li>
+        </ul>
+      </div>
+      <!-- //Menu Context -->
+      <!-- Modal -->
+      <div
+        class="modal fade paddingright"
+        id="myModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <header class="panel-heading">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </header>
+            <div class="panel-body">
+              <div class>
+                <!-- Form here! -->
+                <FrmBookingDetail></FrmBookingDetail>
+                <!-- //Form here! -->
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- // Modal -->
     </div>
-    <!-- // Modal -->
   </div>
 </template>
 
@@ -179,7 +185,15 @@ export default {
       deleteReveration: "deleteReveration",
       updateBooking:"updateBooking",
       removeCalendarBooking:"removeCalendarBooking",
-      setFrmType:"setFrmType"
+      setFrmType:"setFrmType",
+      fetchMinibarCharges:"fetchMinibarCharges",
+      fetchBookingPayments:"fetchBookingPayments",
+      fetchRoomCharges:"fetchRoomCharges",
+      fetchPaymentTypes:"fetchPaymentTypes",
+      fetchMinibarChargeByBooking:"fetchMinibarChargeByBooking",
+      fetchBookingByMiniAndRoomCharge:"fetchBookingByMiniAndRoomCharge",
+      updateBookingCheckIn:"updateBookingCheckIn",
+      updateBookingCheckOut:"updateBookingCheckOut"
     }),
     handleWindowResize() {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
@@ -232,8 +246,6 @@ export default {
         event.which === 3 &&
         event.target.className.includes("bg-mark-select")
       ) {
-        // console.log(event);
-        // console.log(this.select_date);
         this.contextMenuLeft = event.pageX;
         this.contextMenuTop = event.pageY;
         this.context_menu_visible = !this.context_menu_visible;
@@ -269,7 +281,7 @@ export default {
               {
                 label: "Check-in",
                 icon: "fa fa-pencil",
-                alias: "",
+                alias: "checkin",
                 confirm_popup: true
               },
               {
@@ -297,7 +309,7 @@ export default {
               {
                 label: "Check-out",
                 icon: "fa fa-pencil",
-                alias: "",
+                alias: "checkout",
                 confirm_popup: true
               },
               {
@@ -409,6 +421,12 @@ export default {
       if (this.data_booking.action_name == "detail" && this.data_booking.id) {
         this.fetchGuestBookingDetail(this.data_booking);
         this.setFrmType({type: 'ca', method:'edit', date_start: format(this.instance_date.start, "YYYY-MM-DD"),date_stop: format(this.instance_date.stop, "YYYY-MM-DD")});
+        this.fetchMinibarCharges(this.data_booking.id);
+        this.fetchBookingPayments(this.data_booking.id);
+        this.fetchRoomCharges(this.data_booking.id);
+        this.fetchMinibarChargeByBooking(this.data_booking.id);
+        this.fetchBookingByMiniAndRoomCharge(this.data_booking.id)
+
       } else if (
         this.data_booking.action_name == "delete" &&
         this.data_booking.id
@@ -427,7 +445,7 @@ export default {
                 dialog.close();
               });
               
-            }, 2500);
+            }, 2000);
           })
           .catch(() => {
             // on cancel click
@@ -465,12 +483,56 @@ export default {
                 dialog.close();
               });
               
-            }, 2500);
+            }, 2000);
           })
           .catch(() => {
             // on cancel click
           });
       } 
+      else if (this.data_booking.action_name == "checkin") {
+        this.$dialog
+          .confirm("Do you want to check-in this room?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.updateBookingCheckIn(this.data_booking.id);
+            setTimeout(() => {
+              this.fetchGuestBookings({
+                arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),
+                depart_date: format(this.instance_date.stop, "YYYY-MM-DD")
+              });
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+      else if (this.data_booking.action_name == "checkout") {
+        this.$dialog
+          .confirm("Do you want to check-out this room?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.updateBookingCheckOut(this.data_booking.id);
+            setTimeout(() => {
+              this.fetchGuestBookings({
+                arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),
+                depart_date: format(this.instance_date.stop, "YYYY-MM-DD")
+              });
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
       else {
         return;
       }
@@ -478,7 +540,6 @@ export default {
   },
   mounted: function() {
     // UI:
-    // console.log(this.$refs.tbbooking.getBoundingClientRect());
     this.numberOfColumn = this.getDays.length + 1;
     window.addEventListener("resize", this.handleWindowResize);
     // Data:
@@ -487,6 +548,7 @@ export default {
       arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),
       depart_date: format(this.instance_date.stop, "YYYY-MM-DD")
     });
+    this.fetchPaymentTypes();
     // this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
     setTimeout(() => {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;

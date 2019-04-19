@@ -1,5 +1,13 @@
 [
   {
+    "model": "hotelmanagement.config",
+    "pk": 1,
+    "fields": {
+      "name": "SESSION_DATE",
+      "session_date": "2019-03-09"
+    }
+  },
+  {
     "model": "hotelmanagement.client",
     "pk": 1,
     "fields": {

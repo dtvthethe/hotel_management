@@ -6,7 +6,8 @@ import VuejsDialog from 'vuejs-dialog'
 import VueCurrencyFilter from 'vue-currency-filter'
 import VModal from 'vue-js-modal'
 import ChangeRoomPopupConfirm from './components/ChangeRoomPopupConfirm'
-// import MinibarPopupConfirm from './components/MinibarPopupConfirm'
+import VueFilterDateFormat from 'vue-filter-date-format'
+ 
 
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 
@@ -36,6 +37,8 @@ Vue.use(VueCurrencyFilter, currencyFilterOption)
 Vue.dialog.registerComponent('CHANGE_ROOM_POPUP_CONFIRM', ChangeRoomPopupConfirm);
 // Vue.dialog.registerComponent('MINIBAR_POPUP_CONFIRM', MinibarPopupConfirm);
 Vue.use(VModal, { componentName: "popup-modal" })
+Vue.use(VueFilterDateFormat)
+
 
 
 new Vue({

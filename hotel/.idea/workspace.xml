@@ -3,10 +3,31 @@
   <component name="ChangeListManager">
     <list default="true" id="dc2ea73c-5c68-4de7-bc29-cf1044ba4ee4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirement.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirement.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/CalendarBooking.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/CalendarBooking.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/FrmBookingDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/FrmBookingDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/FrontDesk.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/FrontDesk.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/HeadBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/HeadBar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/booking_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/booking_module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/frontdesk_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/frontdesk_module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/product_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/product_module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/producttypes_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/producttypes_module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/reveration_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/reveration_module.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,22 +58,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="12" column="76" lean-forward="true" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hotelmanagement/api/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
-              <caret line="77" column="29" selection-start-line="77" selection-start-column="6" selection-end-line="77" selection-end-column="29" />
+            <state relative-caret-position="219">
+              <caret line="276" column="15" lean-forward="true" selection-start-line="276" selection-start-column="15" selection-end-line="276" selection-end-column="15" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
               </folding>
@@ -61,10 +70,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hotelmanagement/models.py">
+        <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1470">
-              <caret line="99" column="39" selection-start-line="99" selection-start-column="39" selection-end-line="99" selection-end-column="59" />
+            <state relative-caret-position="158">
+              <caret line="54" column="52" lean-forward="true" selection-start-line="54" selection-start-column="52" selection-end-line="54" selection-end-column="52" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -75,8 +84,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hotel/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1680">
-              <caret line="112" column="29" selection-start-line="112" selection-start-column="29" selection-end-line="112" selection-end-column="29" />
+            <state relative-caret-position="250">
+              <caret line="133" column="33" selection-start-line="133" selection-start-column="33" selection-end-line="133" selection-end-column="33" />
+              <folding>
+                <element signature="e#305#320#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155">
-              <caret line="84" column="43" selection-start-line="84" selection-start-column="43" selection-end-line="84" selection-end-column="43" />
+            <state relative-caret-position="158">
+              <caret line="296" column="30" selection-start-line="296" selection-start-column="30" selection-end-line="296" selection-end-column="30" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -104,30 +116,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>FIXTURE_DIRS</find>
-      <find>3%</find>
-      <find>3% Surcharge</find>
-      <find>room</find>
-      <find>.booking</find>
-      <find>bên phải</find>
-      <find>booking</find>
-      <find>bookingli</find>
-      <find>reveration_update</find>
-      <find>GuestUpdateSerializer</find>
-      <find>BookingStatus</find>
-      <find>.booking&quot;</find>
-      <find>rooms</find>
-      <find>.room&quot;</find>
-      <find>BookingList</find>
-      <find>booking_update</find>
-      <find>GuestBookingRetrieveAPIView</find>
+      <find>UserPasswordUpdateAPIView</find>
+      <find>User</find>
+      <find>UserU</find>
+      <find>REST_FRAMEWORK</find>
+      <find>SECRET_KEY</find>
+      <find>clients</find>
+      <find>DEFAULT_AUTHENTICATION_CLASSES</find>
+      <find>CORS_ORIGIN_ALLOW_ALL</find>
+      <find>ProductListAPIView</find>
+      <find>ProductListSerializer</find>
+      <find>RoomListSerializer</find>
+      <find>products</find>
+      <find>RoomTypeListSerializer</find>
+      <find>Product</find>
       <find>product</find>
-      <find>pk</find>
-      <find>mini</find>
-      <find>tim</find>
-      <find>Date</find>
-      <find>MinibarChargeretrieveAPIView</find>
-      <find>BookingPa</find>
+      <find>ProducTypeListSerializer</find>
+      <find>ProducType</find>
+      <find>product2type</find>
+      <find>ProductCreateSerializer</find>
+      <find>ProductCreate</find>
+      <find>ProductTypeDestroyAPIView</find>
+      <find>RoomCreate</find>
+      <find>product2s</find>
+      <find>room_cr</find>
+      <find>RoomStatusListSerializer</find>
+      <find>RoomStatus</find>
+      <find>roomcharge_update</find>
+      <find>config</find>
+      <find>status</find>
+      <find>user_update</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,16 +159,16 @@
         <option value="$PROJECT_DIR$/hotel/urls.py" />
         <option value="$PROJECT_DIR$/hotel/serializers.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/tests.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" />
-        <option value="$PROJECT_DIR$/hotelmanagement/api/serializers.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/models.py" />
         <option value="$PROJECT_DIR$/hotel/settings.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/api/urls.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/models.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/api/serializers.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/api/views.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="734" />
@@ -163,7 +181,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -176,10 +193,17 @@
               <item name="hotel" type="462c0819:PsiDirectoryNode" />
               <item name="hotelmanagement" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hotel" type="462c0819:PsiDirectoryNode" />
+              <item name="hotelmanagement" type="462c0819:PsiDirectoryNode" />
+              <item name="fixtures" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -294,6 +318,33 @@
       <workItem from="1554033632189" duration="5747000" />
       <workItem from="1554137982388" duration="5856000" />
       <workItem from="1554187109776" duration="988000" />
+      <workItem from="1554218369520" duration="4816000" />
+      <workItem from="1554257014121" duration="879000" />
+      <workItem from="1554276820001" duration="640000" />
+      <workItem from="1554312523509" duration="2529000" />
+      <workItem from="1554323168308" duration="2462000" />
+      <workItem from="1554341115552" duration="3353000" />
+      <workItem from="1554399088491" duration="20000" />
+      <workItem from="1554492210142" duration="2521000" />
+      <workItem from="1554571180290" duration="3528000" />
+      <workItem from="1554580160786" duration="4879000" />
+      <workItem from="1554742672366" duration="7673000" />
+      <workItem from="1554778451368" duration="813000" />
+      <workItem from="1554827238042" duration="1472000" />
+      <workItem from="1554880218952" duration="2505000" />
+      <workItem from="1554901060674" duration="1663000" />
+      <workItem from="1555010637140" duration="5093000" />
+      <workItem from="1555086346390" duration="8114000" />
+      <workItem from="1555427480928" duration="10368000" />
+      <workItem from="1555462726866" duration="3608000" />
+      <workItem from="1555474688729" duration="1662000" />
+      <workItem from="1555499942506" duration="560000" />
+      <workItem from="1555522218490" duration="1941000" />
+      <workItem from="1555528198154" duration="1845000" />
+      <workItem from="1555549207927" duration="6585000" />
+      <workItem from="1555600310879" duration="1917000" />
+      <workItem from="1555618699927" duration="5021000" />
+      <workItem from="1555642101013" duration="6811000" />
     </task>
     <servers />
   </component>
@@ -309,18 +360,18 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112370000" />
+    <option name="totallyTimeSpent" value="205648000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="734" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="736" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23909532" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.19224556" />
+      <window_info id="Structure" order="1" sideWeight="0.5017544" side_tool="true" weight="0.17285945" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23520249" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39719626" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25310558" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.33333334" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -328,7 +379,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.20560747" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.42546585" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32866043" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -339,6 +390,27 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hotelmanagement/api/views.py</url>
+          <line>179</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hotelmanagement/api/views.py</url>
+          <line>330</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hotelmanagement/api/views.py</url>
+          <line>326</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f12954e6-ba8e-47b4-adb4-e32f3d0a871a/console.sql">
@@ -352,7 +424,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hotelmanagement/fixtures/fixturedata.py" />
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/db/models/__init__.py" />
     <entry file="file://$PROJECT_DIR$/hotelmanagement/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -378,9 +449,6 @@
           <caret selection-start-column="2" selection-end-line="11" selection-end-column="47" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirement.txt">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/hotel/urls.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -416,77 +484,103 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/db/models/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-188">
+          <folding>
+            <element signature="e#0#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/rest_framework/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="493" selection-start-line="493" selection-end-line="493" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/rest_framework/mixins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-792">
-          <caret line="19" column="49" lean-forward="true" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="70" column="12" selection-end-line="1369" selection-end-column="1" />
+        <state relative-caret-position="74">
+          <caret line="494" selection-start-line="494" selection-end-line="494" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/rest_framework/generics.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
-          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+          <caret line="200" selection-start-line="200" selection-end-line="200" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/rest_framework/mixins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="38" column="6" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/contrib/auth/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-159">
+          <caret line="32" column="6" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirement.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotel/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="133" column="33" selection-start-line="133" selection-start-column="33" selection-end-line="133" selection-end-column="33" />
+          <folding>
+            <element signature="e#305#320#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="12" column="76" lean-forward="true" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
+        <state relative-caret-position="158">
+          <caret line="54" column="52" lean-forward="true" selection-start-line="54" selection-start-column="52" selection-end-line="54" selection-end-column="52" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="296" column="30" selection-start-line="296" selection-start-column="30" selection-end-line="296" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hotelmanagement/api/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="77" column="29" selection-start-line="77" selection-start-column="6" selection-end-line="77" selection-end-column="29" />
+        <state relative-caret-position="219">
+          <caret line="276" column="15" lean-forward="true" selection-start-line="276" selection-start-column="15" selection-end-line="276" selection-end-column="15" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="99" column="39" selection-start-line="99" selection-start-column="39" selection-end-line="99" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotel/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="112" column="29" selection-start-line="112" selection-start-column="29" selection-end-line="112" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="84" column="43" selection-start-line="84" selection-start-column="43" selection-end-line="84" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -6,7 +6,7 @@
       <div class="brand">
         <a href="index.html" class="logo">Hoàng Lộc Hotel</a>
         <div class="sidebar-toggle-box">
-          <div class="fa fa-bars" @click="abc()"></div>
+          <div class="fa fa-bars" @click="switchMenu()"></div>
         </div>
       </div>
       <!--logo end-->
@@ -217,7 +217,7 @@
                 </a>
               </li>
               <li>
-                <a href="login.html">
+                <a href="javascript:void(0);" @click="onLogOutClick">
                   <i class="fa fa-key"></i> Log Out
                 </a>
               </li>
@@ -250,19 +250,19 @@
             <li>
               <a href="#">
                 <i class="fa fa-key"></i>
-                <span>Night Audit</span>
+                <span>Night Audit x</span>
               </a>
             </li>
             <li>
               <a href="#">
                 <i class="fa fa-info"></i>
-                <span>Guest Leger</span>
+                <span>Guest Leger x</span>
               </a>
             </li>
             <li class="sub-menu">
               <a href="javascript:;">
                 <i class="fa fa-book"></i>
-                <span>Report</span>
+                <span>Report x</span>
               </a>
               <ul class="sub">
                 <li>
@@ -295,10 +295,16 @@
               </a>
               <ul class="sub">
                 <li>
-                  <a href="#">Categories</a>
+                  <router-link to="/producttype">
+                    <i class="fa fa-align-right"></i>
+                    <span>Product Types</span>
+                  </router-link>
                 </li>
                 <li>
-                  <a href="#">Products</a>
+                  <router-link to="/product">
+                    <i class="fa fa-leaf"></i>
+                    <span>Products</span>
+                  </router-link>
                 </li>
               </ul>
             </li>
@@ -309,32 +315,25 @@
               </a>
               <ul class="sub">
                 <li>
-                  <a href="#">Room Types</a>
+                  <router-link to="/roomtype">
+                    <i class="fa fa-align-left"></i>
+                    <span>Room Types</span>
+                  </router-link>
                 </li>
                 <li>
-                  <a href="#">Room List</a>
+                  <router-link to="/room">
+                    <i class="fa fa-home"></i>
+                    <span>Rooms</span>
+                  </router-link>
+               
                 </li>
               </ul>
             </li>
             <li class="sub-menu">
-              <a href="javascript:;">
+              <router-link to="/user">
                 <i class="fa fa-user"></i>
-                <span>User management</span>
-              </a>
-              <ul class="sub">
-                <li>
-                  <a href="#">Add new User</a>
-                </li>
-                <li>
-                  <a href="#">User List</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">
-                <i class="fa fa-wrench"></i>
-                <span>Setting</span>
-              </a>
+                <span>User Management</span>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -346,15 +345,20 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "HeadBar",
-  computed: {
-    ...mapGetters({ aa: "isMenuBar", widthMenuBar: "widthMenuBar" })
-  },
+  computed: {},
   methods: {
-    ...mapActions({ abc: "switchMenu", setWidthMenu: "setWidthMenu" })
+    ...mapActions({
+      switchMenu: "switchMenu",
+      setWidthMenu: "setWidthMenu",
+      removeTokenLocal: "removeTokenLocal"
+    }),
+    onLogOutClick() {
+      this.removeTokenLocal();
+    }
   },
   mounted: function() {
     this.setWidthMenu(this.$refs.sidebar.getBoundingClientRect().width);

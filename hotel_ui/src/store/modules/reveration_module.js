@@ -16,7 +16,9 @@ const state = {
     booking_guest_detail: {},
     clients: [],
     rooms: [],
-    room_types: []
+    room_types: [],
+    minibarByBooking: [],
+    bookingByMinibarRoomCharge: [],
 }
 const getters = {
     getBookingDetail: function (state) {
@@ -33,6 +35,12 @@ const getters = {
     },
     getFrmType(state) {
         return state.frm_type;
+    },
+    getMinibarChargeByBooking(state) {
+        return state.minibarByBooking;
+    },
+    getBookingByMiniAndRoomCharge(state) {
+        return state.bookingByMinibarRoomCharge;
     }
 }
 const mutations = {
@@ -40,8 +48,12 @@ const mutations = {
         state.booking_detail = new Booking();
         state.booking_guest_detail = new Guest();
     },
-    fetchClientList: function (state) {
-        axios.get(URL_API + 'api/clients').then(res => {
+    fetchClientList: function (state, header_config) {
+        axios.get(URL_API + 'api/clients', {
+            headers: {
+                ...header_config
+            }
+        }).then(res => {
             if (res.status == 200) {
                 state.clients = res.data;
             }
@@ -50,8 +62,12 @@ const mutations = {
             }
         });
     },
-    fetchRoomTypeList: function (state) {
-        axios.get(URL_API + 'api/roomtypes').then(res => {
+    fetchRoomTypeList: function (state, header_config) {
+        axios.get(URL_API + 'api/roomtypes', {
+            headers: {
+                ...header_config
+            }
+        }).then(res => {
             if (res.status == 200) {
                 state.room_types = res.data;
             }
@@ -63,7 +79,11 @@ const mutations = {
     fetchGuestBookingDetail: function (state, data) {
         state.booking_detail = new Booking();
         state.booking_guest_detail = new Guest();
-        axios.get(URL_API + 'api/guestbookingdetail/' + data.id).then(res => {
+        axios.get(URL_API + 'api/guestbookingdetail/' + data.data.id, {
+            headers: {
+                ...data.header_config
+            }
+        }).then(res => {
             if (res.status == 200) {
                 state.booking_guest_detail.fullname = res.data.fullname;
                 state.booking_guest_detail.id = res.data.id;
@@ -74,7 +94,41 @@ const mutations = {
             }
         });
     },
-    postReveration: function (state) {
+    fetchMinibarChargeByBooking: function (state, data) {
+        axios.get(URL_API + 'api/minibarchargebybooking?booking_id=' + data.id, {
+            headers: {
+                ...data.header_config
+            }
+        }).then(res => {
+            if (res.status == 200) {
+                state.minibarByBooking = res.data.map(item => {
+                    return {
+                        ...item,
+                        date_order: parse(item.date_order),
+                    }
+
+                });
+            }
+            else {
+                state.minibarByBooking = [];
+            }
+        });
+    },
+    fetchBookingByMiniAndRoomCharge: function (state, data) {
+        axios.get(URL_API + 'api/boookingbyfolio?booking_id=' + data.id, {
+            headers: {
+                ...data.header_config
+            }
+        }).then(res => {
+            if (res.status == 200) {
+                state.bookingByMinibarRoomCharge = res.data;
+            }
+            else {
+                state.bookingByMinibarRoomCharge = [];
+            }
+        });
+    },
+    postReveration: function (state, header_config) {
         let booking = {
             ...state.booking_detail,
             arrive_date: format(state.booking_detail.arrive_date, 'YYYY-MM-DD'),
@@ -83,10 +137,14 @@ const mutations = {
             booking_status: 1,
         };
         axios.post(URL_API + 'api/new_reveration',
-            booking
+            booking, {
+                headers: {
+                    ...header_config
+                }
+            }
         ).then().catch();
     },
-    updateReveration: function (state) {
+    updateReveration: function (state, header_config) {
         let booking = {
             ...state.booking_detail,
             arrive_date: format(state.booking_detail.arrive_date, 'YYYY-MM-DD'),
@@ -94,11 +152,19 @@ const mutations = {
             guest: state.booking_guest_detail,
         };
         axios.put(URL_API + 'api/reveration_update/' + state.booking_detail.id,
-            booking
+            booking, {
+                headers: {
+                    ...header_config
+                }
+            }
         ).then().catch()
     },
     deleteReveration: function (state, data) {
-        axios.delete(URL_API + 'api/reveration_delete/' + data.id).then().catch()
+        axios.delete(URL_API + 'api/reveration_delete/' + data.data.id, {
+            headers: {
+                ...data.header_config
+            }
+        }).then().catch()
     },
 
     setBookingCode(state, value) {
@@ -141,26 +207,56 @@ const mutations = {
 
 }
 const actions = {
-    fetchGuestBookingDetail: function ({ commit }, data) {
-        commit('fetchGuestBookingDetail', data);
+    fetchGuestBookingDetail: function ({ commit, rootState }, data) {
+        commit('fetchGuestBookingDetail', {
+            data, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
+        });
     },
     setBookingDetailDeafault: function ({ commit }) {
         commit('setBookingDetailDeafault');
     },
-    fetchClientList: function ({ commit }) {
-        commit('fetchClientList');
+    fetchClientList: function ({ commit, rootState }) {
+        commit('fetchClientList', {
+            'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+        });
     },
-    fetchRoomTypeList: function ({ commit }) {
-        commit('fetchRoomTypeList');
+    fetchRoomTypeList: function ({ commit, rootState }) {
+        commit('fetchRoomTypeList', {
+            'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+        });
     },
-    postReveration: function (context) {
-        context.commit('postReveration');
+    fetchMinibarChargeByBooking: function ({ commit, rootState }, id) {
+        commit('fetchMinibarChargeByBooking', {
+            id, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
+        });
     },
-    updateReveration: function ({ commit }) {
-        commit('updateReveration');
+    fetchBookingByMiniAndRoomCharge: function ({ commit, rootState }, id) {
+        commit('fetchBookingByMiniAndRoomCharge', {
+            id, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
+        });
     },
-    deleteReveration: function ({ commit }, data) {
-        commit('deleteReveration', data);
+    postReveration: function ({ commit, rootState }) {
+        commit('postReveration', {
+            'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+        });
+    },
+    updateReveration: function ({ commit, rootState }) {
+        commit('updateReveration', {
+            'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+        });
+    },
+    deleteReveration: function ({ commit, rootState }, data) {
+        commit('deleteReveration', {
+            data, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
+        });
     },
 
     setBookingCode({ commit }, value) {

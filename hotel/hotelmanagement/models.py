@@ -4,6 +4,13 @@ from django.utils import timezone
 # Init data: https://code.djangoproject.com/wiki/Fixtures
 
 # phase 1.
+class Config(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    session_date = models.DateField()
+
+    def __str__(self):
+        return self.name
+
 
 class Client(models.Model):
     name = models.CharField(max_length=100)
@@ -73,6 +80,8 @@ class Booking(models.Model):
     client = models.ForeignKey(Client, related_name='booking_clients', on_delete=models.CASCADE)
     room = models.ForeignKey(Room, related_name='booking_room', on_delete=models.CASCADE)
     booking_status = models.ForeignKey(BookingStatus, related_name= 'status', on_delete=models.CASCADE)
+    booking_folio_transfer_roomcharge = models.ForeignKey('self', default=None, null= True, on_delete=models.SET_NULL, related_name='bk_folio_transfer_roomcharge')
+    booking_folio_transfer_minibarcharge = models.ForeignKey('self', default=None, null= True, on_delete=models.SET_NULL, related_name='bk_folio_transfer_minibarcharge')
 
     def __str__(self):
         return self.booking_code
@@ -98,6 +107,7 @@ class MinibarCharge(models.Model):
 class RoomCharge(models.Model):
     price_confirm = models.IntegerField(default=0)
     date_charge = models.DateTimeField(default=timezone.now)
+    date_session = models.DateField()
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
 
     def __str__(self):
