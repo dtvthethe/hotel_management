@@ -6,9 +6,7 @@ import frontdesk_module from './modules/frontdesk_module'
 import reveration_module from './modules/reveration_module'
 import product_module from './modules/product_module'
 import producttypes_module from './modules/producttypes_module'
-import minibarcharge_module from './modules/minibarcharge_module'
 import bookingpayment_module from './modules/bookingpayment_module'
-import roomcharge_module from './modules/roomcharge_module'
 import paymenttype_module from './modules/paymenttype_module'
 import config_module from './modules/config_module'
 import user_module from './modules/user_module'
@@ -17,6 +15,7 @@ import roomtype_module from './modules/roomtype_module'
 import producttype_module from './modules/producttype_module'
 import room_module from './modules/room_module'
 import roomstatus_module from './modules/roomstatus_module'
+import invoice_module from './modules/invoice_module'
 
 
 
@@ -29,9 +28,7 @@ export default new Vuex.Store({
         reveration_module,
         product_module,
         producttypes_module,
-        minibarcharge_module,
         bookingpayment_module,
-        roomcharge_module,
         paymenttype_module,
         config_module,
         user_module,
@@ -39,6 +36,7 @@ export default new Vuex.Store({
         roomtype_module,
         producttype_module,
         room_module,
-        roomstatus_module
+        roomstatus_module,
+        invoice_module
     }
 });

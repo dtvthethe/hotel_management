@@ -5,6 +5,7 @@ import { URL_API } from '../config'
 const state = {
     rooms: [],
     guests_bookings: [],
+    error_transfer: null,
 }
 
 const getters = {
@@ -18,6 +19,9 @@ const getters = {
     },
     getGuestBookings: function (state) {
         return state.guests_bookings;
+    },
+    getErrorTransfer: function (state) {
+        return state.error_transfer;
     }
 }
 
@@ -65,11 +69,13 @@ const mutations = {
             }).then().catch()
     },
     updateBookingCheckIn: function (state, data) {
-        let booking_data = {
-            booking_status: 2
+        let invoice_data = {
+            booking_status: 2,
+            booking_id: parseInt(data.booking_id),
+            guest_id: data.guest_id
         };
-        axios.put(URL_API + 'api/booking_checkin/' + data.booking_id,
-            booking_data
+        axios.put(URL_API + 'api/checkin/' + data.booking_id,
+            invoice_data
             , {
                 headers: {
                     ...data.header_config
@@ -89,13 +95,19 @@ const mutations = {
             }).then().catch()
     },
     updateBookingFolioTransfer: function (state, data) {
-        axios.put(URL_API + 'api/booking_updatefoliotransfer/' + data.booking.id,
-            data.booking.data
+        state.error_transfer = null;
+        axios.put(URL_API + 'api/invoice/updatefoliotransfer/' + data.invoice.id,
+            data.invoice.data
             , {
                 headers: {
                     ...data.header_config
                 }
-            }).then().catch()
+            }).then(()=>{
+                state.error_transfer = null;
+            }).catch(() => {
+                state.error_transfer = "This's ID unvalid to transfer";
+            });
+
     },
     removeCalendarBooking: function (state, id) {
         let bk = state.guests_bookings.find(item => item.booking.id == id);
@@ -130,16 +142,17 @@ const actions = {
     removeCalendarBooking({ commit }, id) {
         commit('removeCalendarBooking', id);
     },
-    updateBookingFolioTransfer: function ({ commit, rootState }, booking_data) {
+    updateBookingFolioTransfer: function ({ commit, rootState }, invoice_data) {
         commit('updateBookingFolioTransfer', {
-            'booking': booking_data, header_config: {
+            invoice: invoice_data, header_config: {
                 'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
-            }
+            },
         });
     },
     updateBookingCheckIn: function ({ commit, rootState }, booking_data) {
         commit('updateBookingCheckIn', {
-            'booking_id': booking_data,
+            booking_id: booking_data.booking_id,
+            guest_id: booking_data.guest_id,
             header_config: {
                 'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
             }

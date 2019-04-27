@@ -142,7 +142,10 @@ export default {
       getRoomWithTypes: "getRoomWithTypes",
       getBookings: "getBookings",
       getRooms: "getRooms",
-      getSessionDate: "getSessionDate"
+      getSessionDate: "getSessionDate",
+      getInvoices:"getInvoices",
+      getBookingGuestDetail:"getBookingGuestDetail",
+      getBookingDetail:"getBookingDetail"
     })
   },
   methods: {
@@ -157,14 +160,14 @@ export default {
       removeBookings: "removeBookings",
       setFrmType: "setFrmType",
       fetchPaymentTypes: "fetchPaymentTypes",
-      fetchMinibarCharges: "fetchMinibarCharges",
       fetchBookingPayments: "fetchBookingPayments",
-      fetchRoomCharges: "fetchRoomCharges",
-      fetchMinibarChargeByBooking: "fetchMinibarChargeByBooking",
-      fetchBookingByMiniAndRoomCharge: "fetchBookingByMiniAndRoomCharge",
       fetchSessionDate: "fetchSessionDate",
       updateBookingCheckIn: "updateBookingCheckIn",
-      updateBookingCheckOut: "updateBookingCheckOut"
+      updateBookingCheckOut: "updateBookingCheckOut",
+      fetchInvoiceDetails:"fetchInvoiceDetails",
+      setBookingPaymentToNull:"setBookingPaymentToNull",
+      setInvoicesToNull:"setInvoicesToNull",
+      setInvoiceID:"setInvoiceID"
     }),
     enableMenuContext: function(event) {
       if (event.which === 3) {
@@ -419,17 +422,41 @@ export default {
         action_name: aliasName
       };
       if (this.data_booking.action_name == "detail" && this.data_booking.id) {
-        this.fetchGuestBookingDetail(this.data_booking);
+        let guest_infor = this.getBookings.find(item => item.booking.id == this.data_booking.id);
+        let guest_param = {};
+        if (guest_infor.booking.booking_status.id == 1) {
+          guest_param = {
+            data_booking: this.data_booking,
+            guest_booking: null
+          };
+        } else {
+          guest_param = {
+            data_booking: this.data_booking,
+            guest_booking: {
+              booking_id: this.data_booking.id,
+              guest_id: guest_infor.id
+            }
+          };
+        }
+
+        this.fetchGuestBookingDetail(guest_param);
+        
         this.setFrmType({
           type: "fo",
           method: "edit",
           session_date: format(this.getSessionDate, "YYYY-MM-DD")
         });
-        this.fetchMinibarCharges(this.data_booking.id);
         this.fetchBookingPayments(this.data_booking.id);
-        this.fetchRoomCharges(this.data_booking.id);
-        this.fetchMinibarChargeByBooking(this.data_booking.id);
-        this.fetchBookingByMiniAndRoomCharge(this.data_booking.id);
+        // start [
+        // this.fetchMinibarCharges(this.data_booking.id);
+        // this.fetchRoomCharges(this.data_booking.id);
+        // this.fetchMinibarChargeByBooking(this.data_booking.id);
+        // this.fetchBookingByMiniAndRoomCharge(this.data_booking.id);
+        // end ]
+
+        // fetch invoices + detail:
+        // this.fetchInvoiceDetails({booking_id:this.data_booking.id, guest_id});
+
       } else if (
         this.data_booking.action_name == "delete" &&
         this.data_booking.id
@@ -455,6 +482,9 @@ export default {
       } else if (this.data_booking.action_name == "new") {
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.room_selected_id);
+        this.setBookingPaymentToNull();
+        this.setInvoicesToNull();
+        this.setInvoiceID(null);
         this.setFrmType({
           type: "fo",
           method: "new",
@@ -497,7 +527,9 @@ export default {
           })
           .then(dialog => {
             // on OK click
-            this.updateBookingCheckIn(this.data_booking.id);
+            let guest_id = this.getBookings.find(item => item.booking.id == this.data_booking.id).id;
+            
+            this.updateBookingCheckIn({booking_id: this.data_booking.id, guest_id});
             setTimeout(() => {
               this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
               dialog.close();

@@ -176,7 +176,7 @@
       <!-- //reservation -->
       <!-- extracharge -->
       <div role="tabpanel" class="tab-pane" id="extracharge">
-        <a class="btn btn-sm btn-default" @click="show('minibar-popup', 'new')">Add new</a>
+        <a class="btn btn-sm btn-default" @click="show('minibar-popup', 'new')" v-show="showButtontoClick">Add new</a>
         <table class="table table-fixed table-minibar">
           <thead>
             <tr>
@@ -189,7 +189,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr :key="item.id" v-for="item in getMinibarCharges">
+            <tr :key="item.id" v-for="item in getInvoiceMinibar">
               <td class="col-md-2">{{item.date_order | dateFormat('DD/MM/YYYY HH:mm:ss')}}</td>
               <td class="col-md-2">{{item.product.name}}</td>
               <td class="col-md-2">{{item.quantity}}</td>
@@ -202,7 +202,6 @@
             </tr>
           </tbody>
         </table>
-        <p>Total comes to: {{totalPrice | currency}}</p>
       </div>
       <!-- //extracharge -->
       <!-- foliodetail -->
@@ -211,7 +210,8 @@
           <fieldset class="col-md-2">
             <legend class>Payment</legend>
             <div>
-              <p>{{balanceTotal | currency}}</p>
+              <p>Folio NO: {{getInvoiceID}}</p>
+              <p>Balance: {{balanceTotal | currency}}</p>
               <p>{{strFolioTranfer}}</p>
             </div>
           </fieldset>
@@ -221,6 +221,7 @@
               <a
                 class="btn btn-sm btn-default"
                 @click="showPaymentPopup('payment-popup', 'new')"
+                v-show="showPaymentButtontoClick"
               >Add Payment</a>
             </div>
             <div class="col-md-12">
@@ -259,15 +260,17 @@
         <div class="row">
           <fieldset class="col-md-12">
             <legend class>All Guest Transactions</legend>
-            <a class="btn btn-sm btn-warning" @click="addRoomCharge()">Add Room Charge</a>
+            <a class="btn btn-sm btn-warning" @click="addRoomCharge()" v-show="showButtontoClick">Add Room Charge</a>
             <a
               class="btn btn-sm btn-default"
               :class="{'disabled' : disableButtonByFolioTranferBooking}"
+              v-show="showButtontoClick"
               @click="transferFolio()"
             >Folio Transfer</a>
             <a
               class="btn btn-sm btn-danger"
               :class="{'disabled' : disableButtonByFolioTranferBooking2}"
+              v-show="showButtontoClick"
               @click="cancelTransferFolio()"
             >Cancel Folio Transfer</a>
             <table class="table table-fixed table-transaction">
@@ -283,43 +286,51 @@
                 </tr>
               </thead>
               <tbody>
-                <tr :key="item.id" v-for="item in allTransferRoomChargeMinibar">
+                <tr :key="item.id" v-for="item in getInvoiceAllCharge">
                   <td
                     class="col-md-2"
-                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                    :class="{'transfer-other-room':(item.invoice != getInvoiceID && item.product.id == 1), 'transfer-other-minibar':(item.invoice != getInvoiceID && item.product.id != 1), 'room-charge':(item.invoice == getInvoiceID && item.product.id == 1)}"
                   >{{item.date_order | dateFormat('DD/MM/YYYY HH:mm:ss')}}</td>
                   <td
                     class="col-md-1"
-                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
-                  >{{item.room_name}}</td>
+                    :class="{'transfer-other-room':(item.invoice != getInvoiceID && item.product.id == 1), 'transfer-other-minibar':(item.invoice != getInvoiceID && item.product.id != 1), 'room-charge':(item.invoice == getInvoiceID && item.product.id == 1)}"
+                  >{{item.room.name}}</td>
                   <td
                     class="col-md-3"
-                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
-                  >{{item.product_name}}</td>
+                    :class="{'transfer-other-room':(item.invoice != getInvoiceID && item.product.id == 1), 'transfer-other-minibar':(item.invoice != getInvoiceID && item.product.id != 1), 'room-charge':(item.invoice == getInvoiceID && item.product.id == 1)}"
+                  >
+                    {{item.product.name}}
+                    <span
+                      v-if="item.product.id == 1"
+                    >({{item.date_session | dateFormat('DD/MM/YYYY')}})</span>
+                  </td>
                   <td
                     class="col-md-2"
-                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                    :class="{'transfer-other-room':(item.invoice != getInvoiceID && item.product.id == 1), 'transfer-other-minibar':(item.invoice != getInvoiceID && item.product.id != 1), 'room-charge':(item.invoice == getInvoiceID && item.product.id == 1)}"
                   >{{item.price_confirm | currency}}</td>
                   <td
                     class="col-md-1"
-                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                    :class="{'transfer-other-room':(item.invoice != getInvoiceID && item.product.id == 1), 'transfer-other-minibar':(item.invoice != getInvoiceID && item.product.id != 1), 'room-charge':(item.invoice == getInvoiceID && item.product.id == 1)}"
                   >{{item.quantity}}</td>
                   <td
                     class="col-md-2"
-                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                    :class="{'transfer-other-room':(item.invoice != getInvoiceID && item.product.id == 1), 'transfer-other-minibar':(item.invoice != getInvoiceID && item.product.id != 1), 'room-charge':(item.invoice == getInvoiceID && item.product.id == 1)}"
                   >{{item.total | currency}}</td>
                   <td
                     class="col-md-1"
-                    :class="{'transfer-other-room':item.type_item == 'room', 'transfer-other-minibar':(item.booking_id != getBookingGuestDetail.id && item.type_item == 'minibar')}"
+                    :class="{'transfer-other-room':(item.invoice != getInvoiceID && item.product.id == 1), 'transfer-other-minibar':(item.invoice != getInvoiceID && item.product.id != 1), 'room-charge':(item.invoice == getInvoiceID && item.product.id == 1)}"
                   >
-                    <span v-if="item.show_option" style="display: inline">
+                    <span
+                      v-if="item.invoice == getInvoiceID && item.product.id == 1"
+                      style="display: inline"
+                    >
                       <a
                         style="cursor: pointer;"
-                        @click="show('roomcharge-popup', 'edit', item.item_id)"
+                        @click="show('roomcharge-popup', 'edit', item.id)"
                       >Edit</a> |
                       <a
                         style="cursor: pointer;"
-                        @click="deleteRoomChargeClick(item.item_id)"
+                        @click="deleteRoomChargeClick(item.id)"
                       >Delete</a>
                     </span>
                     <span v-else>&emsp;</span>
@@ -327,7 +338,7 @@
                 </tr>
               </tbody>
             </table>
-            <p>Total = {{allTransferRoomChargeMinibarToTal | currency}}</p>
+            <p>Total = {{getTotalAllCharge | currency}}</p>
           </fieldset>
         </div>
       </div>
@@ -390,7 +401,6 @@
           >
         </div>
       </div>
-
       <input type="button" value="Save" @click="onSaveMiniBarClick()">
       <input type="button" value="Close" @click="hide('minibar-popup')">
     </popup-modal>
@@ -433,6 +443,7 @@
       Folio ID:
       <input type="text" v-model="folio_transfer.id_folio_transfer">
       <i>{{messageErrorFolioTransfer}}</i>
+      <i>{{getErrorTransfer}}</i>
       <br>
       <div :key="item.id" v-for="item in folio_transfer.typeoffoliotransfers">
         <input
@@ -481,8 +492,7 @@ export default {
       minibarcharge: {
         price_confirm: 0,
         quantity: 1,
-        booking: 0,
-        product: 0
+        product: 0,
       },
       bookingpayment: {
         credit: 0,
@@ -492,9 +502,8 @@ export default {
       },
       roomcharge: {
         price_confirm: 0,
-        date_charge: null,
-        date_session: null,
-        booking: -1
+        quantity: 1,
+        product: 0,
       },
       id_editing: 0,
       folio_transfer: {
@@ -527,7 +536,6 @@ export default {
       getFrmType: "getFrmType",
       getProducts: "getProducts",
       getProductTypes: "getProductTypes",
-      getMinibarCharges: "getMinibarCharges",
       getMinibarChargeById: "getMinibarChargeById",
       getBookingPayments: "getBookingPayments",
       getBookingPaymentById: "getBookingPaymentById",
@@ -535,9 +543,60 @@ export default {
       getRoomChargeById: "getRoomChargeById",
       getPaymentTypes: "getPaymentTypes",
       getSessionDate: "getSessionDate",
-      getMinibarChargeByBooking: "getMinibarChargeByBooking",
-      getBookingByMiniAndRoomCharge: "getBookingByMiniAndRoomCharge"
+      getInvoiceID: "getInvoiceID",
+      getInvoices: "getInvoices",
+      getErrorTransfer: "getErrorTransfer"
     }),
+    getInvoiceMinibar() {
+      if (this.getInvoices.length > 0) {
+        let invs = this.getInvoices
+          .find(item => item.id == this.getInvoiceID)
+          .invoices.filter(item => item.product.id != 1);
+        let invs_formats = invs.map(item => {
+          return {
+            ...item,
+            date_order: parse(item.date_order)
+          };
+        });
+        return invs_formats;
+      } else {
+        return [];
+      }
+    },
+    getInvoiceAllCharge() {
+      if (this.getInvoices.length > 0) {
+        let lst = [];
+        this.getInvoices.forEach(invoice => {
+          invoice.invoices.forEach(item => {
+            if(item.isShow == true){
+              lst.push({
+                ...item,
+                room: invoice.booking.room,
+                date_order: parse(item.date_order),
+                date_session: parse(item.date_session),
+                total: item.quantity * item.price_confirm
+              });
+            }
+          });
+        });
+        return lst;
+      } else {
+        return [];
+      }
+    },
+    getTotalAllCharge() {
+      if (this.getInvoices.length > 0) {
+        let total = 0;
+        this.getInvoices.forEach(invoice => {
+          invoice.invoices.forEach(item => {
+            total += item.quantity * item.price_confirm;
+          });
+        });
+        return total;
+      } else {
+        return 0;
+      }
+    },
     booking_code: {
       get() {
         return this.getBookingDetail.booking_code;
@@ -639,178 +698,129 @@ export default {
         return this.getProducts;
       }
     },
-    totalPrice() {
-      let total = 0;
-      this.getMinibarCharges.forEach(item => {
-        total += item.price_confirm * item.quantity;
-      });
-      return total;
-    },
     disableButtonByFolioTranferBooking() {
-      if (this.getBookingDetail.booking_status == 3) {
-        return true; // disable
-      } else if (this.getBookingByMiniAndRoomCharge.length > 0) {
-        return true; // disable
+      if (this.getInvoiceID == null) {
+        return true;
+      }
+      if (this.getInvoices.length == 0 || this.getInvoices.length > 1) {
+        return true;
+      }
+      let invoice = this.getInvoices.find(item => this.getInvoiceID == item.id);
+      if (
+        invoice.folio_transfer_minibarcharge == null &&
+        invoice.folio_transfer_roomcharge == null
+      ) {
+        return false;
       } else {
-        let roomCharge = this.getBookingDetail
-          .booking_folio_transfer_roomcharge;
-        let minibarCharge = this.getBookingDetail
-          .booking_folio_transfer_minibarcharge;
-        if (roomCharge == undefined && minibarCharge == undefined) {
-          return false;
-        } else if (roomCharge == null && minibarCharge == null) {
-          return false;
-        } else {
-          return true;
-        }
-        // return false;
+        return true;
       }
     },
     disableButtonByFolioTranferBooking2() {
-      if (this.getBookingDetail.booking_status == 3) {
-        return true; // disable
-      } else if (this.getBookingByMiniAndRoomCharge.length > 0) {
-        return true; // disable
+      if (this.getInvoiceID == null) {
+        return true;
+      }
+      if (this.getInvoices.length == 0 || this.getInvoices.length > 1) {
+        return true;
+      }
+      let invoice = this.getInvoices.find(item => this.getInvoiceID == item.id);
+      if (
+        invoice.folio_transfer_minibarcharge == null &&
+        invoice.folio_transfer_roomcharge == null
+      ) {
+        return true;
       } else {
-        let roomCharge = this.getBookingDetail
-          .booking_folio_transfer_roomcharge;
-        let minibarCharge = this.getBookingDetail
-          .booking_folio_transfer_minibarcharge;
-        if (roomCharge == undefined && minibarCharge == undefined) {
-          return true;
-        } else if (roomCharge == null && minibarCharge == null) {
-          return true;
-        } else {
-          return false;
-        }
+        return false;
       }
     },
     messageErrorFolioTransfer() {
-      if (
-        this.folio_transfer.id_folio_transfer == this.getBookingGuestDetail.id
-      ) {
+      if (this.folio_transfer.id_folio_transfer == this.getInvoiceID) {
         return "Can't set to this Folio ID.";
       }
       return null;
-    },
-    allTransferRoomChargeMinibar() {
-      let allRoomChargeMinibars = [];
-      // minibar
-      if (this.getMinibarChargeByBooking.length > 0) {
-        this.getMinibarChargeByBooking.forEach(item => {
-          allRoomChargeMinibars.push({
-            item_id: item.id,
-            booking_id: item.booking.id,
-            date_order: item.date_order,
-            room_name: item.booking.room.name,
-            product_name: item.product.name,
-            price_confirm: item.price_confirm,
-            quantity: item.quantity,
-            total: item.quantity * item.price_confirm,
-            type_item: "minibar",
-            show_option: false
-          });
-        });
-      }
-      // room
-      if (this.getRoomCharges.length > 0) {
-        this.getRoomCharges.forEach(item => {
-          allRoomChargeMinibars.push({
-            item_id: item.id,
-            booking_id: item.booking.id,
-            date_order: item.date_charge,
-            room_name: item.booking.room.name,
-            product_name: "Room Charge",
-            price_confirm: item.price_confirm,
-            quantity: 1,
-            total: item.price_confirm,
-            type_item: "room",
-            show_option:
-              this.getBookingGuestDetail.id == item.booking.id ? true : false
-          });
-        });
-      }
-      return allRoomChargeMinibars;
-    },
-    allTransferRoomChargeMinibarToTal() {
-      let total_folio = 0;
-      // minibar
-      if (this.getMinibarChargeByBooking.length > 0) {
-        this.getMinibarChargeByBooking.forEach(item => {
-          total_folio += item.quantity * item.price_confirm;
-        });
-      }
-      // room
-      if (this.getRoomCharges.length > 0) {
-        this.getRoomCharges.forEach(item => {
-          total_folio += item.price_confirm;
-        });
-      }
-      return total_folio;
     },
     balanceTotal() {
       if (this.getBookingGuestDetail.id == undefined) {
         return 0;
       }
       let totalPayment = 0;
-      let totalBalance = 0;
-
       this.getBookingPayments.forEach(item => {
         totalPayment += item.credit;
       });
 
-      if (
-        this.getBookingDetail.booking_folio_transfer_minibarcharge == null &&
-        this.getBookingDetail.booking_folio_transfer_roomcharge == null
-      ) {
-        return this.allTransferRoomChargeMinibarToTal - totalPayment;
-      } else {
-        if (this.getBookingDetail.booking_folio_transfer_roomcharge == null) {
-          // room charge
-          if (this.getRoomCharges.length > 0) {
-            this.getRoomCharges.forEach(item => {
-              totalBalance += item.price_confirm;
-            });
-          }
-        }
-
-        if (
-          this.getBookingDetail.booking_folio_transfer_minibarcharge == null
-        ) {
-          // minibar
-          if (this.getMinibarChargeByBooking.length > 0) {
-            this.getMinibarChargeByBooking.forEach(item => {
-              totalBalance += item.quantity * item.price_confirm;
-            });
-          }
-        }
-        return totalBalance - totalPayment;
+      if (this.getInvoiceID == null) {
+        return totalPayment * -1;
       }
+      if (this.getInvoices.length <= 0) {
+        return totalPayment * -1;
+      }
+
+      
+      let invoice = this.getInvoices.find(item => this.getInvoiceID == item.id);
+      if (
+        invoice.folio_transfer_minibarcharge != null &&
+        invoice.folio_transfer_roomcharge != null
+      ) {
+        return totalPayment * -1;
+      }
+      if (
+        invoice.folio_transfer_minibarcharge != null &&
+        invoice.folio_transfer_roomcharge == null
+      ) {
+        let total = 0;
+        this.getInvoices.forEach(invoice => {
+          invoice.invoices.forEach(item => {
+            if (item.product.id == 1) {
+              total += item.quantity * item.price_confirm;
+            }
+          });
+        });
+        return total - totalPayment;
+      }
+      if (
+        invoice.folio_transfer_minibarcharge == null &&
+        invoice.folio_transfer_roomcharge != null
+      ) {
+        let total = 0;
+        this.getInvoices.forEach(invoice => {
+          invoice.invoices.forEach(item => {
+            if (item.product.id != 1) {
+              total += item.quantity * item.price_confirm;
+            }
+          });
+        });
+        return total - totalPayment;
+      }
+
+      return this.getTotalAllCharge - totalPayment;
     },
     strFolioTranfer() {
       if (this.getBookingGuestDetail.id == undefined) {
-        return 0;
+        return "";
+      }
+      if (this.getInvoiceID == null) {
+        return "";
+      }
+      if (this.getInvoices.length <= 0) {
+        return "";
       }
       let iDFolio = 0;
       let strFolio = "";
-
+      let invoice = this.getInvoices.find(item => this.getInvoiceID == item.id);
       if (
-        this.getBookingDetail.booking_folio_transfer_minibarcharge == null &&
-        this.getBookingDetail.booking_folio_transfer_roomcharge == null
+        invoice.folio_transfer_minibarcharge == null &&
+        invoice.folio_transfer_roomcharge == null
       ) {
         return "";
       } else {
-        if (this.getBookingDetail.booking_folio_transfer_roomcharge != null) {
+        if (invoice.folio_transfer_roomcharge != null) {
           // room charge
-          iDFolio = this.getBookingDetail.booking_folio_transfer_roomcharge;
+          iDFolio = invoice.folio_transfer_roomcharge;
           strFolio += "Room Charge";
         }
 
-        if (
-          this.getBookingDetail.booking_folio_transfer_minibarcharge != null
-        ) {
+        if (invoice.folio_transfer_minibarcharge != null) {
           // minibar
-          iDFolio = this.getBookingDetail.booking_folio_transfer_minibarcharge;
+          iDFolio = invoice.folio_transfer_minibarcharge;
           if (strFolio == "") {
             strFolio += "Minibar Charge";
           } else {
@@ -820,6 +830,12 @@ export default {
 
         return "Folio ID:" + iDFolio + "(" + strFolio + ")";
       }
+    },
+    showButtontoClick(){
+      return this.getBookingDetail.booking_status == 2;
+    },
+    showPaymentButtontoClick(){
+      return this.getBookingDetail.booking_status == 2 || this.getBookingDetail.booking_status == 1;
     }
   },
   watch: {
@@ -883,19 +899,17 @@ export default {
       fetchProducts: "fetchProducts",
       fetchProductTypes: "fetchProductTypes",
       postMinibarCharge: "postMinibarCharge",
-      fetchMinibarCharges: "fetchMinibarCharges",
-      putMinibarCharge: "putMinibarCharge",
-      deleteMinibarCharge: "deleteMinibarCharge",
       fetchBookingPayments: "fetchBookingPayments",
       postBookingPayment: "postBookingPayment",
       putBookingPayment: "putBookingPayment",
       deleteBookingPayment: "deleteBookingPayment",
-      fetchRoomCharges: "fetchRoomCharges",
-      postRoomCharge: "postRoomCharge",
-      putRoomCharge: "putRoomCharge",
       deleteRoomCharge: "deleteRoomCharge",
       updateBookingFolioTransfer: "updateBookingFolioTransfer",
-      fetchMinibarChargeByBooking: "fetchMinibarChargeByBooking"
+      postInvoiceDetail: "postInvoiceDetail",
+      updateInvoiceDetail: "updateInvoiceDetail",
+      updateInvoiceDetailPriceConfirm: "updateInvoiceDetailPriceConfirm",
+      deleteInvoiceDetail: "deleteInvoiceDetail",
+      fetchInvoices: "fetchInvoices"
     }),
     onSelectDateArrive: function(event) {
       this.disabledDatesDepart.to = event;
@@ -955,37 +969,45 @@ export default {
       if (this.second_popup_status == "new") {
         let data = {
           ...this.minibarcharge,
-          booking: this.getBookingGuestDetail.id
+          invoice: this.getInvoiceID,
+          date_session: format(this.getSessionDate, "YYYY-MM-DD")
         };
-        this.postMinibarCharge(data);
+        this.postInvoiceDetail(data);
         setTimeout(() => {
-          this.fetchMinibarCharges(this.getBookingGuestDetail.id);
-          this.fetchMinibarChargeByBooking(this.getBookingGuestDetail.id);
+          this.fetchInvoices({ invoice_id: this.getInvoiceID });
           this.$modal.hide("minibar-popup");
+          this.minibarcharge = {
+            price_confirm: 0,
+            quantity: 1,
+            product: 0,
+          }
         }, 2000);
       }
       if (this.second_popup_status == "edit") {
-        this.putMinibarCharge({
+        this.updateInvoiceDetail({
           data: this.minibarcharge,
           id: this.id_editing
         });
         setTimeout(() => {
-          this.fetchMinibarCharges(this.getBookingGuestDetail.id);
-          this.fetchMinibarChargeByBooking(this.getBookingGuestDetail.id);
+          this.fetchInvoices({ invoice_id: this.getInvoiceID });
           this.$modal.hide("minibar-popup");
+          this.minibarcharge = {
+            price_confirm: 0,
+            quantity: 1,
+            product: 0,
+          }
         }, 2000);
       }
     },
     show(popup_name, status, id = 0) {
       if (id > 0) {
         if (popup_name == "minibar-popup") {
-          let minidt = this.getMinibarChargeById(id);
+          let minidt = this.getInvoiceMinibar.find(item => item.id == id);
           this.id_editing = id;
           this.minibarcharge = {
             price_confirm: minidt.price_confirm,
             quantity: minidt.quantity,
-            booking: minidt.booking,
-            product: minidt.product.id
+            product: minidt.product.id,
           };
           this.product_type_id = minidt.product.product_type;
         }
@@ -1000,14 +1022,16 @@ export default {
           };
         }
         if (popup_name == "roomcharge-popup") {
-          let roomcharge = this.getRoomChargeById(id);
-          this.id_editing = id;
-          this.roomcharge = {
-            price_confirm: roomcharge.price_confirm,
-            date_charge: roomcharge.date_charge,
-            date_session: roomcharge.date_session,
-            booking: roomcharge.booking
-          };
+          let roomcharge = this.getInvoiceAllCharge.find(item => item.id == id);
+          if(roomcharge.product.id == 1){
+              this.id_editing = id;
+              this.roomcharge = {
+                price_confirm: roomcharge.price_confirm,
+                quantity: 1,
+                product: 1,
+              };
+          }
+         
         }
       }
       this.second_popup_status = status;
@@ -1026,10 +1050,10 @@ export default {
         })
         .then(dialog => {
           // on OK click
-          this.deleteMinibarCharge(id);
+          this.deleteInvoiceDetail(id);
 
           setTimeout(() => {
-            this.fetchMinibarCharges(this.getBookingGuestDetail.id);
+            this.fetchInvoices({ invoice_id: this.getInvoiceID });
             dialog.close();
           }, 2000);
         })
@@ -1066,10 +1090,10 @@ export default {
         })
         .then(dialog => {
           // on OK click
-          this.deleteRoomCharge(id);
+          this.deleteInvoiceDetail(id);
 
           setTimeout(() => {
-            this.fetchRoomCharges(this.getBookingGuestDetail.id);
+            this.fetchInvoices({ invoice_id: this.getInvoiceID });
             dialog.close();
           }, 2000);
         })
@@ -1087,6 +1111,12 @@ export default {
         setTimeout(() => {
           this.fetchBookingPayments(this.getBookingGuestDetail.id);
           this.$modal.hide("payment-popup");
+          this.bookingpayment = {
+            credit: 0,
+            desciption: null,
+            booking: -1,
+            payment_type: -1
+          }
         }, 2000);
       }
       if (this.second_popup_status == "edit") {
@@ -1097,19 +1127,23 @@ export default {
         setTimeout(() => {
           this.fetchBookingPayments(this.getBookingGuestDetail.id);
           this.$modal.hide("payment-popup");
+          this.bookingpayment = {
+            credit: 0,
+            desciption: null,
+            booking: -1,
+            payment_type: -1
+          }
         }, 2000);
       }
     },
     onSaveRoomChargeClick() {
       if (this.second_popup_status == "edit") {
-        this.putRoomCharge({
-          data: {
-            price_confirm:this.roomcharge.price_confirm,
-          },
+        this.updateInvoiceDetail({
+          data: this.roomcharge,
           id: this.id_editing
         });
         setTimeout(() => {
-          this.fetchRoomCharges(this.getBookingGuestDetail.id);
+          this.fetchInvoices({ invoice_id: this.getInvoiceID });
           this.$modal.hide("roomcharge-popup");
         }, 2000);
       }
@@ -1118,13 +1152,16 @@ export default {
       let data = {
         booking: this.getBookingGuestDetail.id,
         price_confirm: this.price,
-        date_session: format(this.getSessionDate, "YYYY-MM-DD")
+        date_session: format(this.getSessionDate, "YYYY-MM-DD"),
+        quantity: 1,
+        invoice: this.getInvoiceID,
+        product: 1
       };
-      if (
-        this.getRoomCharges.length == 0 ||
-        !this.getRoomCharges.find(item =>
-          isSameDay(parse(this.getSessionDate), parse(item.date_session))
-        )
+      if (this.getInvoiceAllCharge.filter(
+          item =>
+            (isSameDay(parse(this.getSessionDate), parse(item.date_session)) &&
+            item.product.id == 1) && (item.invoice == this.getInvoiceID)
+        ).length == 0
       ) {
         this.$dialog
           .confirm("Do you want to add room charge?", {
@@ -1134,10 +1171,11 @@ export default {
           })
           .then(dialog => {
             // on OK click
-            this.postRoomCharge(data);
+            this.postInvoiceDetail(data);
 
             setTimeout(() => {
-              this.fetchRoomCharges(this.getBookingGuestDetail.id);
+              // this.fetchRoomCharges(this.getBookingGuestDetail.id);
+              this.fetchInvoices({ invoice_id: this.getInvoiceID });
               dialog.close();
             }, 2000);
           })
@@ -1157,39 +1195,37 @@ export default {
       let data = null;
       if (this.folio_transfer.id_folio_transfer_select == 1) {
         data = {
-          booking_folio_transfer_roomcharge: this.folio_transfer
-            .id_folio_transfer,
-          booking_folio_transfer_minibarcharge: this.folio_transfer
-            .id_folio_transfer
+          folio_transfer_roomcharge: this.folio_transfer.id_folio_transfer,
+          folio_transfer_minibarcharge: this.folio_transfer.id_folio_transfer
         };
         this.updateBookingFolioTransfer({
-          id: this.getBookingGuestDetail.id,
+          id: this.getInvoiceID,
           data: data
         });
       } else if (this.folio_transfer.id_folio_transfer_select == 2) {
         data = {
-          booking_folio_transfer_roomcharge: this.folio_transfer
-            .id_folio_transfer,
-          booking_folio_transfer_minibarcharge: null
+          folio_transfer_roomcharge: this.folio_transfer.id_folio_transfer,
+          folio_transfer_minibarcharge: null
         };
         this.updateBookingFolioTransfer({
-          id: this.getBookingGuestDetail.id,
+          id: this.getInvoiceID,
           data: data
         });
       } else if (this.folio_transfer.id_folio_transfer_select == 3) {
         data = {
-          booking_folio_transfer_roomcharge: null,
-          booking_folio_transfer_minibarcharge: this.folio_transfer
-            .id_folio_transfer
+          folio_transfer_roomcharge: null,
+          folio_transfer_minibarcharge: this.folio_transfer.id_folio_transfer
         };
         this.updateBookingFolioTransfer({
-          id: this.getBookingGuestDetail.id,
+          id: this.getInvoiceID,
           data: data
         });
       }
       setTimeout(() => {
-        this.fetchGuestBookingDetail({ id: this.getBookingGuestDetail.id });
-        this.$modal.hide("foliotransfer-popup");
+        if (this.getErrorTransfer == null) {
+          this.fetchInvoices({ invoice_id: this.getInvoiceID });
+          this.$modal.hide("foliotransfer-popup");
+        }
       }, 2000);
     },
     cancelTransferFolio() {
@@ -1202,16 +1238,16 @@ export default {
         .then(dialog => {
           // on OK click
           let data = {
-            booking_folio_transfer_roomcharge: null,
-            booking_folio_transfer_minibarcharge: null
+            folio_transfer_roomcharge: null,
+            folio_transfer_minibarcharge: null
           };
           this.updateBookingFolioTransfer({
-            id: this.getBookingGuestDetail.id,
+            id: this.getInvoiceID,
             data: data
           });
 
           setTimeout(() => {
-            this.fetchGuestBookingDetail({ id: this.getBookingGuestDetail.id });
+            this.fetchInvoices({ invoice_id: this.getInvoiceID });
             dialog.close();
           }, 2000);
         })
@@ -1270,6 +1306,9 @@ export default {
 }
 .second-modal {
   height: 200px;
+}
+.room-charge {
+  background-color: yellow;
 }
 .transfer-other-room {
   background-color: yellow;

@@ -9,14 +9,16 @@ urlpatterns = [
     path('config', views.ConfigListAPIView().as_view(), name='config'),
 
     path('rooms', views.RoomListAPIView().as_view(), name='roomlist'),
-    path('guest_bookings', views.GuestBookingListAPIView().as_view(), name='guestlist'),
+
+    path('guest_bookings', views.GuestBookingListAPIView().as_view(), name='guestlist'),#xxx http://127.0.0.1:8000/api/guest_bookings?arrive_date=2019-03-03&depart_date=2019-03-12
+    path('guestbookingdetail/<int:pk>', views.GuestBookingRetrieveAPIView().as_view(), name='guestbookingdetail'),# xxx http://127.0.0.1:8000/api/guestbookingdetail/1
+    path('guest_booking', views.GuestBookingFOListAPIView().as_view(), name='guestbooking'), #xxx http://127.0.0.1:8000/api/guest_booking?session_date=2019-03-09
+
     path('room_roomtypes', views.RoomRoomTypesListAPIView().as_view(), name='roomroomtypeslist'),
-    path('guest_booking', views.GuestBookingFOListAPIView().as_view(), name='guestbooking'),
     path('guest_create', views.GuestCreateAPIView().as_view(), name='guestcreate'),
     path('new_reveration', views.BokingCreateAPIView().as_view(), name='createreveration'),
     path('clients', views.ClientListAPIView().as_view(), name='clientlist'),
     path('roomtypes', views.RoomRoomTypesListAPIView().as_view(), name='roomtypelist'),
-    path('guestbookingdetail/<int:pk>', views.GuestBookingRetrieveAPIView().as_view(), name='guestbookingdetail'),
     path('reveration_update/<int:pk>', views.ReverationUpdateAPIView().as_view(), name='reverationupdate'),
     path('booking_update/<int:pk>', views.BookingUpdateAPIView().as_view(), name='bookingupdate'),
     path('reveration_delete/<int:pk>', views.BookingDestroyAPIView.as_view(), name='reverationdelete'),
@@ -24,16 +26,15 @@ urlpatterns = [
     path('product_types', views.ProductTypesListAPIView().as_view(), name='producttypes'),
     path('products', views.ProductListAPIView().as_view(), name='products'),
 
-    path('minibarcharge', views.MinibarChargeListAPIView().as_view(), name='minibarcharge'),
-    path('minibarchargebybooking', views.MinibarChargeByBookingListAPIView().as_view(), name='minibarchargebybooking'),
-    path('minibarcharge_create', views.MinibarChargeCreateAPIView().as_view(), name='minibarchargecreate'),
-    path('minibarcharge_detail/<int:pk>', views.MinibarChargeRetrieveAPIView().as_view(), name='minibarchargedetail'),
-    path('minibarcharge_update/<int:pk>', views.MinibarChargeUpdateAPIView().as_view(), name='minibarchargeupdate'),
-    path('minibarcharge_delete/<int:pk>', views.MinibarChargeDestroyAPIView().as_view(), name='minibarchargecdelete'),
+    # path('minibarcharge', views.MinibarChargeListAPIView().as_view(), name='minibarcharge'),
+    # path('minibarchargebybooking', views.MinibarChargeByBookingListAPIView().as_view(), name='minibarchargebybooking'),
+    # path('minibarcharge_create', views.MinibarChargeCreateAPIView().as_view(), name='minibarchargecreate'),
+    # path('minibarcharge_detail/<int:pk>', views.MinibarChargeRetrieveAPIView().as_view(), name='minibarchargedetail'),
+    # path('minibarcharge_update/<int:pk>', views.MinibarChargeUpdateAPIView().as_view(), name='minibarchargeupdate'),
+    # path('minibarcharge_delete/<int:pk>', views.MinibarChargeDestroyAPIView().as_view(), name='minibarchargecdelete'),
 
     path('boookingbyfolio', views.BookingByFolioListAPIView.as_view(), name='boookingbyfolio'),
-    path('booking_updatefoliotransfer/<int:pk>', views.BookingFolioUpdateAPIView.as_view(), name='updatefoliotransfer'),
-    path('booking_checkin/<int:pk>', views.BookingCheckInUpdateAPIView.as_view(), name='bookingcheckin'),
+    path('checkin/<int:pk>', views.CheckInAPIView.as_view(), name='checkin'),
     path('booking_checkout/<int:pk>', views.BookingCheckOutUpdateAPIView.as_view(), name='bookingcheckout'),
     path('bookingbycondition', views.BookingDateNotAvailableListAPIView.as_view(), name='bookingbycondition'),
 
@@ -41,11 +42,11 @@ urlpatterns = [
     path('bookingpayment_create', views.BookingPaymentCreateAPIView().as_view(), name='bookingpaymentcreate'),
     path('bookingpayment_update/<int:pk>', views.BookingPaymentUpdateAPIView().as_view(), name='bookingpaymentupdate'),
     path('bookingpayment_delete/<int:pk>', views.BookingPaymentDestroyAPIView().as_view(), name='bookingpaymentdelete'),
-
-    path('roomcharge', views.RoomChargeListAPIView().as_view(), name='roomcharge'),
-    path('roomcharge_create', views.RoomChargeCreateAPIView().as_view(), name='roomchargecreate'),
-    path('roomcharge_update_roomrate/<int:pk>', views.RoomChargeRateRoomUpdateAPIView().as_view(), name='roomchargeupdateroomrate'),
-    path('roomcharge_delete/<int:pk>', views.RoomChargeDestroyAPIView().as_view(), name='roomchargedelete'),
+    #
+    # path('roomcharge', views.RoomChargeListAPIView().as_view(), name='roomcharge'),
+    # path('roomcharge_create', views.RoomChargeCreateAPIView().as_view(), name='roomchargecreate'),
+    # path('roomcharge_update_roomrate/<int:pk>', views.RoomChargeRateRoomUpdateAPIView().as_view(), name='roomchargeupdateroomrate'),
+    # path('roomcharge_delete/<int:pk>', views.RoomChargeDestroyAPIView().as_view(), name='roomchargedelete'),
 
     path('paymenttypes', views.PaymentTypeListAPIView().as_view(), name='paymenttypes'),
 
@@ -82,5 +83,15 @@ urlpatterns = [
     path('product2type/delete/<int:pk>', views.ProductTypeDestroyAPIView().as_view(), name='product2type_delete'),
 
     path('roomstatus', views.RoomStatusListAPIView().as_view(), name='room_status'),
+
+
+    path('invoices', views.InvoiceListAPIView().as_view(), name='invoices'),
+    path('invoice/updatefoliotransfer/<int:pk>', views.InvoiceFolioUpdateAPIView.as_view(), name='invoiceupdatefoliotransfer'),
+
+    # path('invoicedetails', views.InvoiceDetailListAPIView().as_view(), name='invoicedetails'),
+    path('invoicedetail/create', views.InvoiceDetailCreateAPIView().as_view(), name='invoicedetail_create'),
+    path('invoicedetail/update/<int:pk>', views.InvoiceDetailUpdateAPIView().as_view(), name='invoicedetail_update'),
+    path('invoicedetailprice/update/<int:pk>', views.InvoiceDetailPriceConfirmUpdateAPIView().as_view(), name='invoicedetailprice_update'),
+    path('invoicedetail/delete/<int:pk>', views.InvoiceDetailDestroyAPIView().as_view(), name='invoicedetail_delete'),
 
 ]

@@ -8,6 +8,7 @@ import RoomType from '../components/RoomType'
 import ProductType from '../components/ProductType'
 import Product from '../components/Product'
 import Room from '../components/Room'
+import GroupReservation from '../components/GroupReservation'
 
 Vue.use(VueRouter)
 
@@ -22,5 +23,6 @@ export default new VueRouter({
         { path: '/producttype', component: ProductType },
         { path: '/product', component: Product },
         { path: '/room', component: Room },
+        { path: '/groupreservation', component: GroupReservation },
     ]
 });

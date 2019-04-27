@@ -8,7 +8,11 @@
       <div class="table-reveration noselect">
         <div class="tbheader">
           <div class="tbcell">R/D</div>
-          <div class="tbcell" :key="dat_index" v-for="(dat, dat_index) in getDays">{{dat.date_format}}</div>
+          <div
+            class="tbcell"
+            :key="dat_index"
+            v-for="(dat, dat_index) in getDays"
+          >{{dat.date_format}}</div>
         </div>
         <div class="tbrow" :key="room_index" v-for="(room, room_index) in getRooms(-1)">
           <div class="tbcell" :style="{width: (windowWidth/numberOfColumn)+'px'}">{{room.name}}</div>
@@ -149,6 +153,9 @@ export default {
       widthMenuBar: "widthMenuBar",
       getRooms: "getRooms",
       getGuestBookings: "getGuestBookings",
+      getInvoices: "getInvoices",
+      getBookingGuestDetail: "getBookingGuestDetail",
+      getBookingDetail: "getBookingDetail"
     }),
     getInstanceDays: function() {
       return differenceInDays(
@@ -183,17 +190,18 @@ export default {
       setBookingDepartDate: "setBookingDepartDate",
       fetchGuestBookingDetail: "fetchGuestBookingDetail",
       deleteReveration: "deleteReveration",
-      updateBooking:"updateBooking",
-      removeCalendarBooking:"removeCalendarBooking",
-      setFrmType:"setFrmType",
-      fetchMinibarCharges:"fetchMinibarCharges",
-      fetchBookingPayments:"fetchBookingPayments",
-      fetchRoomCharges:"fetchRoomCharges",
-      fetchPaymentTypes:"fetchPaymentTypes",
-      fetchMinibarChargeByBooking:"fetchMinibarChargeByBooking",
-      fetchBookingByMiniAndRoomCharge:"fetchBookingByMiniAndRoomCharge",
-      updateBookingCheckIn:"updateBookingCheckIn",
-      updateBookingCheckOut:"updateBookingCheckOut"
+      updateBooking: "updateBooking",
+      removeCalendarBooking: "removeCalendarBooking",
+      setFrmType: "setFrmType",
+      fetchBookingPayments: "fetchBookingPayments",
+      fetchPaymentTypes: "fetchPaymentTypes",
+      updateBookingCheckIn: "updateBookingCheckIn",
+      updateBookingCheckOut: "updateBookingCheckOut",
+      fetchInvoiceDetails: "fetchInvoiceDetails",
+      fetchSessionDate:"fetchSessionDate",
+      setBookingPaymentToNull:"setBookingPaymentToNull",
+      setInvoicesToNull:"setInvoicesToNull",
+      setInvoiceID:"setInvoiceID"
     }),
     handleWindowResize() {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
@@ -288,7 +296,7 @@ export default {
                 icon: "fa fa-expand",
                 label: "Change room",
                 alias: "change",
-                confirm_popup:true,
+                confirm_popup: true
               },
               {
                 label: "Cancel",
@@ -316,20 +324,20 @@ export default {
                 icon: "fa fa-expand",
                 label: "Change room",
                 alias: "change",
-                confirm_popup:true,
+                confirm_popup: true
               },
               {
                 icon: "fa fa-plus",
                 label: "Room charge bill",
                 alias: "",
-                confirm_popup:true,
+                confirm_popup: true
               },
               {
                 icon: "fa fa-plus",
                 label: "Extra charge bill",
                 alias: "",
-                confirm_popup:true,
-              },
+                confirm_popup: true
+              }
             ];
             break;
           case "3": // check-out => chi nen lam chuc nang nay o phan calendar
@@ -338,7 +346,7 @@ export default {
                 icon: "fa fa-thumbs-down",
                 label: "Open Detail",
                 alias: "detail",
-                confirm_popup:false,
+                confirm_popup: false
               }
             ];
             break;
@@ -419,14 +427,32 @@ export default {
     onContextMenuItemClick: function(aliasName) {
       this.data_booking.action_name = aliasName;
       if (this.data_booking.action_name == "detail" && this.data_booking.id) {
-        this.fetchGuestBookingDetail(this.data_booking);
-        this.setFrmType({type: 'ca', method:'edit', date_start: format(this.instance_date.start, "YYYY-MM-DD"),date_stop: format(this.instance_date.stop, "YYYY-MM-DD")});
-        this.fetchMinibarCharges(this.data_booking.id);
+        let guest_infor = this.getGuestBookings.find(
+          item => item.booking.id == this.data_booking.id
+        );
+        let guest_param = {};
+        if (guest_infor.booking.booking_status.id == 1) {
+          guest_param = {
+            data_booking: this.data_booking,
+            guest_booking: null
+          };
+        } else {
+          guest_param = {
+            data_booking: this.data_booking,
+            guest_booking: {
+              booking_id: this.data_booking.id,
+              guest_id: guest_infor.id
+            }
+          };
+        }
+        this.fetchGuestBookingDetail(guest_param);
+        this.setFrmType({
+          type: "ca",
+          method: "edit",
+          date_start: format(this.instance_date.start, "YYYY-MM-DD"),
+          date_stop: format(this.instance_date.stop, "YYYY-MM-DD")
+        });
         this.fetchBookingPayments(this.data_booking.id);
-        this.fetchRoomCharges(this.data_booking.id);
-        this.fetchMinibarChargeByBooking(this.data_booking.id);
-        this.fetchBookingByMiniAndRoomCharge(this.data_booking.id)
-
       } else if (
         this.data_booking.action_name == "delete" &&
         this.data_booking.id
@@ -440,11 +466,10 @@ export default {
           .then(dialog => {
             // on OK click
             setTimeout(() => {
-              this.deleteReveration(this.data_booking).then(()=>{
+              this.deleteReveration(this.data_booking).then(() => {
                 this.removeCalendarBooking(this.data_booking.id);
                 dialog.close();
               });
-              
             }, 2000);
           })
           .catch(() => {
@@ -455,9 +480,16 @@ export default {
         this.setBookingRoom(this.data_booking.id);
         this.setBookingArriveDate(parse(this.select_date.start));
         this.setBookingDepartDate(addDays(this.select_date.stop, 1));
-        this.setFrmType({type: 'ca', method:'new', date_start: format(this.instance_date.start, "YYYY-MM-DD"),date_stop: format(this.instance_date.stop, "YYYY-MM-DD")});
-      }
-      else if (this.data_booking.action_name == "change") {
+        this.setBookingPaymentToNull();
+        this.setInvoicesToNull();
+        this.setInvoiceID(null);
+        this.setFrmType({
+          type: "ca",
+          method: "new",
+          date_start: format(this.instance_date.start, "YYYY-MM-DD"),
+          date_stop: format(this.instance_date.stop, "YYYY-MM-DD")
+        });
+      } else if (this.data_booking.action_name == "change") {
         this.$dialog
           .confirm(
             { rooms: this.getRooms(-1) },
@@ -478,18 +510,16 @@ export default {
                 room: dialog.data.id,
                 booking_status: booking.booking_status.id,
                 client: booking.client.id
-              }
-              this.updateBooking(reser).then(()=>{
+              };
+              this.updateBooking(reser).then(() => {
                 dialog.close();
               });
-              
             }, 2000);
           })
           .catch(() => {
             // on cancel click
           });
-      } 
-      else if (this.data_booking.action_name == "checkin") {
+      } else if (this.data_booking.action_name == "checkin") {
         this.$dialog
           .confirm("Do you want to check-in this room?", {
             loader: true,
@@ -498,7 +528,13 @@ export default {
           })
           .then(dialog => {
             // on OK click
-            this.updateBookingCheckIn(this.data_booking.id);
+            let guest_id = this.getGuestBookings.find(
+              item => item.booking.id == this.data_booking.id
+            ).id;
+            this.updateBookingCheckIn({
+              booking_id: this.data_booking.id,
+              guest_id
+            });
             setTimeout(() => {
               this.fetchGuestBookings({
                 arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),
@@ -510,8 +546,7 @@ export default {
           .catch(() => {
             // on cancel click
           });
-      }
-      else if (this.data_booking.action_name == "checkout") {
+      } else if (this.data_booking.action_name == "checkout") {
         this.$dialog
           .confirm("Do you want to check-out this room?", {
             loader: true,
@@ -532,17 +567,18 @@ export default {
           .catch(() => {
             // on cancel click
           });
-      }
-      else {
+      } else {
         return;
       }
-    },
+    }
   },
   mounted: function() {
     // UI:
     this.numberOfColumn = this.getDays.length + 1;
     window.addEventListener("resize", this.handleWindowResize);
+
     // Data:
+    this.fetchSessionDate();
     this.fetchRooms();
     this.fetchGuestBookings({
       arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),

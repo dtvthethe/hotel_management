@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 # Init data: https://code.djangoproject.com/wiki/Fixtures
 
 # phase 1.
@@ -18,11 +19,13 @@ class Client(models.Model):
     def __str__(self):
         return self.name
 
+
 class RoomStatus(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
 
 class ProductType(models.Model):
     name = models.CharField(max_length=100)
@@ -30,11 +33,13 @@ class ProductType(models.Model):
     def __str__(self):
         return self.name
 
+
 class RoomType(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
 
 class PaymentType(models.Model):
     name = models.CharField(max_length=100)
@@ -42,11 +47,13 @@ class PaymentType(models.Model):
     def __str__(self):
         return self.name
 
+
 class BookingStatus(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
 
 # phase 2
 class Room(models.Model):
@@ -59,6 +66,7 @@ class Room(models.Model):
     def __str__(self):
         return self.name
 
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField(default=0)
@@ -67,7 +75,8 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-#phase 3
+
+# phase 3
 class Booking(models.Model):
     booking_code = models.CharField(max_length=20)
     adult = models.IntegerField(default=0)
@@ -79,14 +88,14 @@ class Booking(models.Model):
     price_booking = models.IntegerField(default=0)
     client = models.ForeignKey(Client, related_name='booking_clients', on_delete=models.CASCADE)
     room = models.ForeignKey(Room, related_name='booking_room', on_delete=models.CASCADE)
-    booking_status = models.ForeignKey(BookingStatus, related_name= 'status', on_delete=models.CASCADE)
-    booking_folio_transfer_roomcharge = models.ForeignKey('self', default=None, null= True, on_delete=models.SET_NULL, related_name='bk_folio_transfer_roomcharge')
-    booking_folio_transfer_minibarcharge = models.ForeignKey('self', default=None, null= True, on_delete=models.SET_NULL, related_name='bk_folio_transfer_minibarcharge')
+    booking_status = models.ForeignKey(BookingStatus, related_name='status', on_delete=models.CASCADE)
+    # group_no = models.IntegerField(null=True)
 
     def __str__(self):
         return self.booking_code
 
-#phase 4
+
+# phase 4
 class Guest(models.Model):
     fullname = models.CharField(max_length=150)
     booking = models.ForeignKey(Booking, related_name='guests', on_delete=models.CASCADE)
@@ -94,26 +103,26 @@ class Guest(models.Model):
     def __str__(self):
         return self.fullname
 
-class MinibarCharge(models.Model):
+
+class Invoice(models.Model):
+    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    guest = models.ForeignKey(Guest, on_delete=models.CASCADE)
+    folio_transfer_roomcharge = models.ForeignKey('self', default=None, null=True, on_delete=models.SET_NULL,
+                                                  related_name='invoice_folio_transfer_roomcharge')
+    folio_transfer_minibarcharge = models.ForeignKey('self', default=None, null=True, on_delete=models.SET_NULL,
+                                                     related_name='invoice_folio_transfer_minibarcharge')
+
+
+class InvoiceDetail(models.Model):
+    invoice = models.ForeignKey(Invoice, related_name='invoices', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     price_confirm = models.IntegerField(default=0)
     quantity = models.IntegerField(default=0)
     date_order = models.DateTimeField(default=timezone.now)
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.date_order
-
-class RoomCharge(models.Model):
-    price_confirm = models.IntegerField(default=0)
-    date_charge = models.DateTimeField(default=timezone.now)
     date_session = models.DateField()
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.date_charge
 
-#phase 5
+# phase 5
 class BookingPayment(models.Model):
     credit = models.IntegerField(default=0)
     date_pay = models.DateTimeField(default=timezone.now)

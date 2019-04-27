@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
-from hotelmanagement.models import Room, Booking, Guest, RoomStatus, Client, ProductType, Product, RoomCharge, \
-    MinibarCharge, BookingPayment, RoomType, PaymentType, BookingStatus, Config
+from hotelmanagement.models import Room, Booking, Guest, RoomStatus, Client, ProductType, Product, \
+    BookingPayment, RoomType, PaymentType, BookingStatus, Config, Invoice, InvoiceDetail
 from django.contrib.auth.models import User, Permission
 
 class UserSerializer(ModelSerializer):
@@ -95,13 +95,6 @@ class GuestBookingListSerializer(ModelSerializer):
         model = Guest
         fields = '__all__'
 
-
-class MinibarChargeSerializer(ModelSerializer):
-    product = ProductListSerializer(many = False)
-    class Meta:
-        model = MinibarCharge
-        fields = '__all__'
-
 class BookingPaymentSerializer(ModelSerializer):
     payment_type = PaymentTypeListSerializer(many=False)
     class Meta:
@@ -122,35 +115,16 @@ class RoomTypeNoneRefoneListSerializer(ModelSerializer):
         model = RoomType
         fields = '__all__'
 
-class RoomChargeSerializer(ModelSerializer):
-    class Meta:
-        model = RoomCharge
-        fields = '__all__'
-
 class BookingByRoomChageListSerializer(ModelSerializer):
     room = RoomListSerializer(many = False)
     class Meta:
         model = Booking
         fields = '__all__'
 
-class RoomChargeByBookingListSerializer(ModelSerializer):
-    booking = BookingByRoomChageListSerializer(many = False)
-    class Meta:
-        model = RoomCharge
-        fields = '__all__'
-
 class BookingByMiniBarListSerializer(ModelSerializer):
     room = RoomListSerializer(many = False)
     class Meta:
         model = Booking
-        fields = '__all__'
-
-
-class MiniBarChargeByBookingListSerializer(ModelSerializer):
-    booking = BookingByMiniBarListSerializer(many = False)
-    product = ProductListSerializer(many=False)
-    class Meta:
-        model = MinibarCharge
         fields = '__all__'
 
 class RoomList2Serializer(ModelSerializer):
@@ -160,11 +134,39 @@ class RoomList2Serializer(ModelSerializer):
         model = Room
         fields = '__all__'
 
+class BookingInvoiceListSerializer(ModelSerializer):
+    room = RoomListSerializer(many=False)
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
 class Product2ListSerializer(ModelSerializer):
     product_type = ProducTypeListSerializer(many=False)
     class Meta:
         model = Product
         fields = '__all__'
+
+class InvoiceDetail1ListSerializer(ModelSerializer):
+    product = ProductListSerializer(many=False)
+    class Meta:
+        model = InvoiceDetail
+        fields = '__all__'
+
+class InvoiceListSerializer(ModelSerializer):
+    guest = GuestListSerializer(many=False)
+    booking = BookingInvoiceListSerializer(many=False)
+    invoices = InvoiceDetail1ListSerializer(many=True)
+    class Meta:
+        model = Invoice
+        fields = '__all__'
+
+class InvoiceDetailListSerializer(ModelSerializer):
+    invoice = InvoiceListSerializer(many=False)
+    product = ProductListSerializer(many=False)
+    class Meta:
+        model = InvoiceDetail
+        fields = '__all__'
+
 
 # Create:
 
@@ -176,11 +178,6 @@ class GuestCreateSerializer(ModelSerializer):
 class BookingCreateSerializer(ModelSerializer):
     class Meta:
         model = Booking
-        fields = '__all__'
-
-class MinibarChargeCreateSerializer(ModelSerializer):
-    class Meta:
-        model = MinibarCharge
         fields = '__all__'
 
 class BookingPaymentCreateSerializer(ModelSerializer):
@@ -213,6 +210,11 @@ class ProductTypeCreateSerializer(ModelSerializer):
         model = ProductType
         fields = '__all__'
 
+class InvoiceDetailCreateSerializer(ModelSerializer):
+    class Meta:
+        model = InvoiceDetail
+        fields = '__all__'
+
 # Retrieve:
 class BookingDetailSerializer(ModelSerializer):
     class Meta:
@@ -227,11 +229,6 @@ class GuestBookingDetailSerializer(ModelSerializer):
         fields = '__all__'
 
 # Update
-
-class RoomChargeRoomRateSerializer(ModelSerializer):
-    class Meta:
-        model = RoomCharge
-        fields = ['price_confirm']
 
 class GuestUpdateSerializer(ModelSerializer):
     class Meta:
@@ -258,10 +255,6 @@ class BookingFolioUpdateSerializer(ModelSerializer):
         model = Booking
         fields = ('booking_folio_transfer_roomcharge', 'booking_folio_transfer_minibarcharge')
 
-class MinibarChargeUpdateSerializer(ModelSerializer):
-    class Meta:
-        model = MinibarCharge
-        fields = '__all__'
 
 class BookingPaymentUpdateSerializer(ModelSerializer):
     class Meta:
@@ -298,6 +291,23 @@ class ProductTypeSerializer(ModelSerializer):
         model = ProductType
         fields = '__all__'
 
+class InvoiceDetailPriceConfirmUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = InvoiceDetail
+        fields = ['price_confirm']
+
+class InvoiceDetailUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = InvoiceDetail
+        fields = ['product', 'price_confirm', 'quantity']
+
+
+
+class InvoiceFolioTransferUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Invoice
+        fields = ['folio_transfer_roomcharge', 'folio_transfer_minibarcharge']
+
 # Delete
 class BookingDeleteSerializer(ModelSerializer):
     class Meta:
@@ -328,4 +338,9 @@ class RoomTypeDeleteSerializer(ModelSerializer):
 class RoomDeleteSerializer(ModelSerializer):
     class Meta:
         model = Room
+        fields = ['id']
+
+class InvoiceDetailDeleteSerializer(ModelSerializer):
+    class Meta:
+        model = InvoiceDetail
         fields = ['id']

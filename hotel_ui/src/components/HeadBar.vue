@@ -248,6 +248,12 @@
               </router-link>
             </li>
             <li>
+              <router-link to="/groupreservation">
+                <i class="fa fa-calendar"></i>
+                <span>Group Reveration</span>
+              </router-link>
+            </li>
+            <li>
               <a href="#">
                 <i class="fa fa-key"></i>
                 <span>Night Audit x</span>

@@ -14,6 +14,9 @@ const getters = {
     }
 }
 const mutations = {
+    setBookingPaymentToNull(state){
+        state.bookingpayments = [];
+    },
     fetchBookingPayments(state, data) {
         axios.get(URL_API + 'api/bookingpayment?booking_id=' + data.booking_id, {
             headers: {
@@ -60,6 +63,9 @@ const mutations = {
     }
 }
 const actions = {
+    setBookingPaymentToNull({commit}){
+        commit('setBookingPaymentToNull');
+    },
     fetchBookingPayments({ commit, rootState }, booking_id) {
         commit('fetchBookingPayments', {
             booking_id, header_config: {
