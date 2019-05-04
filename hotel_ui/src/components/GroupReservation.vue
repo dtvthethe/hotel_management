@@ -107,7 +107,10 @@ export default {
     Datepicker
   },
   data() {
-    return {};
+    return {
+      group_guest: {}
+        
+    };
   },
   computed: {
     ...mapGetters({})

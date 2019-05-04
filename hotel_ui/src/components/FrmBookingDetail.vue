@@ -599,6 +599,9 @@ export default {
     },
     booking_code: {
       get() {
+        if(this.getFrmType.booking_code != undefined){
+          return this.getFrmType.booking_code
+        }
         return this.getBookingDetail.booking_code;
       },
       set(value) {

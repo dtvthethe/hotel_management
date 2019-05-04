@@ -8,7 +8,9 @@ import RoomType from '../components/RoomType'
 import ProductType from '../components/ProductType'
 import Product from '../components/Product'
 import Room from '../components/Room'
-import GroupReservation from '../components/GroupReservation'
+import RoomStatus from '../components/RoomStatus'
+import NightAudit from '../components/NightAudit'
+import GuestLeger from '../components/GuestLeger'
 
 Vue.use(VueRouter)
 
@@ -23,6 +25,8 @@ export default new VueRouter({
         { path: '/producttype', component: ProductType },
         { path: '/product', component: Product },
         { path: '/room', component: Room },
-        { path: '/groupreservation', component: GroupReservation },
+        { path: '/roomstatus', component: RoomStatus },
+        { path: '/nightaudit', component: NightAudit },
+        { path: '/guestleger', component: GuestLeger },
     ]
 });

@@ -24,7 +24,8 @@ from .serializers import RoomListSerializer, RoomTypeListSerializer, GuestListSe
     ProductTypeCreateSerializer, ProductTypeDeleteSerializer, ProductCreateSerializer, ProductDeleteSerializer, \
     RoomCreateSerializer, RoomDeleteSerializer, RoomStatusListSerializer, InvoiceListSerializer, \
     InvoiceDetailListSerializer, InvoiceDetailCreateSerializer, InvoiceDetailUpdateSerializer, \
-    InvoiceDetailPriceConfirmUpdateSerializer, InvoiceDetailDeleteSerializer, InvoiceFolioTransferUpdateSerializer
+    InvoiceDetailPriceConfirmUpdateSerializer, InvoiceDetailDeleteSerializer, InvoiceFolioTransferUpdateSerializer, \
+    BookingGuestListSerializer, GuestLegerListSerializer
 
 
 class Product2ListAPIView(ListAPIView):
@@ -196,6 +197,44 @@ class InvoiceListAPIView(ListAPIView):
         # Invoice.objects.filter(Q(folio_transfer_minibarcharge = invoice_id, folio_transfer_roomcharge=invoice_id))).distinct()
         return invoices
 
+
+class BookingNightAuditByDateListAPIView(ListAPIView):
+    serializer_class = BookingGuestListSerializer
+    queryset = None
+
+    def get_queryset(self):
+        arrive_date = self.request.query_params.get('arrive_date', None)
+        depart_date = self.request.query_params.get('depart_date', None)
+        if arrive_date is not None:
+            return Booking.objects.filter(arrive_date = arrive_date)
+        else:
+            return Booking.objects.filter(depart_date = depart_date)
+
+
+class GuestLegerListAPIView(ListAPIView):
+    serializer_class = GuestLegerListSerializer
+    queryset = None
+
+    def get_queryset(self):
+        arrive_date = self.request.query_params.get('arrive_date', None)
+        depart_date = self.request.query_params.get('depart_date', None)
+        booking_id = self.request.query_params.get('booking_id', None)
+        fullname = self.request.query_params.get('fullname', None)
+        client = self.request.query_params.get('client', None)
+
+        queryset = Booking.objects
+        if arrive_date is not None and depart_date is not None:
+            queryset = queryset.filter(arrive_date__gte=arrive_date).filter(depart_date__lte=depart_date)
+        if booking_id is not None:
+            queryset = queryset.filter(booking_code=booking_id)
+        if fullname is not None:
+            queryset = queryset.filter(guests__fullname__contains=fullname)
+        if client is not None:
+            if client == '0':
+                queryset = queryset.all()
+            else:
+                queryset = queryset.filter(client=client)
+        return queryset
 
 
 # Create:

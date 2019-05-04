@@ -6,6 +6,8 @@ const state = {
     rooms: [],
     guests_bookings: [],
     error_transfer: null,
+    nightaudits:[],
+    guestlegers:[]
 }
 
 const getters = {
@@ -22,10 +24,47 @@ const getters = {
     },
     getErrorTransfer: function (state) {
         return state.error_transfer;
+    },
+    getNightAudit(state){
+        return state.nightaudits;
+    },
+    getGuestLeger(state){
+        return state.guestlegers;
     }
 }
 
 const mutations = {
+    fetchGuestLeger: function (state, data) {
+        let query = '?client='+data.query.client;
+        if(data.query.booking_id != null && data.query.booking_id.length > 0){
+            query += '&booking_id='+data.query.booking_id;
+        }
+        if(data.query.fullname != null && data.query.fullname.length > 0){
+            query += '&fullname='+data.query.fullname;
+        }
+
+        if(data.query.isFilterDate == true){
+            if(data.query.arrive_date != null && data.query.arrive_date.length > 0){
+                query += '&arrive_date='+data.query.arrive_date;
+            }
+            if(data.query.depart_date != null && data.query.depart_date.length > 0){
+                query += '&depart_date='+data.query.depart_date;
+            }
+        }
+
+        axios.get(URL_API + 'api/guestlegers'+query, {
+            headers: {
+                ...data.header_config
+            }
+        }).then(res => {
+            if (res.status == 200) {
+                state.guestlegers = res.data;
+            }
+            else {
+                state.guestlegers = [];
+            }
+        });
+    },
     fetchRooms: function (state, header_config) {
         axios.get(URL_API + 'api/rooms', {
             headers: {
@@ -116,10 +155,40 @@ const mutations = {
             state.guests_bookings.splice(index, 1);
         }
     },
+    fetchNightAudit: function (state, data) {
 
+        let url = 'api/nightaudits?depart_date='+format(data.data.date_f, 'YYYY-MM-DD')
+        if(data.data.isArrive == true){
+            url = 'api/nightaudits?arrive_date='+format(data.data.date_f, 'YYYY-MM-DD')
+        }
+        axios.get(URL_API + url, {
+            headers: {
+                ...data.header_config
+            }
+        }).then(res => {
+            if (res.status == 200) {
+                state.nightaudits = res.data;
+            }
+            else {
+                state.nightaudits = [];
+            }
+        });
+    },
 }
 
 const actions = {
+    fetchGuestLeger: function ({ commit, rootState }, query) {
+        commit('fetchGuestLeger', {
+            query,
+            header_config: {'Authorization': 'jwt ' + rootState.user_module.tokenAuth},
+        });
+    },
+    fetchNightAudit: function ({ commit, rootState }, data) {
+        commit('fetchNightAudit', {
+            data,
+            header_config: {'Authorization': 'jwt ' + rootState.user_module.tokenAuth},
+        });
+    },
     fetchRooms: function ({ commit, rootState }) {
         commit('fetchRooms', {
             'Authorization': 'jwt ' + rootState.user_module.tokenAuth,

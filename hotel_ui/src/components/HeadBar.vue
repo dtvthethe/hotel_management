@@ -248,22 +248,22 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/groupreservation">
-                <i class="fa fa-calendar"></i>
-                <span>Group Reveration</span>
+              <router-link to="/nightaudit">
+                <i class="fa fa-key"></i>
+                <span>Night Audit</span>
               </router-link>
             </li>
             <li>
-              <a href="#">
-                <i class="fa fa-key"></i>
-                <span>Night Audit x</span>
-              </a>
+              <router-link to="/guestleger">
+                <i class="fa fa-info"></i>
+                <span>Guest Leger</span>
+              </router-link>
             </li>
             <li>
-              <a href="#">
-                <i class="fa fa-info"></i>
-                <span>Guest Leger x</span>
-              </a>
+              <router-link to="/roomstatus">
+                <i class="fa fa-calendar"></i>
+                <span>Room Status</span>
+              </router-link>
             </li>
             <li class="sub-menu">
               <a href="javascript:;">

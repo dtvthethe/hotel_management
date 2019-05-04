@@ -68,7 +68,6 @@ class BookingListSerializer(ModelSerializer):
         model = Booking
         fields = '__all__'
 
-
 class BookingNotInDateRoomListSerializer(ModelSerializer):
     class Meta:
         model = Booking
@@ -89,11 +88,31 @@ class GuestListSerializer(ModelSerializer):
         model = Guest
         fields = '__all__'
 
+class BookingGuestListSerializer(ModelSerializer):
+    booking_status = BookingStatusListSerializer(many=False)
+    room = RoomListSerializer(many=False)
+    guests = GuestListSerializer(many=True)
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+class GuestLegerListSerializer(ModelSerializer):
+    booking_status = BookingStatusListSerializer(many=False)
+    room = RoomListSerializer(many=False)
+    guests = GuestListSerializer(many=True)
+    client = ClientListSerializer(many=False)
+
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+
 class GuestBookingListSerializer(ModelSerializer):
     booking = BookingListSerializer(many = False)
     class Meta:
         model = Guest
         fields = '__all__'
+
 
 class BookingPaymentSerializer(ModelSerializer):
     payment_type = PaymentTypeListSerializer(many=False)

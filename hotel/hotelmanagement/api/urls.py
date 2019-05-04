@@ -94,4 +94,7 @@ urlpatterns = [
     path('invoicedetailprice/update/<int:pk>', views.InvoiceDetailPriceConfirmUpdateAPIView().as_view(), name='invoicedetailprice_update'),
     path('invoicedetail/delete/<int:pk>', views.InvoiceDetailDestroyAPIView().as_view(), name='invoicedetail_delete'),
 
+    path('nightaudits', views.BookingNightAuditByDateListAPIView().as_view(), name='nightaudits'),
+    path('guestlegers', views.GuestLegerListAPIView().as_view(), name='guestlegers'),
+
 ]

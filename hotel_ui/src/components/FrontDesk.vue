@@ -416,6 +416,15 @@ export default {
         return null;
       }
     },
+    genBookingCode(){
+      let code = (Math.floor(Math.random() * 99) + 10).toString() + format(new Date(), 'YYYYMMDDHHmmssSSS').toString()
+      if(code.length <= 20){
+        return code;
+      }
+      else{
+        return code.substring(0, 20);
+      }
+    },
     onContextMenuItemClick: function(aliasName) {
       this.data_booking = {
         id: this.bookingId,
@@ -488,7 +497,8 @@ export default {
         this.setFrmType({
           type: "fo",
           method: "new",
-          session_date: format(this.getSessionDate, "YYYY-MM-DD")
+          session_date: format(this.getSessionDate, "YYYY-MM-DD"),
+          booking_code: this.genBookingCode()
         });
       } else if (this.data_booking.action_name == "change") {
         this.$dialog

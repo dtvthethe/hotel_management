@@ -5,6 +5,21 @@
       <div class="toolbar"></div>
     </header>
     <div id="calendar-booking" ref="tbbooking" @click="disableMenuContext">
+      <div class="tool">
+        <Datepicker
+          id="dt-from-date"
+          format="dd/MM/yyyy"
+          v-model="date_filter_from"
+          :disabledDates="{from: this.date_filter_to}"
+        ></Datepicker>
+        <Datepicker
+          id="dt-to-date"
+          format="dd/MM/yyyy"
+          v-model="date_filter_to"
+          :disabledDates="{to: this.date_filter_from}"
+        ></Datepicker>
+        <input type="button" value="Search" @click="onClickSearch" />
+      </div>
       <div class="table-reveration noselect">
         <div class="tbheader">
           <div class="tbcell">R/D</div>
@@ -105,17 +120,22 @@
 </template>
 
 <script>
-import { parse, differenceInDays, addDays, format } from "date-fns";
-import { mapGetters, mapActions } from "vuex";
-import FrmBookingDetail from "./FrmBookingDetail";
+import Datepicker from "vuejs-datepicker"
+import { parse, differenceInDays, addDays, format } from "date-fns"
+import { mapGetters, mapActions } from "vuex"
+import FrmBookingDetail from "./FrmBookingDetail"
 
 export default {
   name: "CalendarBooking",
   data: function() {
     return {
+      date_filter:{
+        date_from: addDays(new Date(), -2),
+        date_to: addDays(new Date(), 4)
+      },
       instance_date: {
-        start: parse("2019/03/03"),
-        stop: parse("2019/03/12")
+        start: addDays(new Date(), -2),
+        stop: addDays(new Date(), 4)
       },
       select_date: {
         start: null,
@@ -124,6 +144,11 @@ export default {
       data_booking: {
         id: "",
         action_name: "new"
+      },
+      filter_data:{
+        date_start:null,
+        date_end:null,
+        type_to_show: 1
       },
       context_menu_list: [],
       windowWidth: 0,
@@ -136,7 +161,8 @@ export default {
     };
   },
   components: {
-    FrmBookingDetail
+    FrmBookingDetail,
+    Datepicker
   },
   watch: {
     isMenuBar: function(oldIsMenuBar) {
@@ -155,7 +181,8 @@ export default {
       getGuestBookings: "getGuestBookings",
       getInvoices: "getInvoices",
       getBookingGuestDetail: "getBookingGuestDetail",
-      getBookingDetail: "getBookingDetail"
+      getBookingDetail: "getBookingDetail",
+      getSessionDate:"getSessionDate"
     }),
     getInstanceDays: function() {
       return differenceInDays(
@@ -178,7 +205,25 @@ export default {
         });
       }
       return dates;
-    }
+    },
+    date_filter_from: {
+      get() {
+        return this.date_filter.date_from;
+      },
+      set(value) {
+        this.date_filter.date_from = value;
+        this.date_filter.date_to = addDays(value,6)
+      }
+    },
+    date_filter_to: {
+      get() {
+        return this.date_filter.date_to;
+      },
+      set(value) {
+        this.date_filter.date_to = value;
+        this.date_filter.date_from = addDays(value,-6)
+      }
+    },
   },
   methods: {
     ...mapActions({
@@ -203,6 +248,22 @@ export default {
       setInvoicesToNull:"setInvoicesToNull",
       setInvoiceID:"setInvoiceID"
     }),
+    // onSelectDateFilter(event){
+    //   if(event == 'from'){
+    //     this.date_filter.date_to = addDays(this.date_filter.date_from,6)
+    //   }
+    //   if(event == 'to'){
+    //     this.date_filter.date_from = addDays(this.date_filter.date_to,-6)
+    //   }
+    // },
+    onClickSearch(){
+      this.instance_date.start = this.date_filter.date_from;
+      this.instance_date.stop = this.date_filter.date_to;
+      this.fetchGuestBookings({
+        arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),
+        depart_date: format(this.instance_date.stop, "YYYY-MM-DD")
+      });
+    },
     handleWindowResize() {
       this.windowWidth = this.$refs.tbbooking.getBoundingClientRect().width;
     },
@@ -424,6 +485,15 @@ export default {
     disableMenuContext: function() {
       this.context_menu_visible = false;
     },
+    genBookingCode(){
+      let code = (Math.floor(Math.random() * 99) + 10).toString() + format(new Date(), 'YYYYMMDDHHmmssSSS').toString()
+      if(code.length <= 20){
+        return code;
+      }
+      else{
+        return code.substring(0, 20);
+      }
+    },
     onContextMenuItemClick: function(aliasName) {
       this.data_booking.action_name = aliasName;
       if (this.data_booking.action_name == "detail" && this.data_booking.id) {
@@ -487,7 +557,8 @@ export default {
           type: "ca",
           method: "new",
           date_start: format(this.instance_date.start, "YYYY-MM-DD"),
-          date_stop: format(this.instance_date.stop, "YYYY-MM-DD")
+          date_stop: format(this.instance_date.stop, "YYYY-MM-DD"),
+          booking_code: this.genBookingCode()
         });
       } else if (this.data_booking.action_name == "change") {
         this.$dialog

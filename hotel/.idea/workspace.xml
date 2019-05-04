@@ -2,26 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc2ea73c-5c68-4de7-bc29-cf1044ba4ee4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotelmanagement/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotelmanagement/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotelmanagement/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/CalendarBooking.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/CalendarBooking.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/FrmBookingDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/FrmBookingDetail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/FrontDesk.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/FrontDesk.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/GroupReservation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/GroupReservation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/HeadBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/HeadBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/booking_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/booking_module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/bookingpayment_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/bookingpayment_module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/minibarcharge_module.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/reveration_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/reveration_module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/roomcharge_module.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,22 +43,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hotelmanagement/api/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="53" column="6" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
+            <state relative-caret-position="257">
+              <caret line="98" column="30" selection-start-line="98" selection-start-column="6" selection-end-line="98" selection-end-column="30" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hotelmanagement/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="13" column="28" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -78,29 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hotelmanagement/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20835">
-              <caret line="1389" column="19" selection-start-line="1389" selection-start-column="19" selection-end-line="1389" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
-              <caret line="87" column="76" selection-start-line="87" selection-start-column="76" selection-end-line="87" selection-end-column="76" />
+            <state relative-caret-position="160">
+              <caret line="80" column="50" lean-forward="true" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -111,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="179" selection-start-line="179" selection-end-line="179" />
+            <state relative-caret-position="175">
+              <caret line="229" column="32" lean-forward="true" selection-start-line="229" selection-start-column="32" selection-end-line="229" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -120,10 +76,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hotel/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1830">
-              <caret line="123" column="59" selection-start-line="123" selection-start-column="59" selection-end-line="123" selection-end-column="59" />
+            <state relative-caret-position="311">
+              <caret line="134" column="6" lean-forward="true" selection-start-line="134" selection-start-column="6" selection-end-line="134" selection-end-column="6" />
               <folding>
                 <element signature="e#305#320#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="97" column="47" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="47" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,9 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>xxx</find>
-      <find>Invoice</find>
-      <find>filter</find>
       <find>values_list</find>
       <find>values</find>
       <find>flat</find>
@@ -170,6 +135,9 @@
       <find>InvoicePayment</find>
       <find>invoices</find>
       <find>Booking</find>
+      <find>model = Booking</find>
+      <find>GuestListSerializer</find>
+      <find>BookingGuestListSerializer</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -182,13 +150,13 @@
         <option value="$PROJECT_DIR$/hotel/urls.py" />
         <option value="$PROJECT_DIR$/hotel/serializers.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/tests.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/api/urls.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/api/serializers.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/admin.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" />
-        <option value="$PROJECT_DIR$/hotel/settings.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/api/views.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/models.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/api/urls.py" />
+        <option value="$PROJECT_DIR$/hotel/settings.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/api/serializers.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/api/views.py" />
       </list>
     </option>
   </component>
@@ -222,6 +190,12 @@
               <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="hotel" type="462c0819:PsiDirectoryNode" />
               <item name="hotelmanagement" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hotel" type="462c0819:PsiDirectoryNode" />
+              <item name="hotelmanagement" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -383,7 +357,13 @@
       <workItem from="1556171272857" duration="2799000" />
       <workItem from="1556305906206" duration="6569000" />
       <workItem from="1556329652331" duration="2446000" />
-      <workItem from="1556340154862" duration="890000" />
+      <workItem from="1556340154862" duration="987000" />
+      <workItem from="1556605772865" duration="245000" />
+      <workItem from="1556765359604" duration="2549000" />
+      <workItem from="1556824101528" duration="1799000" />
+      <workItem from="1556852319598" duration="939000" />
+      <workItem from="1556897423244" duration="1785000" />
+      <workItem from="1556986189935" duration="5387000" />
     </task>
     <servers />
   </component>
@@ -399,18 +379,17 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="262098000" />
+    <option name="totallyTimeSpent" value="274899000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="736" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.17689823" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.1914378" />
       <window_info id="Structure" order="1" sideWeight="0.5017544" side_tool="true" weight="0.17285945" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.20807454" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2562112" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.40527952" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -459,7 +438,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hotelmanagement/api/views.py</url>
-          <line>396</line>
+          <line>435</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
@@ -571,13 +550,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/rest_framework/mixins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="83" column="52" lean-forward="true" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hotelmanagement/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -595,47 +567,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="87" column="76" selection-start-line="87" selection-start-column="76" selection-end-line="87" selection-end-column="76" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hotel/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1830">
-          <caret line="123" column="59" selection-start-line="123" selection-start-column="59" selection-end-line="123" selection-end-column="59" />
+        <state relative-caret-position="311">
+          <caret line="134" column="6" lean-forward="true" selection-start-line="134" selection-start-column="6" selection-end-line="134" selection-end-column="6" />
           <folding>
             <element signature="e#305#320#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="179" selection-start-line="179" selection-end-line="179" />
+        <state relative-caret-position="280">
+          <caret line="97" column="47" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/rest_framework/mixins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hotelmanagement/api/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="53" column="6" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
+        <state relative-caret-position="257">
+          <caret line="98" column="30" selection-start-line="98" selection-start-column="6" selection-end-line="98" selection-end-column="30" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="229" column="32" lean-forward="true" selection-start-line="229" selection-start-column="32" selection-end-line="229" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/hotelmanagement/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+        <state relative-caret-position="160">
+          <caret line="80" column="50" lean-forward="true" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
