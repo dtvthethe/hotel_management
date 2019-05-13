@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{ title }}{% endblock %}
+{% block container %}
+    {% load humanize %}
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Data Table {{ title }}
+    </div>
+    <div class="card-body">
+        <form action="" method="get">
+            <input type="date" name="q" placeholder="Search Room" value="{{ request.GET.q }}">
+            <input type="submit" value="Search">
+        </form>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <th>#</th>
+                    <th>Guest Name</th>
+                    <th>Room Name</th>
+                    <th>Arrive Date</th>
+                    <th>Depart Date</th>
+                    <th>Adult</th>
+                    <th>Children</th>
+                </tr>
+                {% for item in bookings %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.fullname }}</td>
+                        <td>{{ item.booking.room.name }}</td>
+                        <td>{{ item.booking.arrive_date | date:"d/m/Y" }}</td>
+                        <td>{{ item.booking.depart_date | date:"d/m/Y" }}</td>
+                        <td>{{ item.booking.adult }}</td>
+                        <td>{{ item.booking.child }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="6" style="text-align: right; padding-right: 10px"><strong>Adult</strong></td>
+                    <td><strong>{{ adult_total }}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: right; padding-right: 10px"><strong>Children</strong></td>
+                    <td><strong>{{ child_total }}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="7" style="text-align: right; padding-right: 10px"><strong>Total ∑ = {{ total_person }}</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted"></div>
+{% endblock %}

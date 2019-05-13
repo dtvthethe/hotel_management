@@ -1,7 +1,12 @@
-Django==2.1.7
-django-cors-headers==2.5.2
-djangorestframework==3.9.2
-djangorestframework-jwt==1.11.0
-djangorestframework-stubs==0.3.0
-PyJWT==1.7.1
-pytz==2018.9
+Package                   Version
+------------------------- -------
+Django                    2.1.7  
+django-cors-headers       2.5.2  
+djangorestframework       3.9.2  
+djangorestframework-jwt   1.11.0 
+djangorestframework-stubs 0.3.0  
+Pillow                    6.0.0  
+pip                       10.0.1 
+PyJWT                     1.7.1  
+pytz                      2018.9 
+setuptools                39.1.0 

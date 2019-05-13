@@ -1,6 +1,6 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ImageField
 from hotelmanagement.models import Room, Booking, Guest, RoomStatus, Client, ProductType, Product, \
-    BookingPayment, RoomType, PaymentType, BookingStatus, Config, Invoice, InvoiceDetail
+    BookingPayment, RoomType, PaymentType, BookingStatus, Config, Invoice, InvoiceDetail, Person
 from django.contrib.auth.models import User, Permission
 
 class UserSerializer(ModelSerializer):
@@ -186,7 +186,6 @@ class InvoiceDetailListSerializer(ModelSerializer):
         model = InvoiceDetail
         fields = '__all__'
 
-
 # Create:
 
 class GuestCreateSerializer(ModelSerializer):
@@ -207,6 +206,14 @@ class BookingPaymentCreateSerializer(ModelSerializer):
 class UserCreateSerializer(ModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
+
+class PersonCreateSerializer(ModelSerializer):
+
+    avatar = ImageField(max_length=None, use_url=True)
+
+    class Meta:
+        model = Person
         fields = '__all__'
 
 class ProductCreateSerializer(ModelSerializer):
@@ -246,6 +253,14 @@ class GuestBookingDetailSerializer(ModelSerializer):
     class Meta:
         model = Guest
         fields = '__all__'
+
+class PersonByUsernameSerializer(ModelSerializer):
+    users = PersonCreateSerializer(many=False)
+    class Meta:
+        model = User
+        fields = '__all__'
+        # fields = ['is_superuser', 'first_name', 'last_name', 'email', 'is_staff', 'is_active']
+
 
 # Update
 
@@ -320,12 +335,42 @@ class InvoiceDetailUpdateSerializer(ModelSerializer):
         model = InvoiceDetail
         fields = ['product', 'price_confirm', 'quantity']
 
-
+class RoomStatusUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ['room_status']
 
 class InvoiceFolioTransferUpdateSerializer(ModelSerializer):
     class Meta:
         model = Invoice
         fields = ['folio_transfer_roomcharge', 'folio_transfer_minibarcharge']
+
+class PostNoShowUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['booking_status']
+
+class PostNoShowRoomChargeUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['booking_status']
+
+class PersonUpdateSerializer(ModelSerializer):
+
+    avatar = ImageField(max_length=None, use_url=True)
+
+    class Meta:
+        model = Person
+        fields = ('is_superuser', 'first_name', 'last_name', 'email', 'is_staff', 'is_active','groups', 'user_permissions', 'avatar' )
+
+class PersonUpdateProfileSerializer(ModelSerializer):
+
+    avatar = ImageField(max_length=None, use_url=True, allow_null=True)
+
+    class Meta:
+        model = Person
+        fields = ('username', 'first_name', 'last_name', 'email', 'avatar' )
+
 
 # Delete
 class BookingDeleteSerializer(ModelSerializer):

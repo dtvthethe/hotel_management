@@ -8,7 +8,7 @@ const state = {
     frm_type: {
         type: 'fo', //  fo, ca
         method: 'new',// new, edit
-        session_date: null,
+        data_value: null,
         date_start: null,
         date_stop: null,
     },

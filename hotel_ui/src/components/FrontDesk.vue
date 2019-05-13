@@ -84,6 +84,7 @@
       tabindex="-1"
       role="dialog"
       aria-labelledby="myModalLabel"
+      ref="myModal"
     >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -91,7 +92,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel">Booking Detail</h4>
           </header>
           <div class="panel-body">
             <div class>
@@ -161,13 +162,13 @@ export default {
       setFrmType: "setFrmType",
       fetchPaymentTypes: "fetchPaymentTypes",
       fetchBookingPayments: "fetchBookingPayments",
-      fetchSessionDate: "fetchSessionDate",
       updateBookingCheckIn: "updateBookingCheckIn",
       updateBookingCheckOut: "updateBookingCheckOut",
       fetchInvoiceDetails:"fetchInvoiceDetails",
       setBookingPaymentToNull:"setBookingPaymentToNull",
       setInvoicesToNull:"setInvoicesToNull",
-      setInvoiceID:"setInvoiceID"
+      setInvoiceID:"setInvoiceID",
+      updateRoomStatus:"updateRoomStatus",
     }),
     enableMenuContext: function(event) {
       if (event.which === 3) {
@@ -182,12 +183,6 @@ export default {
                 label: "Clean Room",
                 alias: "clean",
                 confirm_popup: true
-              },
-              {
-                icon: "fa fa-plus",
-                label: "Block room",
-                alias: "block",
-                confirm_popup: false
               }
             ];
             break;
@@ -204,17 +199,17 @@ export default {
                 label: "New Reveration",
                 alias: "new",
                 confirm_popup: false
+              },
+              {
+                icon: "fa fa-thumbs-down",
+                label: "Block",
+                alias: "block",
+                confirm_popup: true
               }
             ];
             break;
           case "rm_3": // block
             this.context_menu_list = [
-              {
-                icon: "fa fa-thumbs-down",
-                label: "Post Dirty",
-                alias: "dirty",
-                confirm_popup: true
-              },
               {
                 icon: "fa fa-thumbs-down",
                 label: "Unblock room",
@@ -245,14 +240,8 @@ export default {
               },
               {
                 icon: "fa fa-plus",
-                label: "Cancel",
+                label: "Cancel Booking",
                 alias: "delete",
-                confirm_popup: true
-              },
-              {
-                icon: "fa fa-plus",
-                label: "No show",
-                alias: "",
                 confirm_popup: true
               }
             ];
@@ -277,18 +266,6 @@ export default {
                 alias: "change",
                 confirm_popup: true
               },
-              {
-                icon: "fa fa-plus",
-                label: "Room charge bill",
-                alias: "",
-                confirm_popup: true
-              },
-              {
-                icon: "fa fa-plus",
-                label: "Extra charge bill",
-                alias: "",
-                confirm_popup: true
-              }
             ];
             break;
           // case "bk_3": // check-out => chi nen lam chuc nang nay o phan calendar
@@ -453,7 +430,8 @@ export default {
         this.setFrmType({
           type: "fo",
           method: "edit",
-          session_date: format(this.getSessionDate, "YYYY-MM-DD")
+          data_value: format(this.getSessionDate, "YYYY-MM-DD"),
+          guest_id: this.getBookings.find(item => item.booking.id == this.data_booking.id).id
         });
         this.fetchBookingPayments(this.data_booking.id);
         // start [
@@ -497,7 +475,7 @@ export default {
         this.setFrmType({
           type: "fo",
           method: "new",
-          session_date: format(this.getSessionDate, "YYYY-MM-DD"),
+          data_value: format(this.getSessionDate, "YYYY-MM-DD"),
           booking_code: this.genBookingCode()
         });
       } else if (this.data_booking.action_name == "change") {
@@ -567,18 +545,101 @@ export default {
           .catch(() => {
             // on cancel click
           });
-      } else {
+      } 
+      else if(this.data_booking.action_name == "dirty"){
+        this.$dialog
+          .confirm("Do you want to post dirty this room?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.updateRoomStatus({room_status:1,id:this.room_selected_id});
+            setTimeout(() => {
+              this.fetchRoomWithTypes();
+              // this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+      else if(this.data_booking.action_name == "clean"){
+        this.$dialog
+          .confirm("Do you want to clean this room?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.updateRoomStatus({room_status:2,id:this.room_selected_id});
+            setTimeout(() => {
+              this.fetchRoomWithTypes();
+              // this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+      else if(this.data_booking.action_name == "block"){
+        this.$dialog
+          .confirm("Do you want to block this room?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.updateRoomStatus({room_status:3,id:this.room_selected_id});
+            setTimeout(() => {
+              this.fetchRoomWithTypes();
+              // this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+      else if(this.data_booking.action_name == "unblock"){
+        this.$dialog
+          .confirm("Do you want to Unblock this room?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.updateRoomStatus({room_status:2,id:this.room_selected_id});
+            setTimeout(() => {
+              this.fetchRoomWithTypes();
+              // this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+      else {
         return;
       }
     }
   },
   mounted: function() {
-    this.fetchSessionDate();
+    // this.fetchSessionDate();
     setTimeout(() => {
       this.fetchRoomWithTypes();
-      this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+      // // dont delete this area
+      // this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+      // // dont delete this area
       this.fetchPaymentTypes();
-    }, 1000);
+    }, 1500);
   }
 };
 </script>

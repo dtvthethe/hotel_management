@@ -7,12 +7,25 @@
     <div class="table-responsive bg-white">
       <div>
         <div class="col-md-12 col-sm-12">
-          <input type="text"  v-model="name_status_slect" maxlength="100">
-          <Datepicker id="dt-from-date" format="dd/MM/yyyy" v-model="filterstatus.date_status_filter"></Datepicker>
-          <select v-model="id_status_slect">
-            <option :key="rs.id" :value="rs.id" v-for="rs in room_status_filter">{{rs.name}}</option>
-          </select>
-          <input type="button" value="Search" @click="btnSearch_CLick">
+          <table>
+            <tr>
+              <td><input type="text"  v-model="name_status_slect" maxlength="100"></td>
+              <td><Datepicker id="dt-from-date" format="dd/MM/yyyy" v-model="filterstatus.date_status_filter"></Datepicker></td>
+              <td> Room status</td>
+              <td>
+                <select v-model="id_status_slect">
+                  <option :key="rs.id" :value="rs.id" v-for="rs in room_status_filter">{{rs.name}}</option>
+                </select>
+              </td>
+              <td>
+                <input type="button" value="Search" @click="btnSearch_CLick">
+              </td>
+            </tr>
+          </table>
+          
+          
+          
+          
         </div>
         <div class="col-md-12 col-sm-12">
           <table class="table">
@@ -159,9 +172,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchRooms: "fetchRooms",
       fetchBookings: "fetchBookings",
-      fetchSessionDate: "fetchSessionDate"
     }),
     btnSearch_CLick(){
       this.fetchBookings(format(this.filterstatus.date_status_filter, 'YYYY-MM-DD'));
@@ -170,10 +181,14 @@ export default {
     }
   },
   mounted: function() {
-    this.fetchSessionDate();
+    // this.fetchSessionDate();
     setTimeout(() => {
-      this.fetchRooms();
-      this.fetchBookings(format(new Date(), "YYYY-MM-DD"));
+      // don't delete this area
+      // this.fetchRooms();
+      // don't delete this area
+      // // dont delete this area
+      // this.fetchBookings(format(new Date(), "YYYY-MM-DD"));
+      // // dont delete this area
     }, 1000);
   }
 };

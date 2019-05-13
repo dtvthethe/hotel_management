@@ -1,6 +1,7 @@
 const state = {
     enable_menubar: true,
     width_menubar: 0,
+    is_showprice: true
 }
 
 // getters:
@@ -10,6 +11,9 @@ const getters = {
     },
     widthMenuBar: function (state) {
         return state.width_menubar;
+    },
+    getIsShowPrice: function (state) {
+        return state.is_showprice;
     }
 }
 
@@ -20,7 +24,10 @@ const mutations = {
     },
     setWidthMenuBar: function (state, width) {
         state.width_menubar = width
-    }
+    },
+    switchShowPrice: function (state) {
+        state.is_showprice = !state.is_showprice;
+    },
 }
 
 // actions:
@@ -30,6 +37,9 @@ const actions = {
     },
     setWidthMenu: function ({ commit }, width) {
         commit('setWidthMenuBar', width)
+    },
+    switchShowPrice: function ({ commit }, width) {
+        commit('switchShowPrice', width)
     }
 }
 

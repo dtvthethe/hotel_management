@@ -17,7 +17,7 @@
 
 
   
-/* model */
+/* modal */
 .modal{
 	/* padding-left: 15px; */
 }
@@ -52,7 +52,11 @@ label{
 .paddingright{
 	padding-right: 0px !important;
 }
-/* //model */
+.margin-bottom-button{
+	margin-right: 10px;
+	margin-top: 16px;
+}
+/* //modal */
 
 /* tab bar */
 .nav-tabs>li>a {
@@ -75,3 +79,14 @@ background-color: green;
 }
 
 /* //custom vuejs popup confirm */
+
+.tool-export{
+	display: inline;
+	  margin-left: 10px;
+	  margin-top: 23px;
+	  position: absolute;
+  }
+  .tool-export a{
+	display: inline;
+	margin-right: 22px;
+  }

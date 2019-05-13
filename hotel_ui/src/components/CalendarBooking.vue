@@ -5,20 +5,35 @@
       <div class="toolbar"></div>
     </header>
     <div id="calendar-booking" ref="tbbooking" @click="disableMenuContext">
-      <div class="tool">
-        <Datepicker
-          id="dt-from-date"
-          format="dd/MM/yyyy"
-          v-model="date_filter_from"
-          :disabledDates="{from: this.date_filter_to}"
-        ></Datepicker>
-        <Datepicker
-          id="dt-to-date"
-          format="dd/MM/yyyy"
-          v-model="date_filter_to"
-          :disabledDates="{to: this.date_filter_from}"
-        ></Datepicker>
-        <input type="button" value="Search" @click="onClickSearch" />
+      <div class="tool-cal">
+        <table>
+          <tr>
+            <td>From: </td>
+            <td>
+              <Datepicker
+                id="dt-from-date"
+                format="dd/MM/yyyy"
+                v-model="date_filter_from"
+                :disabledDates="{from: this.date_filter_to}"
+              ></Datepicker>
+            </td>
+            <td>To: </td>
+            <td>
+              <Datepicker
+                id="dt-to-date"
+                format="dd/MM/yyyy"
+                v-model="date_filter_to"
+                :disabledDates="{to: this.date_filter_from}"
+              ></Datepicker>
+            </td>
+            <td>
+              <input type="button" value="Search" @click="onClickSearch" />
+
+            </td>
+          </tr>
+        </table>
+        
+        
       </div>
       <div class="table-reveration noselect">
         <div class="tbheader">
@@ -102,7 +117,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              <h4 class="modal-title" id="myModalLabel">Booking Detail</h4>
             </header>
             <div class="panel-body">
               <div class>
@@ -227,7 +242,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchRooms: "fetchRooms",
       fetchGuestBookings: "fetchGuestBookings",
       setBookingDetailDeafault: "setBookingDetailDeafault",
       setBookingRoom: "setBookingRoom",
@@ -243,7 +257,6 @@ export default {
       updateBookingCheckIn: "updateBookingCheckIn",
       updateBookingCheckOut: "updateBookingCheckOut",
       fetchInvoiceDetails: "fetchInvoiceDetails",
-      fetchSessionDate:"fetchSessionDate",
       setBookingPaymentToNull:"setBookingPaymentToNull",
       setInvoicesToNull:"setInvoicesToNull",
       setInvoiceID:"setInvoiceID"
@@ -360,7 +373,7 @@ export default {
                 confirm_popup: true
               },
               {
-                label: "Cancel",
+                label: "Cancel Booking",
                 icon: "fa fa-pencil",
                 alias: "delete",
                 confirm_popup: true
@@ -520,7 +533,8 @@ export default {
           type: "ca",
           method: "edit",
           date_start: format(this.instance_date.start, "YYYY-MM-DD"),
-          date_stop: format(this.instance_date.stop, "YYYY-MM-DD")
+          date_stop: format(this.instance_date.stop, "YYYY-MM-DD"),
+          guest_id: guest_infor.id
         });
         this.fetchBookingPayments(this.data_booking.id);
       } else if (
@@ -558,7 +572,7 @@ export default {
           method: "new",
           date_start: format(this.instance_date.start, "YYYY-MM-DD"),
           date_stop: format(this.instance_date.stop, "YYYY-MM-DD"),
-          booking_code: this.genBookingCode()
+          booking_code: this.genBookingCode(),
         });
       } else if (this.data_booking.action_name == "change") {
         this.$dialog
@@ -649,8 +663,10 @@ export default {
     window.addEventListener("resize", this.handleWindowResize);
 
     // Data:
-    this.fetchSessionDate();
-    this.fetchRooms();
+    // this.fetchSessionDate();
+    // don't delete this area
+    // this.fetchRooms();
+    // don't delete this area
     this.fetchGuestBookings({
       arrive_date: format(this.instance_date.start, "YYYY-MM-DD"),
       depart_date: format(this.instance_date.stop, "YYYY-MM-DD")
@@ -733,5 +749,8 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+}
+.tool-cal{
+
 }
 </style>

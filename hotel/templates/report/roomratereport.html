@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{ title }}{% endblock %}
+{% block container %}
+    {% load humanize %}
+    {% load utility %}
+
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Data Table {{ title }}
+    </div>
+    <div class="card-body">
+        <form action="" method="get">
+            <input type="date" name="q" placeholder="Search Room" value="{{ request.GET.q }}">
+            <input type="submit" value="Search">
+        </form>
+        <div class="table-responsive">
+             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <th>#</th>
+                    <th>Guest Name</th>
+                    <th>Room Name</th>
+                    <th>Arrive Date</th>
+                    <th>Depart Date</th>
+                    <th>Deposit</th>
+                                <th>Cash</th>
+                                <th>Credit</th>
+                                <th>Bank Transfer</th>
+                </tr>
+                {% for item in bookings %}
+                    {% for i in 0|auto_range:item.max_count_record %}
+                        {% if item.max_count_record > 1 %}
+                            {% if i == 0 %}
+                                <tr>
+                                    <td rowspan="{{ item.max_count_record }}">{{ item.orderNo }}</td>
+                                    <td rowspan="{{ item.max_count_record }}">{{ item.fullname }}</td>
+                                    <td rowspan="{{ item.max_count_record }}">{{ item.booking.room.name }}</td>
+                                    <td rowspan="{{ item.max_count_record }}">{{ item.booking.arrive_date | date:"d/m/Y" }}</td>
+                                    <td rowspan="{{ item.max_count_record }}">{{ item.booking.depart_date | date:"d/m/Y" }}</td>
+                                    <td>{{ booking2s|get_cash_rate:item.booking_id|get_deposit:i }}</td>
+                                    <td>{{ booking2s|get_cash_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                                    <td>{{ booking2s|get_credit_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                                    <td>{{ booking2s|get_bank_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>{{ booking2s|get_cash_rate:item.booking_id|get_deposit:i }}</td>
+                                    <td>{{ booking2s|get_cash_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                                    <td>{{ booking2s|get_credit_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                                    <td>{{ booking2s|get_bank_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                                </tr>
+                            {% endif %}
+
+
+
+                        {% else %}
+                            <tr>
+                                <td>{{ item.orderNo }}</td>
+                                <td>{{ item.fullname }}</td>
+                                <td>{{ item.booking.room.name }}</td>
+                                <td>{{ item.booking.arrive_date | date:"d/m/Y" }}</td>
+                                <td>{{ item.booking.depart_date | date:"d/m/Y" }}</td>
+                                <td>{{ booking2s|get_cash_rate:item.booking_id|get_deposit:i }}</td>
+                                <td>{{ booking2s|get_cash_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                                <td>{{ booking2s|get_credit_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                                <td>{{ booking2s|get_bank_rate:item.booking_id|get_by_index:i | intcomma }}</td>
+                            </tr>
+                        {% endif %}
+
+                    {% endfor %}
+                {% endfor %}
+                <tr>
+                    <td colspan="6" style="text-align: right;">∑ = </td>
+                    <td><strong>{{ cash_total | intcomma }} VND</strong></td>
+                    <td><strong>{{ credit_total | intcomma }} VND</strong></td>
+                    <td><strong>{{ bank_total | intcomma }} VND</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted"></div>
+{% endblock %}

@@ -65,6 +65,13 @@ const mutations = {
             }
         });
     },
+    removeGuestLeger: function (state, id) {
+        let bk = state.guestlegers.find(item => item.id == id);
+        if (bk) {
+            let index = state.guestlegers.indexOf(bk);
+            state.guestlegers.splice(index, 1);
+        }
+    },
     fetchRooms: function (state, header_config) {
         axios.get(URL_API + 'api/rooms', {
             headers: {
@@ -86,7 +93,8 @@ const mutations = {
             }
         }).then(res => {
             if (res.status == 200) {
-                state.guests_bookings = res.data;
+                // state.guests_bookings = res.data;
+                state.guests_bookings = res.data.filter(item => item.booking.booking_status.id <= 3);
             }
             else {
                 state.rooms = [];
@@ -115,6 +123,33 @@ const mutations = {
         };
         axios.put(URL_API + 'api/checkin/' + data.booking_id,
             invoice_data
+            , {
+                headers: {
+                    ...data.header_config
+                }
+            }).then().catch()
+    },
+    updateBookingStatusCancel: function (state, data) {
+        axios.put(URL_API + 'api/booking/update_status_noshow/' + data.booking.booking_id,
+            {booking_status: 4}
+            , {
+                headers: {
+                    ...data.header_config
+                }
+            }).then().catch()
+    },
+    updateBookingStatusNoShow: function (state, data) {
+        axios.put(URL_API + 'api/booking/update_status_noshow/' + data.booking.booking_id,
+            {booking_status: 5}
+            , {
+                headers: {
+                    ...data.header_config
+                }
+            }).then().catch()
+    },
+    updateBookingStatusNoShowPostCharge: function (state, data) {
+        axios.put(URL_API + 'api/booking/update_status_noshow_postcharge/' + data.booking.booking_id,
+            {booking_status: 5, date_session: data.booking.date_session, price_confirm: data.booking.price_confirm}
             , {
                 headers: {
                     ...data.header_config
@@ -177,6 +212,27 @@ const mutations = {
 }
 
 const actions = {
+    updateBookingStatusCancel({ commit, rootState }, booking) {
+        commit('updateBookingStatusCancel', {
+            booking, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
+        });
+    },
+    updateBookingStatusNoShow({ commit, rootState }, booking) {
+        commit('updateBookingStatusNoShow', {
+            booking, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
+        });
+    },
+    updateBookingStatusNoShowPostCharge({ commit, rootState }, booking) {
+        commit('updateBookingStatusNoShowPostCharge', {
+            booking, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
+        });
+    },
     fetchGuestLeger: function ({ commit, rootState }, query) {
         commit('fetchGuestLeger', {
             query,
@@ -210,6 +266,9 @@ const actions = {
     },
     removeCalendarBooking({ commit }, id) {
         commit('removeCalendarBooking', id);
+    },
+    removeGuestLeger({ commit }, id) {
+        commit('removeGuestLeger', id);
     },
     updateBookingFolioTransfer: function ({ commit, rootState }, invoice_data) {
         commit('updateBookingFolioTransfer', {

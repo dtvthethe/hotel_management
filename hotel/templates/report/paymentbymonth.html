@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{ title }}{% endblock %}
+{% block container %}
+    {% load humanize %}
+    <h2>{{ title }}</h2>
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    <form action="" method="get">
+        <input type="date" name="q" placeholder="Search Room" value="{{ request.GET.q }}">
+        <input type="submit" value="Search">
+    </form>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Guest Name</th>
+            <th>Arrive Date</th>
+            <th>Depart Date</th>
+            <th>Deposit</th>
+            <th>Cash</th>
+            <th>Credit</th>
+            <th>Bank Transfer</th>
+            <th>Total Collection</th>
+            <th>Time</th>
+        </tr>
+        {% for item in lst %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+
+            </tr>
+        {% endfor %}
+
+    </table>
+    <strong>Total: {{ sum_total.total | intcomma }} VND</strong>
+{% endblock %}

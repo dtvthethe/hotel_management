@@ -4,7 +4,15 @@
     "pk": 1,
     "fields": {
       "name": "SESSION_DATE",
-      "session_date": "2019-03-09"
+      "data_value": "2019-03-09"
+    }
+  },
+  {
+    "model": "hotelmanagement.config",
+    "pk": 2,
+    "fields": {
+      "name": "EXCHANGE_USD",
+      "data_value": "23285"
     }
   },
   {
@@ -131,6 +139,20 @@
     "pk": 3,
     "fields": {
       "name": "Check-out"
+    }
+  },
+  {
+    "model": "hotelmanagement.bookingstatus",
+    "pk": 4,
+    "fields": {
+      "name": "Cancel"
+    }
+  },
+  {
+    "model": "hotelmanagement.bookingstatus",
+    "pk": 5,
+    "fields": {
+      "name": "No-Show"
     }
   },
   {
@@ -399,6 +421,15 @@
       "name": "Pepsi",
       "price": 15000,
       "product_type": 8
+    }
+  },
+   {
+    "model": "hotelmanagement.product",
+    "pk": 22,
+    "fields": {
+      "name": "Nomal Motobike",
+      "price": 120000,
+      "product_type": 4
     }
   },
   {

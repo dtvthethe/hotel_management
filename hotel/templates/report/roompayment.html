@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{ title }}{% endblock %}
+{% block container %}
+    {% load humanize %}
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Data Table {{ title }}
+    </div>
+    <div class="card-body">
+        <form action="" method="get">
+            <input type="date" name="q" placeholder="Search Room" value="{{ request.GET.q }}">
+            <input type="submit" value="Search">
+        </form>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <th>#</th>
+                    <th>Room Name</th>
+                    <th>Arrive Date</th>
+                    <th>Depart Date</th>
+                    <th>Order Date</th>
+                    <th>Room Rate</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+                {% for item in bookings %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.invoice.booking.room.name }}</td>
+                        <td>{{ item.invoice.booking.arrive_date | date:"d/m/Y" }}</td>
+                        <td>{{ item.invoice.booking.depart_date | date:"d/m/Y" }}</td>
+                        <td>{{ item.date_order | date:"d/m/Y : H:i:s" }}</td>
+                        <td>{{ item.price_confirm | intcomma }} VND</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.total | intcomma }} VND</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="7" style="text-align: right">∑ = </td>
+                    <td><strong>{{ sum_total.tota3l | intcomma }} VND</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted"></div>
+{% endblock %}

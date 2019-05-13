@@ -10,9 +10,9 @@ urlpatterns = [
 
     path('rooms', views.RoomListAPIView().as_view(), name='roomlist'),
 
-    path('guest_bookings', views.GuestBookingListAPIView().as_view(), name='guestlist'),#xxx http://127.0.0.1:8000/api/guest_bookings?arrive_date=2019-03-03&depart_date=2019-03-12
-    path('guestbookingdetail/<int:pk>', views.GuestBookingRetrieveAPIView().as_view(), name='guestbookingdetail'),# xxx http://127.0.0.1:8000/api/guestbookingdetail/1
-    path('guest_booking', views.GuestBookingFOListAPIView().as_view(), name='guestbooking'), #xxx http://127.0.0.1:8000/api/guest_booking?session_date=2019-03-09
+    path('guest_bookings', views.GuestBookingListAPIView().as_view(), name='guestlist'),
+    path('guestbookingdetail/<int:pk>', views.GuestBookingRetrieveAPIView().as_view(), name='guestbookingdetail'),
+    path('guest_booking', views.GuestBookingFOListAPIView().as_view(), name='guestbooking'),
 
     path('room_roomtypes', views.RoomRoomTypesListAPIView().as_view(), name='roomroomtypeslist'),
     path('guest_create', views.GuestCreateAPIView().as_view(), name='guestcreate'),
@@ -56,7 +56,6 @@ urlpatterns = [
     path('user_update/<int:pk>', views.UserUpdateAPIView().as_view(), name='user_update'),
     path('user_password/<int:pk>', views.UserPasswordUpdateAPIView().as_view(), name='user_password'),
     path('user_delete/<int:pk>', views.UserDestroyAPIView().as_view(), name='user_delete'),
-
     path('userpermissions', views.UserPermissionListAPIView().as_view(), name='userpermissions'),
 
     url(r'^api-token-auth/', obtain_jwt_token),
@@ -70,7 +69,9 @@ urlpatterns = [
     path('room2s', views.Room2ListAPIView().as_view(), name='room2s'),
     path('room/create', views.RoomCreateAPIView().as_view(), name='room2_create'),
     path('room/edit/<int:pk>', views.RoomUpdateAPIView().as_view(), name='room2_edit'),
+    path('room/edit_roomstatus/<int:pk>', views.RoomStatusUpdateAPIView().as_view(), name='room2_edit'),
     path('room/delete/<int:pk>', views.RoomDestroyAPIView().as_view(), name='room2_delete'),
+
 
     path('room2types', views.Room2TypeListAPIView().as_view(), name='room2types'),
     path('room2type/create', views.RoomTypeCreateAPIView().as_view(), name='room2type_create'),
@@ -96,5 +97,14 @@ urlpatterns = [
 
     path('nightaudits', views.BookingNightAuditByDateListAPIView().as_view(), name='nightaudits'),
     path('guestlegers', views.GuestLegerListAPIView().as_view(), name='guestlegers'),
+
+    path('booking/update_status_noshow/<int:pk>', views.PostNoShowUpdateAPIView().as_view(), name='update_status_noshow'),
+    path('booking/update_status_noshow_postcharge/<int:pk>', views.PostNoShowRoomChargeUpdateAPIView().as_view(),
+         name='update_status_noshow_postcharge'),
+
+    path('person_username', views.PersonByUsernameRetrieveAPIView().as_view(), name='user_retrievebysername'),
+    path('person/create', views.PersonCreateCreateAPIView().as_view(), name='person_create'),
+    path('person/update/<int:pk>', views.PersonUpdateProfileUpdateAPIView().as_view(), name='person_update'),
+    path('person_profile/<int:pk>', views.PersonByIDRetrieveAPIView().as_view(), name='person_editor'),
 
 ]

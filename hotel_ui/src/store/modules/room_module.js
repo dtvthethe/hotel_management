@@ -45,6 +45,15 @@ const mutations = {
             }
         ).then().catch();
     },
+    updateRoomStatus(state, data) {
+        axios.put(URL_API + 'api/room/edit_roomstatus/' + data.room.id,
+            {room_status: data.room.room_status}, {
+                headers: {
+                    ...data.header_config,
+                }
+            }
+        ).then().catch();
+    },
     deleteRoom(state, data) {
         axios.delete(URL_API + 'api/room/delete/' + data.id, {
             headers: {
@@ -69,6 +78,13 @@ const actions = {
     },
     putRoom({ commit, rootState }, room) {
         commit('putRoom', {
+            room, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
+        });
+    },
+    updateRoomStatus({ commit, rootState }, room) {
+        commit('updateRoomStatus', {
             room, header_config: {
                 'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
             }

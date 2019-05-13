@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth.password_validation import validate_password
 
 from hotelmanagement.models import RoomType, Booking, Room, Client, Guest, Product, ProductType, \
-    BookingPayment, PaymentType, Config, RoomStatus, Invoice, InvoiceDetail
+    BookingPayment, PaymentType, Config, RoomStatus, Invoice, InvoiceDetail, Person
 from django.contrib.auth.models import User, Permission
 from .serializers import RoomListSerializer, RoomTypeListSerializer, GuestListSerializer, GuestBookingListSerializer, \
     GuestCreateSerializer, BookingCreateSerializer, ClientListSerializer, GuestBookingDetailSerializer, \
@@ -25,7 +25,9 @@ from .serializers import RoomListSerializer, RoomTypeListSerializer, GuestListSe
     RoomCreateSerializer, RoomDeleteSerializer, RoomStatusListSerializer, InvoiceListSerializer, \
     InvoiceDetailListSerializer, InvoiceDetailCreateSerializer, InvoiceDetailUpdateSerializer, \
     InvoiceDetailPriceConfirmUpdateSerializer, InvoiceDetailDeleteSerializer, InvoiceFolioTransferUpdateSerializer, \
-    BookingGuestListSerializer, GuestLegerListSerializer
+    BookingGuestListSerializer, GuestLegerListSerializer, PostNoShowUpdateSerializer, \
+    PostNoShowRoomChargeUpdateSerializer, RoomStatusUpdateSerializer, PersonCreateSerializer, \
+    PersonByUsernameSerializer, PersonUpdateProfileSerializer
 
 
 class Product2ListAPIView(ListAPIView):
@@ -82,11 +84,11 @@ class GuestBookingFOListAPIView(ListAPIView):
     serializer_class = GuestBookingListSerializer
 
     def get_queryset(self):
-        session_date = self.request.query_params.get('session_date', None)
+        data_value = self.request.query_params.get('data_value', None)
         queryset = []
-        if session_date is not None:
-            queryset = Guest.objects.all().filter(booking__arrive_date__lte=session_date).filter(
-                booking__depart_date__gte=session_date).filter(~Q(booking__booking_status=3))
+        if data_value is not None:
+            queryset = Guest.objects.all().filter(booking__arrive_date__lte=data_value).filter(
+                booking__depart_date__gte=data_value).filter(~Q(booking__booking_status__in=[3,4,5]))
         return queryset
 
 
@@ -236,7 +238,6 @@ class GuestLegerListAPIView(ListAPIView):
                 queryset = queryset.filter(client=client)
         return queryset
 
-
 # Create:
 class RoomCreateAPIView(CreateAPIView):
     serializer_class = RoomCreateSerializer
@@ -289,6 +290,22 @@ class BookingPaymentCreateAPIView(CreateAPIView):
 class InvoiceDetailCreateAPIView(CreateAPIView):
     serializer_class = InvoiceDetailCreateSerializer
 
+class PersonCreateCreateAPIView(CreateAPIView):
+    serializer_class = PersonCreateSerializer
+
+    def post(self, request):
+        validate_password(request.data['password'])
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            user.set_password(request.data['password'])
+            user.save()
+
+            return Response(serializer.data)
+        else:
+            return Response({'message': True})
+
+
 
 # Retrieve:
 class GuestBookingRetrieveAPIView(RetrieveAPIView):
@@ -304,6 +321,34 @@ class GuestBookingRetrieveAPIView(RetrieveAPIView):
 class UserRetrieveAPIView(RetrieveAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+# class PersonByUsernameRetrieveAPIView(RetrieveAPIView):
+#     serializer_class = PersonByUsernameSerializer
+#     queryset = Person.objects.all()
+#
+#     # def get_object(self, username):
+#     #     try:
+#     #         print(username)
+#     #         return Person.objects.get(username=username)
+#     #     except BaseException as ex:
+#     #         return Response(ex)
+
+
+class PersonByUsernameRetrieveAPIView(ListAPIView):
+    serializer_class = PersonByUsernameSerializer
+    queryset = None
+
+    def get_queryset(self):
+        str_username = self.request.query_params.get('username', None)
+        if str_username is not None:
+            return User.objects.filter(username=str_username)
+        else:
+            raise Http404({'asa': 'afw'})
+
+class PersonByIDRetrieveAPIView(RetrieveAPIView):
+    serializer_class = PersonUpdateProfileSerializer
+    queryset = Person.objects.all()
+
 
 
 # Update:
@@ -384,6 +429,7 @@ class BookingPaymentUpdateAPIView(UpdateAPIView):
 #             result = Invoice.objects.create(booking_id=booking_save.pk, guest_id=guest_booking.pk)
 
 
+
 class CheckInAPIView(APIView):  # parameter is booking ID
     serializer_class = InvoiceListSerializer
     queryset = None
@@ -445,6 +491,46 @@ class InvoiceFolioUpdateAPIView(UpdateAPIView):
 
                 raise Http404({'asa': 'afw'})
 
+class PostNoShowUpdateAPIView(UpdateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = PostNoShowUpdateSerializer
+
+
+class PostNoShowRoomChargeUpdateAPIView(UpdateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = PostNoShowRoomChargeUpdateSerializer
+
+    def perform_update(self, serializer):
+        date_session = self.request.data['date_session']
+        price_confirm = self.request.data['price_confirm']
+        if (date_session is not None and price_confirm is not None):
+            bk = serializer.save()
+            guest = Guest.objects.get(booking_id=bk.pk)
+            a = 1
+            inv = Invoice.objects.create(booking_id=bk.pk, guest_id=guest.pk)
+            InvoiceDetail.objects.create(price_confirm=price_confirm, quantity= 1, date_session=date_session, invoice_id= inv.pk, product_id=1)
+        else:
+            raise Http404({'asa': 'afw'})
+
+class RoomStatusUpdateAPIView(UpdateAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomStatusUpdateSerializer
+
+
+class PersonUpdateProfileUpdateAPIView(UpdateAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonUpdateProfileSerializer
+
+    def perform_update(self, serializer):
+        avatar = self.request.data['avatar']
+        if(avatar is not None):
+            serializer.save()
+        else:
+            serializer.save()
+
+# class PersonProfileUpdateAPIView(UpdateAPIView):
+#     serializer_class = PersonUpdateProfileSerializer
+#     queryset = Person.objects.all()
 
 # Delete:
 class RoomDestroyAPIView(DestroyAPIView):

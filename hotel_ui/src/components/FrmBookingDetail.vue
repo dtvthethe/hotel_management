@@ -1,6 +1,6 @@
 <template>
   <form role="form" id="frmbookingdetail" class="modal-open">
-    <!-- Nav tabs -->
+    <!-- Nav tabs{{getRooms(1)}} -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
         <a
@@ -231,7 +231,8 @@
                     <th class="col-md-2">Date</th>
                     <th class="col-md-2">Credit</th>
                     <th class="col-md-2">Payment</th>
-                    <th class="col-md-4">Desciption</th>
+                    <th class="col-md-1">Deposit</th>
+                    <th class="col-md-3">Desciption</th>
                     <th class="col-md-2">Option</th>
                   </tr>
                 </thead>
@@ -240,7 +241,8 @@
                     <td class="col-md-2">{{item.date_pay | dateFormat('DD/MM/YYYY HH:mm:ss')}}</td>
                     <td class="col-md-2">{{item.credit | currency}}</td>
                     <td class="col-md-2">{{item.payment_type.name}}</td>
-                    <td class="col-md-4">{{item.desciption}}</td>
+                    <td class="col-md-1">{{item.deposit == true ? 'Yes':'_'}}</td>
+                    <td class="col-md-3">{{item.desciption}}</td>
                     <td class="col-md-2">
                       <a
                         style="cursor: pointer;"
@@ -346,12 +348,46 @@
     </div>
     <input
       type="button"
-      class="btn btn-info"
+      class="btn btn-default margin-bottom-button"
       data-dismiss="modal"
-      value="Submit"
+      value="Save"
       @click="saveReveration"
     >
+    <input
+      type="button"
+      class="btn btn-success margin-bottom-button"
+      value="Check-in"
+      data-dismiss="modal"
+      @click="onButtonBottomClick('checkin')"
+    >
 
+    <input
+      type="button"
+      class="btn btn-warning margin-bottom-button"
+      value="Check-out"
+      data-dismiss="modal"
+      @click="onButtonBottomClick('checkout')"
+    >
+    <input
+      type="button"
+      class="btn btn-danger margin-bottom-button"
+      value="Cancel Booking"
+      data-dismiss="modal"
+      @click="onButtonBottomClick('delete')"
+    >
+
+    <input
+      type="button"
+      class="btn btn-default margin-bottom-button"
+      value="No-Show"
+      @click="onButtonNoShowClick()"
+    >
+    <div class="tool-export">
+      <a href="javascript:void(0);" @click="onclickReg()"><i class="fa fa-square-o"></i>Reg Form</a>
+      <a href="javascript:void(0);" @click="onclickBill('bill')"><i class="fa fa-plus-square"></i>Bill</a>
+      <a href="javascript:void(0);" @click="onclickBill('room')"><i class="fa fa-check-square-o"></i>Bill Room</a>
+      <a href="javascript:void(0);" @click="onclickBill('extra')"><i class="fa  fa-plus-square-o"></i>Bill Extra Charge</a>
+    </div>
     <!-- minibar popup -->
     <popup-modal name="minibar-popup" :clickToClose="false">
       <div class="row">
@@ -413,6 +449,8 @@
       <i>{{bookingpayment.credit | currency}}</i>
       <br>desciption:
       <input type="text" maxlength="200" v-model="bookingpayment.desciption">
+      <br>Deposit:
+      <input type="checkbox" v-model="bookingpayment.deposit">
       <br>Payment type:
       <select
         class="form-control m-bot15"
@@ -426,7 +464,7 @@
     </popup-modal>
     <!--// popup payment -->
 
-    <!-- popup payment -->
+    <!-- popup roomcharge -->
     <popup-modal name="roomcharge-popup" :clickToClose="false">
       Room rate:
       <input type="number" v-model="roomcharge.price_confirm">
@@ -436,7 +474,7 @@
       <input type="button" value="Save" @click="onSaveRoomChargeClick()">
       <input type="button" value="Close" @click="hide('roomcharge-popup')">
     </popup-modal>
-    <!--// popup payment -->
+    <!--// popup roomcharge -->
 
     <!-- popup foliotransfer -->
     <popup-modal name="foliotransfer-popup" :clickToClose="false">
@@ -465,25 +503,71 @@
       <input type="button" value="Close" @click="hide('foliotransfer-popup')">
     </popup-modal>
     <!--// popup foliotransfer -->
+
+    <!-- popup no-show -->
+    <popup-modal name="noshow-popup" :clickToClose="false">
+      <input type="checkbox" v-model="post_charge.isShowPrice" >
+      <input type="text" v-model="post_charge.price_noshow" :disabled="!post_charge.isShowPrice"> <i>{{post_charge.price_noshow | currency}}</i><br>
+
+      <input type="button" value="Post" @click="postNoShow('post')">
+      <input type="button" value="Post and Charge" @click="postNoShow('post-charge')">
+      <input type="button" value="Close" @click="hide('noshow-popup')">
+    </popup-modal>
+    <!--// popup no-show -->
+    <!-- popup reg form -->
+    <popup-modal name="reg-form" width="100%" height="1000px" :clickToClose="false">
+      <div class="tool">
+        <input type="checkbox" id="show-rate-room" v-model="is_showPrice">
+        <label for="show-rate-room">Show rate room</label>
+        <a class="close-btn" href="javascript:void(0);" @click="hide('reg-form')">Close</a>
+      </div>
+      <RegistrationForm :room-number="roomName.room" :room-type="roomName.room_type" :number-night="durationTwoDate"></RegistrationForm>
+    </popup-modal>
+    <!--// popup reg form -->
+
+    <!-- popup bill form -->
+    <popup-modal name="bill-form" width="100%" height="1500px" :clickToClose="false">
+      <div class="tool">
+        <label> </label>
+        <a class="close-btn" href="javascript:void(0);" @click="hide('bill-form')">Close</a>
+      </div>
+      <BillReportForm :pre-payment="getPrePayment" :deposit="getDeposit" :number-night="durationTwoDate" :room-number="roomName.room" :invoices="invoice_bill" :client-name="roomName.client" ></BillReportForm>
+    </popup-modal>
+    <!--// popup bill form -->
   </form>
 </template>
 <script>
-import Datepicker from "vuejs-datepicker";
-import { mapGetters, mapActions } from "vuex";
-import { differenceInDays, addDays, format, isSameDay, parse } from "date-fns";
+import Datepicker from "vuejs-datepicker"
+import { mapGetters, mapActions } from "vuex"
+import { differenceInDays, addDays, format, isSameDay, parse } from "date-fns"
+import RegistrationForm from "./RegistrationForm"
+import BillReportForm from "./BillReportForm"
+
 
 export default {
   name: "FrmBookingDetail",
   components: {
-    Datepicker
+    Datepicker,
+    RegistrationForm,
+    BillReportForm
   },
   data: function() {
     return {
+      invoice_bill:[],
+      roomName:{
+        room:null,
+        room_type:null,
+        client: null,
+      },
       disabledDatesArrive: {
         from: null
       },
       disabledDatesDepart: {
         to: null
+      },
+      post_charge:{
+        price_noshow:0,
+        isShowPrice:false
       },
       durationTwoDate: -1,
       roomtype_id: -1,
@@ -498,7 +582,8 @@ export default {
         credit: 0,
         desciption: null,
         booking: -1,
-        payment_type: -1
+        payment_type: -1,
+        deposit:false,
       },
       roomcharge: {
         price_confirm: 0,
@@ -545,8 +630,27 @@ export default {
       getSessionDate: "getSessionDate",
       getInvoiceID: "getInvoiceID",
       getInvoices: "getInvoices",
-      getErrorTransfer: "getErrorTransfer"
+      getErrorTransfer: "getErrorTransfer",
+      getIsShowPrice:"getIsShowPrice"
     }),
+    getDeposit(){
+      let total = 0;
+      this.getBookingPayments.forEach(item => {
+        if(item.deposit == true){
+          total += item.credit;
+        }
+      });
+      return total;
+    },
+    getPrePayment(){
+      let total = 0;
+      this.getBookingPayments.forEach(item => {
+        if(item.deposit == false){
+          total += item.credit;
+        }
+      });
+      return total;
+    },
     getInvoiceMinibar() {
       if (this.getInvoices.length > 0) {
         let invs = this.getInvoices
@@ -690,6 +794,14 @@ export default {
       },
       set(value) {
         this.setFullname(value);
+      }
+    },
+    is_showPrice: {
+      get() {
+        return this.getIsShowPrice
+      },
+      set() {
+        this.switchShowPrice();
       }
     },
     filterProducts() {
@@ -881,6 +993,8 @@ export default {
   methods: {
     ...mapActions({
       setBookingCode: "setBookingCode",
+      removeBookings:"removeBookings",
+      deleteReveration:"deleteReveration",
       setBookingAdult: "setBookingAdult",
       setBookingChild: "setBookingChild",
       setBookingNote: "setBookingNote",
@@ -912,8 +1026,198 @@ export default {
       updateInvoiceDetail: "updateInvoiceDetail",
       updateInvoiceDetailPriceConfirm: "updateInvoiceDetailPriceConfirm",
       deleteInvoiceDetail: "deleteInvoiceDetail",
-      fetchInvoices: "fetchInvoices"
+      fetchInvoices: "fetchInvoices",
+      fetchGuestLeger:"fetchGuestLeger",
+      updateBookingCheckIn:"updateBookingCheckIn",
+      updateBookingCheckOut:"updateBookingCheckOut",
+      removeCalendarBooking:"removeCalendarBooking",
+      removeGuestLeger:"removeGuestLeger",
+      updateBookingStatusNoShow:"updateBookingStatusNoShow",
+      updateBookingStatusNoShowPostCharge:"updateBookingStatusNoShowPostCharge",
+      updateBookingStatusCancel:"updateBookingStatusCancel",
+      switchShowPrice:"switchShowPrice",
     }),
+    onclickBill(name){
+      this.roomName.room = this.getRooms(-1).find(item => item.id == this.room).name;
+      this.roomName.client = this.getClients.find(item => item.id == this.client).name;
+      if(name == 'bill'){
+        this.invoice_bill = this.getInvoiceAllCharge;
+      }
+      else if(name == 'room'){
+        this.invoice_bill = this.getInvoiceAllCharge.filter(item => item.product.id == 1)
+      }
+      else if(name == 'extra'){
+        this.invoice_bill = this.getInvoiceAllCharge.filter(item => item.product.id != 1)
+      }
+      else{
+        return;
+      }
+      this.$modal.show('bill-form');
+    },
+    onclickReg(){
+
+      this.roomName.room = this.getRooms(-1).find(item => item.id == this.room).name;
+      this.roomName.room_type = this.getRoomTypes.find(item => item.id == this.roomtype_id).name;
+      this.$modal.show('reg-form');
+    },
+    onButtonNoShowClick(){
+      this.$modal.show('noshow-popup');
+    },
+    postNoShow(type_post){
+      if(type_post == 'post'){
+        this.updateBookingStatusNoShow({booking_id: this.getBookingGuestDetail.id})
+      }
+      else if(type_post == 'post-charge'){
+        this.updateBookingStatusNoShowPostCharge({booking_id: this.getBookingGuestDetail.id, date_session: this.getSessionDate, price_confirm: this.post_charge.price_noshow})
+      }
+      else{
+        return;
+      }
+      setTimeout(() => {
+        if(this.getFrmType.type == 'fo'){
+          this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+        }
+        else if(this.getFrmType.type == 'ca'){
+          this.fetchGuestBookings({
+            arrive_date: this.getFrmType.date_start,
+            depart_date: this.getFrmType.date_stop
+          });
+        }
+        else if(this.getFrmType.type == 'leger'){
+          this.fetchGuestLeger({
+            ...this.getFrmType.data.filter_field,
+            arrive_date: format(this.getFrmType.data.filter_field.arrive_date, "YYYY-MM-DD"),
+            depart_date: format(this.getFrmType.data.filter_field.depart_date, "YYYY-MM-DD")
+          });
+        }
+        else{
+          return;
+        }
+        this.$modal.hide('noshow-popup');
+      }, 2000);
+    },
+    onButtonBottomClick(str_type){
+      let data_booking = {
+        id: this.getBookingDetail.id,
+        action_name: str_type
+      };
+
+      if(str_type == 'delete'){
+        this.$dialog
+          .confirm("Do you want to cancel this reservation?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.updateBookingStatusCancel({booking_id: this.getBookingGuestDetail.id});
+            setTimeout(() => {
+              if(this.getFrmType.type == 'fo'){
+                this.removeBookings(data_booking.id);
+              }
+              else if(this.getFrmType.type == 'ca'){
+                this.removeCalendarBooking(data_booking.id);
+              }
+              else if(this.getFrmType.type == 'leger'){
+                this.fetchGuestLeger({
+                  ...this.getFrmType.data.filter_field,
+                  arrive_date: format(this.getFrmType.data.filter_field.arrive_date, "YYYY-MM-DD"),
+                  depart_date: format(this.getFrmType.data.filter_field.depart_date, "YYYY-MM-DD")
+                });
+              }
+              else{
+                return;
+              }
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+      else if(str_type == 'checkin'){
+        this.$dialog
+          .confirm("Do you want to check-in this room?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            let guest_id = this.getFrmType.guest_id;
+            this.updateBookingCheckIn({booking_id: data_booking.id, guest_id});
+            setTimeout(() => {
+              if(this.getFrmType.type == 'fo'){
+                this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+              }
+              else if(this.getFrmType.type == 'ca'){
+                this.fetchGuestBookings({
+                  arrive_date: this.getFrmType.date_start,
+                  depart_date: this.getFrmType.date_stop
+                });
+              }
+              else if(this.getFrmType.type == 'leger'){
+                this.fetchGuestLeger({
+                  ...this.getFrmType.data.filter_field,
+                  arrive_date: format(this.getFrmType.data.filter_field.arrive_date, "YYYY-MM-DD"),
+                  depart_date: format(this.getFrmType.data.filter_field.depart_date, "YYYY-MM-DD")
+                });
+              }
+              else{
+                return;
+              }
+
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+      else if(str_type == 'checkout'){
+        this.$dialog
+          .confirm("Do you want to check-out this room?", {
+            loader: true,
+            okText: "Yes",
+            cancelText: "No"
+          })
+          .then(dialog => {
+            // on OK click
+            this.updateBookingCheckOut(data_booking.id);
+            setTimeout(() => {
+              // this.fetchRoomWithTypes();
+              // this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+              if(this.getFrmType.type == 'fo'){
+                this.fetchBookings(format(this.getSessionDate, "YYYY-MM-DD"));
+              }
+              else if(this.getFrmType.type == 'ca'){
+                this.fetchGuestBookings({
+                  arrive_date: this.getFrmType.date_start,
+                  depart_date: this.getFrmType.date_stop
+                });
+              }
+              else if(this.getFrmType.type == 'leger'){
+                this.fetchGuestLeger({
+                  ...this.getFrmType.data.filter_field,
+                  arrive_date: format(this.getFrmType.data.filter_field.arrive_date, "YYYY-MM-DD"),
+                  depart_date: format(this.getFrmType.data.filter_field.depart_date, "YYYY-MM-DD")
+                });
+              }
+              else{
+                return;
+              }
+              dialog.close();
+            }, 2000);
+          })
+          .catch(() => {
+            // on cancel click
+          });
+      }
+      else{
+        return;
+      }
+    },
     onSelectDateArrive: function(event) {
       this.disabledDatesDepart.to = event;
     },
@@ -929,7 +1233,7 @@ export default {
         if (this.getFrmType.method == "edit") {
           if (this.getFrmType.type == "fo") {
             setTimeout(() => {
-              this.fetchBookings(this.getFrmType.session_date);
+              this.fetchBookings(this.getFrmType.data_value);
             }, 2000);
           }
           if (this.getFrmType.type == "ca") {
@@ -940,13 +1244,22 @@ export default {
               });
             }, 2000);
           }
+          if (this.getFrmType.type == "leger") {
+            setTimeout(() => {
+              this.fetchGuestLeger({
+                ...this.getFrmType.data.filter_field,
+                arrive_date: format(this.getFrmType.data.filter_field.arrive_date, "YYYY-MM-DD"),
+                depart_date: format(this.getFrmType.data.filter_field.depart_date, "YYYY-MM-DD")
+              });
+            }, 2000);
+          }
         }
       } else {
         this.postReveration();
         if (this.getFrmType.method == "new") {
           if (this.getFrmType.type == "fo") {
             setTimeout(() => {
-              this.fetchBookings(this.getFrmType.session_date);
+              this.fetchBookings(this.getFrmType.data_value);
             }, 2000);
           }
           if (this.getFrmType.type == "ca") {
@@ -1021,7 +1334,8 @@ export default {
             credit: bkpayment.credit,
             desciption: bkpayment.desciption,
             booking: bkpayment.booking,
-            payment_type: bkpayment.payment_type.id
+            payment_type: bkpayment.payment_type.id,
+            deposit: false,
           };
         }
         if (popup_name == "roomcharge-popup") {
@@ -1118,7 +1432,8 @@ export default {
             credit: 0,
             desciption: null,
             booking: -1,
-            payment_type: -1
+            payment_type: -1,
+            deposit: false
           }
         }, 2000);
       }
@@ -1134,7 +1449,8 @@ export default {
             credit: 0,
             desciption: null,
             booking: -1,
-            payment_type: -1
+            payment_type: -1,
+            deposit: false
           }
         }, 2000);
       }
@@ -1321,4 +1637,21 @@ export default {
   background-color: yellowgreen;
   color: red !important;
 }
+.tool{
+  background-color: #624373;
+  color:#fff;
+}
+.tool input{}
+.tool .show-rate-room{
+  
+}
+.tool .close-btn{
+  color: white;
+  font-family: auto;
+  float: right;
+  margin-right: 50px;
+  font-size: smaller;
+  font-weight: normal;
+}
+
 </style>

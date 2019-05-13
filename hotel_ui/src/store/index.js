@@ -37,6 +37,6 @@ export default new Vuex.Store({
         producttype_module,
         room_module,
         roomstatus_module,
-        invoice_module
+        invoice_module,
     }
 });

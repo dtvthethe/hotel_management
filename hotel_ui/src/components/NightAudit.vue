@@ -134,7 +134,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions({fetchSessionDate: "fetchSessionDate", fetchNightAudit:"fetchNightAudit"}),
+    ...mapActions({fetchNightAudit:"fetchNightAudit"}),
     onClickNext(){
       if(this.step_number  == 0){
         this.fetchNightAudit({isArrive: true, date_f: this.getSessionDate});
@@ -146,7 +146,7 @@ export default {
     }
   },
   mounted: function() {
-    this.fetchSessionDate();
+    // this.fetchSessionDate();
     setTimeout(() => {
       this.date_audit = parse(this.getSessionDate);
     }, 1000);

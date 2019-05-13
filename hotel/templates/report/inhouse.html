@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{ title }}{% endblock %}
+{% block container %}
+    {% load humanize %}
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Data Table {{ title }}
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+                <th>#</th>
+                <th>Guest Name</th>
+                <th>Room Name</th>
+                <th>Room Rate</th>
+                <th>Arrive Date</th>
+                <th>Depart Date</th>
+                <th>Reservation Status</th>
+            </tr>
+            {% for item in bookings %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.fullname }}</td>
+                    <td>{{ item.booking.room.name }}</td>
+                    <td>{{ item.booking.price_booking | intcomma }} VND</td>
+                    <td>{{ item.booking.arrive_date | date:"d/m/Y" }}</td>
+                    <td>{{ item.booking.depart_date | date:"d/m/Y" }}</td>
+                    <td>{{ item.booking.booking_status.name }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+    <div class="card-footer small text-muted"></div>
+{% endblock %}

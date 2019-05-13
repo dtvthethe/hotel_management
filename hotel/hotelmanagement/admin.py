@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Booking,PaymentType, Product, RoomStatus, RoomType, Client, BookingPayment, Guest, ProductType, Room, \
-    Invoice, InvoiceDetail
+    Invoice, InvoiceDetail, Person
 
 # Register your models here.
 
@@ -16,3 +16,4 @@ admin.site.register(ProductType)
 admin.site.register(Room)
 admin.site.register(InvoiceDetail)
 admin.site.register(Product)
+admin.site.register(Person)

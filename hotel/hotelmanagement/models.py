@@ -1,13 +1,24 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 
 # Init data: https://code.djangoproject.com/wiki/Fixtures
 
 # phase 1.
+
+class Person(User):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, parent_link=True, related_name='users')
+    avatar = models.ImageField(upload_to='Avatar/', null=True, default=None)
+
+    def __str__(self):
+        return super().get_full_name()
+
+
 class Config(models.Model):
     name = models.CharField(max_length=20, unique=True)
-    session_date = models.DateField()
+    data_value = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -121,6 +132,10 @@ class InvoiceDetail(models.Model):
     date_order = models.DateTimeField(default=timezone.now)
     date_session = models.DateField()
 
+    @property
+    def total(self):
+        return self.quantity * self.price_confirm
+
 
 # phase 5
 class BookingPayment(models.Model):
@@ -129,6 +144,6 @@ class BookingPayment(models.Model):
     desciption = models.CharField(max_length=200)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
+    deposit = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.date_pay
+

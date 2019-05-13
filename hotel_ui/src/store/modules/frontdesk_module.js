@@ -31,13 +31,13 @@ const mutations = {
         });
     },
     fetchBookings: function (state, data) {
-        axios.get(URL_API + 'api/guest_booking?session_date=' + data.session_date, {
+        axios.get(URL_API + 'api/guest_booking?data_value=' + data.data_value, {
             headers: {
                 ...data.header
             }
         }).then(res => {
             if (res.status == 200) {
-                state.bookings = res.data;
+                state.bookings = res.data.filter(item => item.booking.booking_status.id <= 3);
             }
             else {
                 state.bookings = [];
@@ -59,9 +59,9 @@ const actions = {
             'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
         });
     },
-    fetchBookings: function ({ commit, rootState }, session_date) {
+    fetchBookings: function ({ commit, rootState }, data_value) {
         commit('fetchBookings', {
-            session_date,
+            data_value,
             header: {
                 'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
             }

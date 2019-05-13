@@ -19,8 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'yz4=bb=g#-1&cytv0s5wqwnu@y_qz5^y86uva%8s8pbz3zrv(5'
-SECRET_KEY = 'anhkhongdoiQua'
+SECRET_KEY = 'yz4=bb=g#-1&cytv0s5wqwnu@y_qz5^y86uva%8s8pbz3zrv(5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'rest_framework',
     'rest_framework_jwt',
     'corsheaders',
@@ -73,6 +73,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'utility': 'hotelmanagement.templatetags.utility',
+
+            }
         },
     },
 ]
@@ -125,6 +129,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
@@ -175,3 +182,7 @@ JWT_AUTH = {
     'JWT_AUTH_COOKIE': None,
 
 }
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
