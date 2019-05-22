@@ -43,17 +43,24 @@ urlpatterns = [
     path('persons/create', views.person_create, name='person_create'),
     path('persons/edit/<int:id>', views.person_edit, name='person_edit'),
     path('persons/delete/<int:id>', views.person_delete, name='person_delete'),
-
+    path('persons/change_password/<int:id>', views.person_changepassword, name='change_password'),
 
     path('report/houseskeeping', views.report_houseskeeping, name='report_houseskeeping'),
     path('report/cancel', views.report_cancel, name='report_cancel'),
     path('report/noshow', views.report_noshow, name='report_noshow'),
     path('report/breakfast', views.report_breakfast, name='report_breakfast'),
-    path('report/pedding_checkin', views.report_checkin, name='report_pedding_checkin'),
-    path('report/pedding_checkout', views.report_checkout, name='report_pedding_checkout'),
-    path('report/pedding_inhouse', views.report_inhouse, name='report_inhouse'),
+    path('report/pending_checkin', views.report_checkin, name='report_pending_checkin'),
+    path('report/pending_checkout', views.report_checkout, name='report_pending_checkout'),
+    path('report/pending_inhouse', views.report_inhouse, name='report_inhouse'),
     path('report/pamentbymonth', views.report_paymentbymoth, name='report_pamentbymonth'),
     path('report/paymentbydate', views.report_paymentbydate, name='report_paymentbydate'),
     path('report/roompayment', views.report_roompayment, name='report_roompayment'),
     path('report/extrapayment', views.report_extrapayment, name='report_extrapayment'),
+
+    path('login', views.login_auth, name='login'),
+    path('logout', views.logout_auth, name='logout'),
+    path('notify_nummer', views.notify_nummer, name='notify_nummer'),
+    path('quick_search', views.quick_search, name='quick_search'),
+    path('', views.index, name='index'),
+
 ]

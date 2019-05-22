@@ -74,7 +74,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex"
-import { parse } from "date-fns"
+import { parse, addDays, format } from "date-fns"
 
 export default {
   name: "NightAudit",
@@ -134,13 +134,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions({fetchNightAudit:"fetchNightAudit"}),
+    ...mapActions({fetchNightAudit:"fetchNightAudit", putDateConfig:"putDateConfig"}),
     onClickNext(){
       if(this.step_number  == 0){
         this.fetchNightAudit({isArrive: true, date_f: this.getSessionDate});
       }
       else if(this.step_number == 1){
         this.fetchNightAudit({isArrive: false, date_f: this.getSessionDate});
+      }
+      else if(this.step_number == 3){
+        let dat = addDays(parse(this.getSessionDate), 1);
+        this.putDateConfig(format(dat, 'YYYY-MM-DD'));
       }
       this.step_number += 1;
     }

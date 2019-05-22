@@ -96,6 +96,7 @@ urlpatterns = [
     path('invoicedetail/delete/<int:pk>', views.InvoiceDetailDestroyAPIView().as_view(), name='invoicedetail_delete'),
 
     path('nightaudits', views.BookingNightAuditByDateListAPIView().as_view(), name='nightaudits'),
+    path('nightaudit_commit/<int:pk>', views.NightAuditCommitUpdateAPIView().as_view(), name='nightauditcommit'),
     path('guestlegers', views.GuestLegerListAPIView().as_view(), name='guestlegers'),
 
     path('booking/update_status_noshow/<int:pk>', views.PostNoShowUpdateAPIView().as_view(), name='update_status_noshow'),
@@ -106,5 +107,11 @@ urlpatterns = [
     path('person/create', views.PersonCreateCreateAPIView().as_view(), name='person_create'),
     path('person/update/<int:pk>', views.PersonUpdateProfileUpdateAPIView().as_view(), name='person_update'),
     path('person_profile/<int:pk>', views.PersonByIDRetrieveAPIView().as_view(), name='person_editor'),
+
+
+    path('report/pending_checkin', views.PendingCheckinListAPIView().as_view(), name='pending_checkin'),
+    path('report/pending_checkout', views.PendingCheckoutListAPIView().as_view(), name='pending_checkout'),
+    path('report/in_house', views.InHouseListAPIView().as_view(), name='in_house'),
+    path('report/breakfast', views.BreakfastListAPIView().as_view(), name='breakfast'),
 
 ]

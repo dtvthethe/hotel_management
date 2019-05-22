@@ -3143,3 +3143,21 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     padding: 0;
 }
 }
+
+.v--modal-box{
+    padding: 15px !important;
+    height: auto !important;
+}
+.v--modal-box h3{
+    text-align: center;
+}
+.v--modal-box .btn-default, .v--modal-box .btn-warning{
+    margin-left: 10px;
+}
+.v--modal-box-none .v--modal-box{
+    padding: unset !important;
+    height: 1000px !important;
+}
+.is-bf-top-padding{
+    padding-top: 17px;
+}

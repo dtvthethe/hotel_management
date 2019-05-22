@@ -94,7 +94,7 @@
                   v-model="child"
                 >
               </div>
-              <div class="checkbox col-md-3">
+              <div class="checkbox col-md-3 is-bf-top-padding">
                 <label>
                   <input type="checkbox" v-model="is_breakfast">
                   Breakfast
@@ -390,8 +390,9 @@
     </div>
     <!-- minibar popup -->
     <popup-modal name="minibar-popup" :clickToClose="false">
-      <div class="row">
-        <div class="form-group col-md-3">
+      <form>
+        <h3>Minibar</h3>
+        <div class="form-group">
           <label for="producttypeid">Product Type</label>
           <select
             class="form-control m-bot15"
@@ -402,7 +403,7 @@
             <option :key="pro.id" :value="pro.id" v-for="pro in getProductTypes">{{pro.name}}</option>
           </select>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group">
           <label for="productid">Product</label>
           <select
             class="form-control m-bot15"
@@ -413,7 +414,7 @@
             <option :key="pro.id" :value="pro.id" v-for="pro in filterProducts">{{pro.name}}</option>
           </select>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group">
           <label for="price">Price</label>
           <input
             class="form-control m-bot15"
@@ -424,7 +425,7 @@
             v-model="minibarcharge.price_confirm"
           >
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group">
           <label for="productquantity">Quantity</label>
           <input
             class="form-control m-bot15"
@@ -436,86 +437,114 @@
             v-model="minibarcharge.quantity"
           >
         </div>
-      </div>
-      <input type="button" value="Save" @click="onSaveMiniBarClick()">
-      <input type="button" value="Close" @click="hide('minibar-popup')">
+      
+        <input type="button" class="btn btn-success" value="Save" @click="onSaveMiniBarClick()">
+        <input type="button" class="btn btn-default" value="Close" @click="hide('minibar-popup')">
+      </form>
     </popup-modal>
     <!-- //minibar popup -->
 
     <!-- popup payment -->
     <popup-modal name="payment-popup" :clickToClose="false">
-      Credit:
-      <input type="number" v-model="bookingpayment.credit">
-      <i>{{bookingpayment.credit | currency}}</i>
-      <br>desciption:
-      <input type="text" maxlength="200" v-model="bookingpayment.desciption">
-      <br>Deposit:
-      <input type="checkbox" v-model="bookingpayment.deposit">
-      <br>Payment type:
-      <select
-        class="form-control m-bot15"
-        id="paymenttype"
-        v-model="bookingpayment.payment_type"
-      >
-        <option :key="item.id" :value="item.id" v-for="item in getPaymentTypes">{{item.name}}</option>
-      </select>
-      <input type="button" value="Save" @click="onSavePaymentClick()">
-      <input type="button" value="Close" @click="hide('payment-popup')">
+      <form>
+        <h3>Payment</h3>
+        <div class="form-group">
+          <label for="credit">Credit: <i>{{bookingpayment.credit | currency}}</i></label>
+          <input class="form-control m-bot15" id="credit" type="number" v-model="bookingpayment.credit">
+        </div>
+        <div class="form-group">
+          <label for="desciption">Desciption</label>
+          <input class="form-control m-bot15" id="desciption" type="text" maxlength="200" v-model="bookingpayment.desciption">
+        </div>
+        <div class="form-group">
+          <label for="producttypeid">Payment Type</label>
+          <select
+            class="form-control m-bot15"
+            id="paymenttype"
+            v-model="bookingpayment.payment_type"
+          >
+            <option :key="item.id" :value="item.id" v-for="item in getPaymentTypes">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input id="deposit" type="checkbox" v-model="bookingpayment.deposit">
+          <label for="deposit"> Deposit</label>
+
+        </div>
+        <input type="button" value="Save"  class="btn btn-success" @click="onSavePaymentClick()">
+        <input type="button" value="Close"  class="btn btn-default" @click="hide('payment-popup')">
+      </form>
     </popup-modal>
     <!--// popup payment -->
 
     <!-- popup roomcharge -->
     <popup-modal name="roomcharge-popup" :clickToClose="false">
-      Room rate:
-      <input type="number" v-model="roomcharge.price_confirm">
-      <i>{{roomcharge.price_confirm | currency}}</i>
-      <br>
+      <form>
+        <h3>Room Charge</h3>
+        <div class="form-group">
+          <label for="price_confirm">Room rate: <i>{{roomcharge.price_confirm | currency}}</i></label>
+          <input class="form-control m-bot15" id="price_confirm" type="number" v-model="roomcharge.price_confirm">
+        </div>
 
-      <input type="button" value="Save" @click="onSaveRoomChargeClick()">
-      <input type="button" value="Close" @click="hide('roomcharge-popup')">
+        <input class="btn btn-success" type="button" value="Save" @click="onSaveRoomChargeClick()">
+        <input class="btn btn-default" type="button" value="Close" @click="hide('roomcharge-popup')">
+      </form>
     </popup-modal>
     <!--// popup roomcharge -->
 
     <!-- popup foliotransfer -->
     <popup-modal name="foliotransfer-popup" :clickToClose="false">
-      Folio ID:
-      <input type="text" v-model="folio_transfer.id_folio_transfer">
-      <i>{{messageErrorFolioTransfer}}</i>
-      <i>{{getErrorTransfer}}</i>
-      <br>
-      <div :key="item.id" v-for="item in folio_transfer.typeoffoliotransfers">
-        <input
-          name="foliotransfer"
-          type="radio"
-          v-model="folio_transfer.id_folio_transfer_select"
-          :value="item.id"
-          :id="'foliotransfer-id'+item.id"
-        >
-        <label :for="'foliotransfer-id'+item.id">{{item.name}}</label>
-      </div>
+      <form>
+        <h3>Folio Transfer</h3>
+        <div class="form-group">
+          <label for="id_folio_transfer">Folio ID</label>
+          <input class="form-control m-bot15" id="id_folio_transfer" type="text" v-model="folio_transfer.id_folio_transfer">
+          <i class="text-danger">{{messageErrorFolioTransfer}}</i>
+          <i class="text-danger">{{getErrorTransfer}}</i>
+        </div>
+        <div :key="item.id" v-for="item in folio_transfer.typeoffoliotransfers">
+          <input
+            name="foliotransfer"
+            type="radio"
+            v-model="folio_transfer.id_folio_transfer_select"
+            :value="item.id"
+            :id="'foliotransfer-id'+item.id"
+          >
+           <label :for="'foliotransfer-id'+item.id">{{item.name}}</label>
+        </div>
 
-      <input
-        type="button"
-        value="Save"
-        :disabled="messageErrorFolioTransfer"
-        @click="onSaveFolioTransferClick()"
-      >
-      <input type="button" value="Close" @click="hide('foliotransfer-popup')">
+        <input
+          type="button"
+          value="Save"
+          class="btn btn-success"
+          :disabled="messageErrorFolioTransfer"
+          @click="onSaveFolioTransferClick()"
+        >
+        <input type="button" class="btn btn-default" value="Close" @click="hide('foliotransfer-popup')">
+      </form>
     </popup-modal>
     <!--// popup foliotransfer -->
 
     <!-- popup no-show -->
     <popup-modal name="noshow-popup" :clickToClose="false">
-      <input type="checkbox" v-model="post_charge.isShowPrice" >
-      <input type="text" v-model="post_charge.price_noshow" :disabled="!post_charge.isShowPrice"> <i>{{post_charge.price_noshow | currency}}</i><br>
-
-      <input type="button" value="Post" @click="postNoShow('post')">
-      <input type="button" value="Post and Charge" @click="postNoShow('post-charge')">
-      <input type="button" value="Close" @click="hide('noshow-popup')">
+      <form>
+        <h3>Post No-Show</h3>
+        <div class="form-group">
+          <input type="checkbox" id="isShowPrice" v-model="post_charge.isShowPrice">
+          <label for="isShowPrice">Is show price</label>
+        </div>
+        <div class="form-group">
+          <label for="price_noshow">Price: <i>{{post_charge.price_noshow | currency}}</i></label>
+          <input type="text" class="form-control m-bot15" id="price_noshow" v-model="post_charge.price_noshow" :disabled="!post_charge.isShowPrice">
+        </div>
+        <input type="button" class="btn btn-info" value="Post" @click="postNoShow('post')">
+        <input type="button" class="btn btn-warning" value="Post and Charge" @click="postNoShow('post-charge')">
+        <input type="button" class="btn btn-default" value="Close" @click="hide('noshow-popup')">
+      </form>
     </popup-modal>
     <!--// popup no-show -->
     <!-- popup reg form -->
-    <popup-modal name="reg-form" width="100%" height="1000px" :clickToClose="false">
+    <popup-modal name="reg-form" width="100%" height="1000px" :clickToClose="false" class="v--modal-box-none">
       <div class="tool">
         <input type="checkbox" id="show-rate-room" v-model="is_showPrice">
         <label for="show-rate-room">Show rate room</label>
@@ -526,7 +555,7 @@
     <!--// popup reg form -->
 
     <!-- popup bill form -->
-    <popup-modal name="bill-form" width="100%" height="1500px" :clickToClose="false">
+    <popup-modal name="bill-form" width="100%" height="1500px" :clickToClose="false" class="v--modal-box-none">
       <div class="tool">
         <label> </label>
         <a class="close-btn" href="javascript:void(0);" @click="hide('bill-form')">Close</a>

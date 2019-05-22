@@ -48,35 +48,45 @@ class RoomForm(forms.ModelForm):
         fields = ['name', 'price', 'capacity', 'room_status', 'room_type']
 
 
-# class PersonForm(forms.ModelForm):
-#     password = forms.CharField(widget=forms.PasswordInput)
-#
-#     class Meta:
-#         model = User
-#         fields = ['username', 'password', 'is_active', 'is_staff', 'is_superuser', 'first_name', 'last_name',
-#                   'email']
-
-    #
-    # def save(self):
-    #     password = self.cleaned_data.pop('password')
-    #     u = super().save()
-    #     u.set_password(password)
-    #     u.save()
-
-class PersonForm(UserCreationForm):
+class PersonForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = Person
+        fields = (
+            'username', 'is_active', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'password',
+            'avatar'
+        )
+
+
+class PersonEditForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = (
+            'username', 'is_active', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'avatar'
+        )
+
+
+class PersonChangePasswordForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = (
-            'username', 'is_active', 'is_staff', 'is_superuser', 'first_name', 'last_name','email'
-        )
+        fields = ['password']
 
-    def save(self, commit=True):
-        user = super(PersonForm, self).save(commit=False)
-        passs = self.cleaned_data['password']
-        user.set_password(passs)
-        if commit:
-            user.save()
 
-        return user
+class LoginForm(forms.ModelForm):
+    username = forms.CharField(max_length=150)
+    username.widget.attrs.update(
+        {'class': 'form-control', "id": "inputEmail", "placeholder": "Password", "required": "required",
+         "autofocus": "autofocus"})
+
+    password = forms.CharField(widget=forms.PasswordInput)
+    password.widget.attrs.update(
+        {'class': 'form-control', "id": "inputPassword", "placeholder": "Username", "required": "required"})
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']

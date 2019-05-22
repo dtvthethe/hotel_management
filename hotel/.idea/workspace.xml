@@ -3,36 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="dc2ea73c-5c68-4de7-bc29-cf1044ba4ee4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotelmanagement/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotelmanagement/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotelmanagement/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotelmanagement/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotelmanagement/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelmanagement/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotelmanagement/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotelmanagement/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirement.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirement.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/public/static/css/customstyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/public/static/css/customstyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/sb-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/sb-admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/public/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/public/static/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/CalendarBooking.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/CalendarBooking.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/ChangeRoomPopupConfirm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/ChangeRoomPopupConfirm.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/FrmBookingDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/FrmBookingDetail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/FrontDesk.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/FrontDesk.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/GuestLeger.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/GuestLeger.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/HeadBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/HeadBar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/NightAudit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/NightAudit.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/components/RoomStatus.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/components/RoomStatus.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/booking_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/booking_module.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/config_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/config_module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/frontdesk_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/frontdesk_module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/reveration_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/reveration_module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/room_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/room_module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/ui_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/ui_module.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hotel_ui/src/store/modules/user_module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hotel_ui/src/store/modules/user_module.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,38 +57,80 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hotelmanagement/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11160">
+              <caret line="756" selection-start-line="756" selection-end-line="756" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1425">
+              <caret line="98" column="59" selection-start-line="98" selection-start-column="59" selection-end-line="98" selection-end-column="59" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/auth/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hotel/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2100">
+              <caret line="141" column="6" selection-start-line="141" selection-start-column="6" selection-end-line="141" selection-end-column="6" />
+              <folding>
+                <element signature="e#305#320#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="123">
+              <caret line="458" column="70" lean-forward="true" selection-start-line="458" selection-start-column="70" selection-end-line="458" selection-end-column="70" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/product/create.html">
+        <entry file="file://$PROJECT_DIR$/requirement.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+            <state relative-caret-position="180">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/product/edit.html">
+        <entry file="file://$PROJECT_DIR$/hotelmanagement/api/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/room/create.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/room/edit.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+            <state relative-caret-position="6225">
+              <caret line="418" column="32" selection-start-line="418" selection-start-column="6" selection-end-line="418" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#66#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,43 +140,43 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>roomtypes/edit/</find>
-      <find>instance</find>
-      <find>client</find>
-      <find>PaymentTypeForm</find>
-      <find>paymenttype</find>
-      <find>confi</find>
-      <find>pay</find>
-      <find>config</find>
-      <find>product</find>
-      <find>invoice</find>
-      <find>room</find>
-      <find>stat</find>
-      <find>STATICFILES_DIRS</find>
-      <find>&lt;im</find>
-      <find>dash</find>
-      <find>bookings</find>
-      <find>time</find>
-      <find>curr</find>
-      <find>date()</find>
-      <find>strptime</find>
-      <find>Report</find>
-      <find>~Q</find>
-      <find>checkin</find>
-      <find>.abc</find>
-      <find>fullname</find>
-      <find>hotelmanagement_namspace:report_pamentbydate</find>
       <find>paymentbydate</find>
       <find>ddate_order</find>
       <find>sum</find>
       <find>Blank dwdPage</find>
+      <find>&lt;img</find>
+      <find>Person</find>
+      <find>mess</find>
+      <find>Paginator</find>
+      <find>person</find>
+      <find>7</find>
+      <find>logout</find>
+      <find>.html</find>
+      <find>pedd</find>
+      <find>lst</find>
+      <find>peding</find>
+      <find>booking__booking_status_id=1</find>
+      <find>booking__booking_status_id=2</find>
+      <find>booking__booking_status_id=3</find>
+      <find>pedding_checkin</find>
+      <find>checkin</find>
+      <find>pending</find>
+      <find>Guest</find>
+      <find>pedding</find>
+      <find>pass</find>
+      <find>UserUp</find>
+      <find>UserUpdateProfileSerializer</find>
+      <find>person/update/</find>
+      <find>user_password</find>
+      <find>login</find>
+      <find>night</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -149,32 +185,19 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/hotelmanagement/fixtures/FixtureData.py" />
-        <option value="$PROJECT_DIR$/hotel/serializers.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/tests.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/api/serializers.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json" />
-        <option value="$PROJECT_DIR$/hotelmanagement/api/urls.py" />
         <option value="$PROJECT_DIR$/hotel/urls.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/admin.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/forms.py" />
         <option value="$PROJECT_DIR$/templates/report/paymentbydate.html" />
         <option value="$PROJECT_DIR$/templates/report/houseskeeping.html" />
         <option value="$PROJECT_DIR$/templates/report/cancel.html" />
         <option value="$PROJECT_DIR$/templates/report/breakfast.html" />
-        <option value="$PROJECT_DIR$/hotelmanagement/api/views.py" />
         <option value="$PROJECT_DIR$/templates/report/inhouse.html" />
         <option value="$PROJECT_DIR$/templates/report/paymentbymonth.html" />
         <option value="$PROJECT_DIR$/hotelmanagement/templatetags/generic_range.py" />
-        <option value="$PROJECT_DIR$/hotel/settings.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/models.py" />
         <option value="$PROJECT_DIR$/hotelmanagement/templatetags/utility.py" />
         <option value="$PROJECT_DIR$/templates/report/roomratereport.html" />
         <option value="$PROJECT_DIR$/templates/report/roompayment.html" />
-        <option value="$PROJECT_DIR$/hotelmanagement/urls.py" />
-        <option value="$PROJECT_DIR$/hotelmanagement/views.py" />
         <option value="$PROJECT_DIR$/templates/report/extrapayment.html" />
-        <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/config/list.html" />
         <option value="$PROJECT_DIR$/templates/client/list.html" />
         <option value="$PROJECT_DIR$/templates/paymenttype/list.html" />
@@ -182,7 +205,6 @@
         <option value="$PROJECT_DIR$/templates/producttype/list.html" />
         <option value="$PROJECT_DIR$/templates/room/list.html" />
         <option value="$PROJECT_DIR$/templates/roomtype/list.html" />
-        <option value="$PROJECT_DIR$/templates/user/list.html" />
         <option value="$PROJECT_DIR$/templates/client/create.html" />
         <option value="$PROJECT_DIR$/templates/client/edit.html" />
         <option value="$PROJECT_DIR$/templates/producttype/create.html" />
@@ -197,10 +219,27 @@
         <option value="$PROJECT_DIR$/templates/room/create.html" />
         <option value="$PROJECT_DIR$/templates/product/edit.html" />
         <option value="$PROJECT_DIR$/templates/product/create.html" />
+        <option value="$PROJECT_DIR$/hotelmanagement/models.py" />
+        <option value="$PROJECT_DIR$/templates/user/create.html" />
+        <option value="$PROJECT_DIR$/templates/user/edit.html" />
+        <option value="$PROJECT_DIR$/hotelmanagement/forms.py" />
+        <option value="$PROJECT_DIR$/templates/user/list.html" />
+        <option value="$PROJECT_DIR$/static/css/sb-admin.css" />
+        <option value="$PROJECT_DIR$/hotelmanagement/urls.py" />
+        <option value="$PROJECT_DIR$/templates/base.html" />
+        <option value="$PROJECT_DIR$/templates/dashboard/index.html" />
+        <option value="$PROJECT_DIR$/templates/notify/nummer.html" />
+        <option value="$PROJECT_DIR$/templates/user/quick_search.html" />
+        <option value="$PROJECT_DIR$/hotel/settings.py" />
+        <option value="$PROJECT_DIR$/templates/auth/login.html" />
+        <option value="$PROJECT_DIR$/hotelmanagement/views.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/api/serializers.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/api/urls.py" />
+        <option value="$PROJECT_DIR$/hotelmanagement/api/views.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="736" />
@@ -224,55 +263,18 @@
             <path>
               <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="hotel" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="hotelmanagement" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="paymenttype" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="product" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="producttype" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="room" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="roomtype" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="hotelmanagement" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -290,13 +292,15 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$/hotelmanagement/api" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/dashboard" />
+      <recent name="$PROJECT_DIR$/static/images" />
       <recent name="$PROJECT_DIR$/templates/report" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/templates" />
-      <recent name="$PROJECT_DIR$/templates/producttype" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -472,6 +476,17 @@
       <workItem from="1557667293801" duration="13339000" />
       <workItem from="1557707256582" duration="8000" />
       <workItem from="1557708290655" duration="392000" />
+      <workItem from="1557727222572" duration="145000" />
+      <workItem from="1557938486847" duration="5428000" />
+      <workItem from="1558033514777" duration="1267000" />
+      <workItem from="1558072197834" duration="14254000" />
+      <workItem from="1558164622210" duration="3041000" />
+      <workItem from="1558369529247" duration="4219000" />
+      <workItem from="1558405519555" duration="1181000" />
+      <workItem from="1558422659794" duration="631000" />
+      <workItem from="1558454919931" duration="1088000" />
+      <workItem from="1558491723749" duration="3598000" />
+      <workItem from="1558506418806" duration="622000" />
     </task>
     <servers />
   </component>
@@ -487,18 +502,18 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="382013000" />
+    <option name="totallyTimeSpent" value="417487000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="736" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="736" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.23182553" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.13570274" />
       <window_info id="Structure" order="1" sideWeight="0.5017544" side_tool="true" weight="0.17285945" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.06677019" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.16614906" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5743243" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.27018633" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -526,150 +541,10 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/fixtures/initial_data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="430" column="17" selection-start-line="430" selection-start-column="17" selection-end-line="430" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/core/checks/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="46" lean-forward="true" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user/edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="11" lean-forward="true" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/forms/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="265" selection-start-line="265" selection-end-line="265" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="63" column="18" lean-forward="true" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/sb-admin.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotel/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#629#661#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/report/cancel.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="19" column="34" lean-forward="true" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="432" column="13" selection-start-line="432" selection-start-column="6" selection-end-line="432" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/report/checkin.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/report/checkout.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/report/paymentbydate.html" />
-    <entry file="file://$PROJECT_DIR$/templates/report/noshow.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/templatetags/generic_range.py" />
-    <entry file="file://$PROJECT_DIR$/hotel/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="76" column="64" selection-start-line="76" selection-start-column="57" selection-end-line="76" selection-end-column="64" />
-          <folding>
-            <element signature="e#305#320#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/db/models/fields/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="1362" selection-start-line="1362" selection-end-line="1362" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/templatetags/utility.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/report/roomratereport.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="737">
-          <caret line="72" column="61" selection-start-line="72" selection-start-column="61" selection-end-line="72" selection-end-column="61" />
-          <folding>
-            <element signature="e#4055#4082#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="126" column="6" selection-start-line="126" selection-start-column="6" selection-end-line="126" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/report/inhouse.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
           <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/report/houseskeeping.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
@@ -694,33 +569,6 @@
           <folding>
             <element signature="e#1671#1696#0#HTML" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="691" column="4" selection-start-line="691" selection-start-column="4" selection-end-line="691" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotelmanagement/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="56" column="48" lean-forward="true" selection-start-line="56" selection-start-column="48" selection-end-line="56" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1120">
-          <caret line="214" column="59" selection-start-line="214" selection-start-column="59" selection-end-line="214" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -765,32 +613,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/room/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="15" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
-          <folding>
-            <element signature="e#1698#2343#0#HTML" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/roomtype/list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="56" column="52" selection-start-line="56" selection-start-column="52" selection-end-line="56" selection-end-column="52" />
           <folding>
             <element signature="e#1054#1611#0#HTML" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="63" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
-          <folding>
-            <element signature="e#1883#2528#0#HTML" />
           </folding>
         </state>
       </provider>
@@ -878,8 +706,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/product/create.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+        <state relative-caret-position="330">
+          <caret line="22" column="52" lean-forward="true" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -890,17 +718,235 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/room/create.html">
+    <entry file="file://$PROJECT_DIR$/media/Avatar/img1.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user/create.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+        <state relative-caret-position="180">
+          <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/room/edit.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+        <state relative-caret-position="135">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user/edit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#0#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/room/create.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="8" lean-forward="true" selection-start-line="9" selection-start-column="8" selection-end-line="13" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/report/houseskeeping.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/room/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="50" column="96" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/sb-admin.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174000">
+          <caret line="11600" column="4" selection-start-line="11600" selection-start-column="4" selection-end-line="11600" selection-end-column="4" />
+          <folding>
+            <element signature="e#42134#42368#2" expanded="true" />
+            <element signature="e#43351#43504#1" expanded="true" />
+            <element signature="e#43546#43780#1" expanded="true" />
+            <element signature="e#47405#47681#2" expanded="true" />
+            <element signature="e#48692#48845#1" expanded="true" />
+            <element signature="e#48887#49163#1" expanded="true" />
+            <element signature="e#88706#88893#2" expanded="true" />
+            <element signature="e#89154#89290#2" expanded="true" />
+            <element signature="e#89751#89884#2" expanded="true" />
+            <element signature="e#91895#92048#1" expanded="true" />
+            <element signature="e#111130#111360#2" expanded="true" />
+            <element signature="e#112396#112632#2" expanded="true" />
+            <element signature="e#154067#154244#2" expanded="true" />
+            <element signature="e#154301#154478#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="80" column="31" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="112" column="112" selection-start-line="112" selection-start-column="112" selection-end-line="112" selection-end-column="112" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dashboard/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357">
+          <caret line="46" column="131" selection-start-line="46" selection-start-column="131" selection-end-line="46" selection-end-column="131" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/notify/nummer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="102" selection-start-line="7" selection-start-column="102" selection-end-line="7" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user/quick_search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/utils/functional.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="211" selection-start-line="211" selection-end-line="211" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/core/handlers/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/forms/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="287" selection-start-line="287" selection-end-line="287" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/dispatch/dispatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="170" selection-start-line="170" selection-end-line="170" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/db/models/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="426" selection-start-line="426" selection-end-line="426" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="60" column="53" lean-forward="true" selection-start-line="60" selection-start-column="53" selection-end-line="60" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11160">
+          <caret line="756" selection-start-line="756" selection-end-line="756" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1425">
+          <caret line="98" column="59" selection-start-line="98" selection-start-column="59" selection-end-line="98" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/auth/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotel/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2100">
+          <caret line="141" column="6" selection-start-line="141" selection-start-column="6" selection-end-line="141" selection-end-column="6" />
+          <folding>
+            <element signature="e#305#320#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6225">
+          <caret line="418" column="32" selection-start-line="418" selection-start-column="6" selection-end-line="418" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotelmanagement/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="458" column="70" lean-forward="true" selection-start-line="458" selection-start-column="70" selection-end-line="458" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirement.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>

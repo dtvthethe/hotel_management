@@ -1,19 +1,20 @@
 import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Q, F, Sum, Prefetch
+from django.db.models import Q, F, Sum
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from rest_framework_jwt.serializers import User
+from django.contrib.auth import authenticate, login, logout
 
 from hotelmanagement.forms import ProductTypeForm, RoomTypeForm, ClientForm, ConfigForm, PaymentTypeForm, ProductForm, \
-    RoomForm, PersonForm
+    RoomForm, PersonForm, PersonEditForm, PersonChangePasswordForm, LoginForm
 from .models import ProductType, RoomType, Client, Config, PaymentType, Product, Room, Person, Invoice, InvoiceDetail, \
     BookingPayment, Booking, Guest
 
 
 # ProductType
-
+@login_required(login_url='/login')
 def producttype_list(request):
     lst = ProductType.objects.all()
     paginator = Paginator(lst, 10)
@@ -23,6 +24,7 @@ def producttype_list(request):
     return render(request, 'producttype/list.html', context=context)
 
 
+@login_required(login_url='/login')
 def producttype_create(request):
     try:
         if request.method == 'POST':
@@ -36,6 +38,7 @@ def producttype_create(request):
     return render(request, 'producttype/create.html', context={'title': 'New Product Type', 'form': ProductTypeForm()})
 
 
+@login_required(login_url='/login')
 def producttype_edit(request, id=None):
     context = None
     try:
@@ -55,6 +58,7 @@ def producttype_edit(request, id=None):
     return render(request, 'producttype/edit.html', context=context)
 
 
+@login_required(login_url='/login')
 def producttype_delete(request, id=None):
     try:
         instance = get_object_or_404(ProductType, id=id)
@@ -66,7 +70,7 @@ def producttype_delete(request, id=None):
 
 
 # RoomType
-
+@login_required(login_url='/login')
 def roomtype_list(request):
     lst = RoomType.objects.all()
     paginator = Paginator(lst, 10)
@@ -76,6 +80,7 @@ def roomtype_list(request):
     return render(request, 'roomtype/list.html', context=context)
 
 
+@login_required(login_url='/login')
 def roomtype_create(request):
     try:
         if request.method == 'POST':
@@ -89,6 +94,7 @@ def roomtype_create(request):
     return render(request, 'roomtype/create.html', context={'title': 'New Room Type', 'form': RoomTypeForm()})
 
 
+@login_required(login_url='/login')
 def roomtype_edit(request, id=None):
     context = None
     try:
@@ -108,6 +114,7 @@ def roomtype_edit(request, id=None):
     return render(request, 'roomtype/edit.html', context=context)
 
 
+@login_required(login_url='/login')
 def roomtype_delete(request, id=None):
     try:
         instance = get_object_or_404(RoomType, id=id)
@@ -119,7 +126,7 @@ def roomtype_delete(request, id=None):
 
 
 # Client
-
+@login_required(login_url='/login')
 def cient_list(request):
     lst = Client.objects.all()
     paginator = Paginator(lst, 10)
@@ -129,6 +136,7 @@ def cient_list(request):
     return render(request, 'client/list.html', context=context)
 
 
+@login_required(login_url='/login')
 def client_create(request):
     try:
         if request.method == 'POST':
@@ -142,6 +150,7 @@ def client_create(request):
     return render(request, 'Client/create.html', context={'title': 'New Client', 'form': ClientForm()})
 
 
+@login_required(login_url='/login')
 def client_edit(request, id=None):
     context = None
     try:
@@ -161,6 +170,7 @@ def client_edit(request, id=None):
     return render(request, 'client/edit.html', context=context)
 
 
+@login_required(login_url='/login')
 def client_delete(request, id=None):
     try:
         instance = get_object_or_404(Client, id=id)
@@ -172,7 +182,7 @@ def client_delete(request, id=None):
 
 
 # Config
-
+@login_required(login_url='/login')
 def config_list(request):
     lst = Config.objects.all()
     paginator = Paginator(lst, 10)
@@ -182,6 +192,7 @@ def config_list(request):
     return render(request, 'config/list.html', context=context)
 
 
+@login_required(login_url='/login')
 def config_create(request):
     try:
         if request.method == 'POST':
@@ -195,6 +206,7 @@ def config_create(request):
     return render(request, 'config/create.html', context={'title': 'New Config', 'form': ConfigForm()})
 
 
+@login_required(login_url='/login')
 def config_edit(request, id=None):
     context = None
     try:
@@ -214,6 +226,7 @@ def config_edit(request, id=None):
     return render(request, 'config/edit.html', context=context)
 
 
+@login_required(login_url='/login')
 def config_delete(request, id=None):
     try:
         instance = get_object_or_404(Config, id=id)
@@ -225,7 +238,7 @@ def config_delete(request, id=None):
 
 
 # Payment Type
-
+@login_required(login_url='/login')
 def paymenttype_list(request):
     lst = PaymentType.objects.all()
     paginator = Paginator(lst, 10)
@@ -235,6 +248,7 @@ def paymenttype_list(request):
     return render(request, 'paymenttype/list.html', context=context)
 
 
+@login_required(login_url='/login')
 def paymenttype_create(request):
     try:
         if request.method == 'POST':
@@ -248,6 +262,7 @@ def paymenttype_create(request):
     return render(request, 'paymenttype/create.html', context={'title': 'New Payment Type', 'form': PaymentTypeForm()})
 
 
+@login_required(login_url='/login')
 def paymenttype_edit(request, id=None):
     context = None
     try:
@@ -267,6 +282,7 @@ def paymenttype_edit(request, id=None):
     return render(request, 'paymenttype/edit.html', context=context)
 
 
+@login_required(login_url='/login')
 def paymenttype_delete(request, id=None):
     try:
         instance = get_object_or_404(PaymentType, id=id)
@@ -278,7 +294,7 @@ def paymenttype_delete(request, id=None):
 
 
 # Product
-
+@login_required(login_url='/login')
 def product_list(request):
     lst = Product.objects.all()
     query = request.GET.get('q')
@@ -292,6 +308,7 @@ def product_list(request):
     return render(request, 'product/list.html', context=context)
 
 
+@login_required(login_url='/login')
 def product_create(request):
     try:
         if request.method == 'POST':
@@ -305,6 +322,7 @@ def product_create(request):
     return render(request, 'product/create.html', context={'title': 'New Product', 'form': ProductForm()})
 
 
+@login_required(login_url='/login')
 def product_edit(request, id=None):
     context = None
     try:
@@ -324,6 +342,7 @@ def product_edit(request, id=None):
     return render(request, 'product/edit.html', context=context)
 
 
+@login_required(login_url='/login')
 def product_delete(request, id=None):
     try:
         instance = get_object_or_404(Product, id=id)
@@ -335,7 +354,7 @@ def product_delete(request, id=None):
 
 
 # Room
-
+@login_required(login_url='/login')
 def room_list(request):
     lst = Room.objects.all()
     query = request.GET.get('q')
@@ -351,6 +370,7 @@ def room_list(request):
     return render(request, 'room/list.html', context=context)
 
 
+@login_required(login_url='/login')
 def room_create(request):
     try:
         if request.method == 'POST':
@@ -364,6 +384,7 @@ def room_create(request):
     return render(request, 'room/create.html', context={'title': 'New Room', 'form': RoomForm()})
 
 
+@login_required(login_url='/login')
 def room_edit(request, id=None):
     context = None
     try:
@@ -383,6 +404,7 @@ def room_edit(request, id=None):
     return render(request, 'room/edit.html', context=context)
 
 
+@login_required(login_url='/login')
 def room_delete(request, id=None):
     try:
         instance = get_object_or_404(Room, id=id)
@@ -394,14 +416,13 @@ def room_delete(request, id=None):
 
 
 # Person
-
+@login_required(login_url='/login')
 def person_list(request):
     lst = Person.objects.all()
     query = request.GET.get('q')
-    # if query:
-    #     lst = lst.filter(Q(name__contains=query) |
-    #                      Q(room_status__name__contains=query) |
-    #                      Q(room_type__name__contains=query)).distinct()
+    if query:
+        lst = lst.filter(Q(username__contains=query) | Q(email__contains=query) | Q(first_name__contains=query) |
+                         Q(last_name__contains=query)).distinct()
 
     paginator = Paginator(lst, 10)
     page = request.GET.get('page')
@@ -410,13 +431,14 @@ def person_list(request):
     return render(request, 'user/list.html', context=context)
 
 
+@login_required(login_url='/login')
 def person_create(request):
     try:
         if request.method == 'POST':
-            form = PersonForm(request.POST or None)
+            form = PersonForm(request.POST or None, request.FILES or None)
             if form.is_valid():
-                instance = form.save()
-                # instance.password = instance.set instance.password
+                instance = form.save(commit=False)
+                instance.set_password(instance.password)
                 instance.save()
                 messages.success(request, 'Create successfully!')
     except BaseException as be:
@@ -424,17 +446,18 @@ def person_create(request):
     return render(request, 'user/create.html', context={'title': 'New User', 'form': PersonForm()})
 
 
+@login_required(login_url='/login')
 def person_edit(request, id=None):
     context = None
     try:
         instance = get_object_or_404(Person, id=id)
-        form = PersonForm(request.POST or None, instance=instance)
+        form = PersonEditForm(request.POST or None, request.FILES or None, instance=instance)
         if form.is_valid():
             form.save()
             messages.success(request, 'Update successfully!')
             return redirect('hotelmanagement_namspace:persons')
         context = {
-            'title': 'Person Edit',
+            'title': 'User Update',
             'form': form
         }
     except BaseException as be:
@@ -442,6 +465,28 @@ def person_edit(request, id=None):
     return render(request, 'user/edit.html', context=context)
 
 
+@login_required(login_url='/login')
+def person_changepassword(request, id=None):
+    context = None
+    try:
+        instance = get_object_or_404(Person, id=id)
+        form = PersonChangePasswordForm(request.POST or None, instance=instance)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.set_password(obj.password)
+            obj.save()
+            messages.success(request, 'Change password successfully!')
+            return redirect('hotelmanagement_namspace:persons')
+        context = {
+            'title': 'Change password',
+            'form': form
+        }
+    except BaseException as be:
+        messages.error(request, be)
+    return render(request, 'user/edit.html', context=context)
+
+
+@login_required(login_url='/login')
 def person_delete(request, id=None):
     try:
         instance = get_object_or_404(Person, id=id)
@@ -453,19 +498,7 @@ def person_delete(request, id=None):
 
 
 # Report:
-# def report_paymentbydate(request):
-#     query = request.GET.get('q')
-#     if query == None:
-#         query = datetime.datetime(2019, 5, 10)
-#     else:
-#         query = datetime.datetime.strptime(query, '%Y-%m-%d')
-#     lst = InvoiceDetail.objects.filter(date_order__gte=query.date(), date_order__lte=query.date() + datetime.timedelta(days=1)) #start__gte=d.date(), start__lt=d.date()+timedelta(days=1)
-#     sum_total = lst.aggregate(total=Sum(F('quantity') * F('price_confirm')))
-#     context = {'title': 'User List', 'lst': lst, 'sum_total':sum_total }
-#     return render(request, 'report/paymentbydate.html', context=context)
-
-
-# Report:
+@login_required(login_url='/login')
 def report_paymentbymoth(request):
     query = request.GET.get('q')
     if query == None:
@@ -513,23 +546,7 @@ def report_paymentbymoth(request):
     return render(request, 'report/roomratereport.html', context=context)
 
 
-# def report_paymentbydate(request):
-#     query = request.GET.get('q')
-#     if query == None:
-#         query = datetime.datetime(2019, 5, 11)
-#     else:
-#         query = datetime.datetime.strptime(query, '%Y-%m-%d')
-#
-#     booking_payments = BookingPayment.objects.filter(date_pay__gte=query.date(),
-#                                                      date_pay__lte=query.date() + datetime.timedelta(days=1))
-#     bookings = Booking.objects.filter(bookingpayment__date_pay__gte=query.date(),
-#                                       bookingpayment__date_pay__lte=query.date() + datetime.timedelta(days=1))
-#     bk_ids = bookings.values_list('id', flat=True)
-#     guests = Guest.objects.filter(pk__in=bk_ids)
-#     context = {'title': 'User List', 'payments': booking_payments, 'bookings': bookings, 'guests': guests}
-#     return render(request, 'report/paymentbydate.html', context=context)
-#
-
+@login_required(login_url='/login')
 def report_houseskeeping(request):
     query = request.GET.get('q')
     if query == None:
@@ -559,6 +576,7 @@ def report_houseskeeping(request):
     return render(request, 'report/houseskeeping.html', context=context)
 
 
+@login_required(login_url='/login')
 def report_cancel(request):
     query = request.GET.get('q')
     if query == None:
@@ -573,6 +591,7 @@ def report_cancel(request):
     return render(request, 'report/cancel.html', context=context)
 
 
+@login_required(login_url='/login')
 def report_noshow(request):
     query = request.GET.get('q')
     if query == None:
@@ -587,6 +606,7 @@ def report_noshow(request):
     return render(request, 'report/noshow.html', context=context)
 
 
+@login_required(login_url='/login')
 def report_breakfast(request):
     query = request.GET.get('q')
     if query == None:
@@ -609,6 +629,7 @@ def report_breakfast(request):
     return render(request, 'report/breakfast.html', context=context)
 
 
+@login_required(login_url='/login')
 def report_checkin(request):
     query = request.GET.get('q')
     if query == None:
@@ -617,11 +638,12 @@ def report_checkin(request):
         query = datetime.datetime.strptime(query, '%Y-%m-%d')
 
     bookings = Guest.objects.all().filter(booking__booking_status_id=1) \
-        .filter(booking__depart_date__gte=query)
-    context = {'title': 'Pedding Check-in Report', 'bookings': bookings}
+        .filter(booking__arrive_date=query)
+    context = {'title': 'Pending Check-in Report', 'bookings': bookings}
     return render(request, 'report/checkin.html', context=context)
 
 
+@login_required(login_url='/login')
 def report_checkout(request):
     query = request.GET.get('q')
     if query == None:
@@ -632,16 +654,18 @@ def report_checkout(request):
     bookings = Guest.objects.all().filter(booking__booking_status_id=3) \
         .filter(booking__depart_date=query)
 
-    context = {'title': 'Pedding Check-out Report', 'bookings': bookings}
+    context = {'title': 'Pending Check-out Report', 'bookings': bookings}
     return render(request, 'report/checkout.html', context=context)
 
 
+@login_required(login_url='/login')
 def report_inhouse(request):
     bookings = Guest.objects.all().filter(booking__booking_status_id=2)
     context = {'title': 'In-House Report', 'bookings': bookings}
     return render(request, 'report/inhouse.html', context=context)
 
 
+@login_required(login_url='/login')
 def report_paymentbydate(request):
     query = request.GET.get('q')
     if query == None:
@@ -689,6 +713,7 @@ def report_paymentbydate(request):
     return render(request, 'report/roomratereport.html', context=context)
 
 
+@login_required(login_url='/login')
 def report_roompayment(request):
     query = request.GET.get('q')
     if query == None:
@@ -697,14 +722,14 @@ def report_roompayment(request):
         query = datetime.datetime.strptime(query, '%Y-%m-%d')
 
     bookings = InvoiceDetail.objects.all().filter(product_id=1).filter(date_order__gte=query.date(),
-                                                           date_order__lte=query.date() + datetime.timedelta(days=1))
+                                                                       date_order__lte=query.date() + datetime.timedelta(
+                                                                           days=1))
     sum_total = bookings.aggregate(tota3l=Sum(F('quantity') * F('price_confirm')))
-    context = {'title': 'Room Payment Report', 'bookings': bookings, 'sum_total':sum_total}
+    context = {'title': 'Room Payment Report', 'bookings': bookings, 'sum_total': sum_total}
     return render(request, 'report/roompayment.html', context=context)
 
 
-
-
+@login_required(login_url='/login')
 def report_extrapayment(request):
     query = request.GET.get('q')
     if query == None:
@@ -713,7 +738,113 @@ def report_extrapayment(request):
         query = datetime.datetime.strptime(query, '%Y-%m-%d')
 
     bookings = InvoiceDetail.objects.all().filter(~Q(product_id=1)).filter(date_order__gte=query.date(),
-                                                           date_order__lte=query.date() + datetime.timedelta(days=1))
+                                                                           date_order__lte=query.date() + datetime.timedelta(
+                                                                               days=1))
     sum_total = bookings.aggregate(tota3l=Sum(F('quantity') * F('price_confirm')))
-    context = {'title': 'Extra Payment Report', 'bookings': bookings, 'sum_total':sum_total}
+    context = {'title': 'Extra Payment Report', 'bookings': bookings, 'sum_total': sum_total}
     return render(request, 'report/extrapayment.html', context=context)
+
+
+def login_auth(request):
+    context = None
+    try:
+        if request.user.is_authenticated is True:
+            return redirect('hotelmanagement_namspace:persons')
+
+        form = LoginForm(request.POST or None)
+        user = None
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+        context = {
+            'form': form
+        }
+        if user is not None:
+            if user.is_active and user.is_superuser:
+                per = Person.objects.get(user=user)
+                login(request, per)
+                return redirect('hotelmanagement_namspace:persons')
+            else:
+                messages.error(request, "You do not have any permission to access this page!")
+        else:
+            messages.error(request, "Username or password doesn't correct")
+        return render(request, 'auth/login.html', context=context)
+
+    except BaseException as be:
+        messages.error(request, be)
+        return render(request, 'auth/login.html', context=context)
+
+
+@login_required(login_url='/login')
+def logout_auth(request):
+    logout(request)
+    return redirect('hotelmanagement_namspace:login')
+
+
+@login_required(login_url='/login')
+def notify_nummer(request):
+    query = datetime.datetime(2019, 3, 9)
+    pennding_checkin = Guest.objects.all().filter(booking__booking_status_id=1) \
+        .filter(booking__arrive_date=query).count()
+
+    pennding_checkout = Guest.objects.all().filter(booking__booking_status_id=3) \
+        .filter(booking__depart_date=query).count()
+    context = {
+        'pennding_checkin': pennding_checkin,
+        'pennding_checkout': pennding_checkout
+    }
+    return render(request, 'notify/nummer.html', context=context)
+
+@login_required(login_url='/login')
+def quick_search(request):
+    query = request.GET.get('q')
+    lst = Person.objects.filter(Q(username__contains=query) | Q(email__contains=query) | Q(first_name__contains=query) |
+                     Q(last_name__contains=query)).distinct()
+    context = {
+        'persons': lst,
+    }
+    return render(request, 'user/quick_search.html', context=context)
+
+@login_required(login_url='/login')
+def index(request):
+    query = datetime.datetime(2019, 3, 9)
+    pennding_checkin = Guest.objects.all().filter(booking__booking_status_id=1) \
+        .filter(booking__arrive_date=query).count()
+
+    pennding_checkout = Guest.objects.all().filter(booking__booking_status_id=3) \
+        .filter(booking__depart_date=query).count()
+
+    in_house = Guest.objects.all().filter(booking__booking_status_id=2).count()
+
+
+    bookings = Booking.objects.filter(arrive_date__lte=query).filter(
+        depart_date__gte=query).filter(~Q(booking_status__in=[3, 4, 5]))
+    rooms = Room.objects.all()
+
+    for item in rooms:
+        bk = None
+        try:
+            bk = bookings.get(room_id=item.id)
+            if bk.depart_date == query.date():
+                item.room_status.abc = 'Check-out'
+            elif bk.arrive_date == query.date():
+                item.room_status.abc = 'Check-in'
+            else:
+                item.room_status.abc = 'In-House'
+        except:
+            continue
+
+    paginator = Paginator(rooms, 10)
+    page = request.GET.get('page')
+    data_rows = paginator.get_page(page)
+
+    context = {
+        'title':'Dashboard',
+        'pennding_checkin': pennding_checkin,
+        'pennding_checkout': pennding_checkout,
+        'in_house':in_house,
+        'rooms':data_rows
+    }
+
+    return render(request, 'dashboard/index.html', context=context)

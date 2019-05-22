@@ -226,6 +226,8 @@ class RoomCreateSerializer(ModelSerializer):
         model = Room
         fields = '__all__'
 
+
+
 class RoomTypeCreateSerializer(ModelSerializer):
     class Meta:
         model = RoomType
@@ -371,6 +373,10 @@ class PersonUpdateProfileSerializer(ModelSerializer):
         model = Person
         fields = ('username', 'first_name', 'last_name', 'email', 'avatar' )
 
+class UserUpdateProfileSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email' )
 
 # Delete
 class BookingDeleteSerializer(ModelSerializer):
@@ -408,3 +414,9 @@ class InvoiceDetailDeleteSerializer(ModelSerializer):
     class Meta:
         model = InvoiceDetail
         fields = ['id']
+
+
+class NightAuditCommitSerializer(ModelSerializer):
+    class Meta:
+        model = Config
+        fields = ['data_value']

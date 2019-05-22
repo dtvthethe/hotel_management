@@ -163,8 +163,8 @@ const mutations = {
         ).then().catch()
     },
     putUserPassword(state, data) {
-        axios.put(URL_API + 'api/user_password/' + data.data.id,
-            { 'password': data.data.pw },
+        axios.put(URL_API + 'api/user_password/' + localStorage.getItem(DATA_NAME_IDUSER),
+            { 'password': data.data.password },
             {
                 headers: {
                     ...data.header_config,

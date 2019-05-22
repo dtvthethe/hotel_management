@@ -16,6 +16,7 @@ import producttype_module from './modules/producttype_module'
 import room_module from './modules/room_module'
 import roomstatus_module from './modules/roomstatus_module'
 import invoice_module from './modules/invoice_module'
+import report_module from './modules/report_module'
 
 
 
@@ -38,5 +39,6 @@ export default new Vuex.Store({
         room_module,
         roomstatus_module,
         invoice_module,
+        report_module
     }
 });

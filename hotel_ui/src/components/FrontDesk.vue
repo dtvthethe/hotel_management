@@ -169,6 +169,7 @@ export default {
       setInvoicesToNull:"setInvoicesToNull",
       setInvoiceID:"setInvoiceID",
       updateRoomStatus:"updateRoomStatus",
+      setBookingCode:"setBookingCode"
     }),
     enableMenuContext: function(event) {
       if (event.which === 3) {
@@ -179,7 +180,7 @@ export default {
           case "rm_1": // dirty
             this.context_menu_list = [
               {
-                icon: "fa fa-thumbs-up",
+                icon: "fa fa-fire-extinguisher",
                 label: "Clean Room",
                 alias: "clean",
                 confirm_popup: true
@@ -201,7 +202,7 @@ export default {
                 confirm_popup: false
               },
               {
-                icon: "fa fa-thumbs-down",
+                icon: "fa fa-lock",
                 label: "Block",
                 alias: "block",
                 confirm_popup: true
@@ -211,7 +212,7 @@ export default {
           case "rm_3": // block
             this.context_menu_list = [
               {
-                icon: "fa fa-thumbs-down",
+                icon: "fa fa-unlock",
                 label: "Unblock room",
                 alias: "unblock",
                 confirm_popup: true
@@ -221,13 +222,13 @@ export default {
           case "bk_1": // check-in
             this.context_menu_list = [
               {
-                icon: "fa fa-thumbs-down",
+                icon: "fa fa-info-circle",
                 label: "Open Detail",
                 alias: "detail",
                 confirm_popup: false
               },
               {
-                icon: "fa fa-plus",
+                icon: "fa fa-sign-in",
                 label: "Check-in",
                 alias: "checkin",
                 confirm_popup: true
@@ -239,7 +240,7 @@ export default {
                 confirm_popup: true
               },
               {
-                icon: "fa fa-plus",
+                icon: "fa fa-times",
                 label: "Cancel Booking",
                 alias: "delete",
                 confirm_popup: true
@@ -249,13 +250,13 @@ export default {
           case "bk_2": // occupied
             this.context_menu_list = [
               {
-                icon: "fa fa-thumbs-down",
+                icon: "fa fa-info-circle",
                 label: "Open Detail",
                 alias: "detail",
                 confirm_popup: false
               },
               {
-                icon: "fa fa-plus",
+                icon: "fa fa-sign-out",
                 label: "Check-out",
                 alias: "checkout",
                 confirm_popup: true
@@ -306,12 +307,12 @@ export default {
           // return bk pendding out
           return reser[0];
         } else {
-          // ko co bk occupied => 2 check bk pedding in
+          // ko co bk occupied => 2 check bk pending in
           let resers = bookings.filter(
             item => item.booking.booking_status.id == 1
           );
           if (resers.length == 1) {
-            // return bk pedding in
+            // return bk pending in
             return resers[0];
           } else if (resers.length > 1) {
             // 2 bk => 1 bk by house, 1 bk by day
@@ -467,6 +468,7 @@ export default {
             // on cancel click
           });
       } else if (this.data_booking.action_name == "new") {
+        let bk_code = this.genBookingCode();
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.room_selected_id);
         this.setBookingPaymentToNull();
@@ -476,8 +478,9 @@ export default {
           type: "fo",
           method: "new",
           data_value: format(this.getSessionDate, "YYYY-MM-DD"),
-          booking_code: this.genBookingCode()
+          booking_code: bk_code
         });
+        this.setBookingCode(bk_code);
       } else if (this.data_booking.action_name == "change") {
         this.$dialog
           .confirm(

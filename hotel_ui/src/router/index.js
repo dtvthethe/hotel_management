@@ -11,6 +11,12 @@ import Room from '../components/Room'
 import RoomStatus from '../components/RoomStatus'
 import NightAudit from '../components/NightAudit'
 import GuestLeger from '../components/GuestLeger'
+import ReportPendingCheckin from '../components/ReportPendingCheckin'
+import ReportPendingCheckout from '../components/ReportPendingCheckout'
+import ReportInHouse from '../components/ReportInHouse'
+import ReportBreakfast from '../components/ReportBreakfast'
+import ReportHouseSkeeping from '../components/ReportHouseSkeeping'
+
 
 Vue.use(VueRouter)
 
@@ -28,5 +34,10 @@ export default new VueRouter({
         { path: '/roomstatus', component: RoomStatus },
         { path: '/nightaudit', component: NightAudit },
         { path: '/guestleger', component: GuestLeger },
+        { path: '/checkin', component: ReportPendingCheckin },
+        { path: '/checkout', component: ReportPendingCheckout },
+        { path: '/inhouse', component: ReportInHouse },
+        { path: '/breakfast', component: ReportBreakfast },
+        { path: '/houseskeeping', component: ReportHouseSkeeping },
     ]
 });

@@ -7,8 +7,8 @@
     <div class="tool-co">
       <table>
         <tr>
-          <td><input id="chkisFilterDate" type="checkbox" v-model="filter_field.isFilterDate"></td>
-          <td>Arrive Date:</td>
+          <td><input id="chkisFilterDate" type="checkbox" v-model="filter_field.isFilterDate"> <label for="chkisFilterDate">Is Filter Date</label></td>
+          <td>⎨Arrive Date:</td>
           <td>
             <Datepicker
               id="dt-from-date"
@@ -20,7 +20,7 @@
           </td>
           <td>Depart Date:</td>
           <td>
-            <Datepicker
+              <Datepicker
               id="dt-to-date"
               format="dd/MM/yyyy"
               :disabled="!filter_field.isFilterDate"
@@ -28,27 +28,16 @@
               :disabledDates="{to: this.filter_field.arrive_date}"
             ></Datepicker>
           </td>
-          <td colspan="2"></td>
-        </tr>
-        <tr>
-          <td>Booking ID:</td>
-          <td><input type="text" v-model="filter_field.booking_id"></td>
-          <td>Fullname:</td>
-          <td>
-            <input type="text" v-model="filter_field.fullname">
-          </td>
-          <td>Client:</td>
-          <td>
-            <select v-model="filter_field.client">
-              <option value="0">All</option>
-              <option :key="item.id" :value="item.id" v-for="item in getClients">{{item.name}}</option>
-            </select>
-          </td>
-          <td>
-            <input type="button" value="Search" @click="onClickSearch">
-          </td>
+          <td>⎬</td>
         </tr>
       </table>
+      Booking ID: <input type="text" v-model="filter_field.booking_id">
+      &nbsp;&nbsp;&nbsp;Fullname: <input type="text" v-model="filter_field.fullname">
+      &nbsp;&nbsp;&nbsp;Client: <select v-model="filter_field.client">
+              <option value="0">All</option>
+              <option :key="item.id" :value="item.id" v-for="item in getClients">{{item.name}}</option>
+            </select>&nbsp;&nbsp;&nbsp;
+      <input type="button" value="Search" class="btn btn-info btn-sm" style="margin-bottom: 12px" @click="onClickSearch">
       
     </div>
     <div class="bg-white">

@@ -5,7 +5,7 @@
       <div class="toolbar"></div>
     </header>
     <div id="calendar-booking" ref="tbbooking" @click="disableMenuContext">
-      <div class="tool-cal">
+      <div class="tool-cal" style="margin-bottom: 10px;">
         <table>
           <tr>
             <td>From: </td>
@@ -17,7 +17,7 @@
                 :disabledDates="{from: this.date_filter_to}"
               ></Datepicker>
             </td>
-            <td>To: </td>
+            <td>&nbsp;&nbsp;&nbsp;To: </td>
             <td>
               <Datepicker
                 id="dt-to-date"
@@ -27,7 +27,8 @@
               ></Datepicker>
             </td>
             <td>
-              <input type="button" value="Search" @click="onClickSearch" />
+              &nbsp;&nbsp;&nbsp;
+              <input type="button" class="btn btn-info btn-sm" value="Search" @click="onClickSearch" />
 
             </td>
           </tr>
@@ -77,7 +78,7 @@
                 whiteSpace: 'nowrap', 
                 overflow: 'hidden',
               }"
-            >{{item.id + ' | '+ item.fullname + ' | ' + item.booking.client.name}}</button>
+            >{{item.id + ' | '+ item.fullname + ' | ' + item.booking.client.name + ' | ' + numberOfColumn}}</button>
           </div>
         </div>
       </div>
@@ -207,7 +208,7 @@ export default {
     },
     getDays: function() {
       let dates = [];
-      for (let i = 0; i <= this.getInstanceDays; i++) {
+      for (let i = 1; i <= this.getInstanceDays + 1; i++) {
         dates.push({
           date_format: format(
             addDays(this.instance_date.start, i),
@@ -259,7 +260,8 @@ export default {
       fetchInvoiceDetails: "fetchInvoiceDetails",
       setBookingPaymentToNull:"setBookingPaymentToNull",
       setInvoicesToNull:"setInvoicesToNull",
-      setInvoiceID:"setInvoiceID"
+      setInvoiceID:"setInvoiceID",
+      setBookingCode:"setBookingCode"
     }),
     // onSelectDateFilter(event){
     //   if(event == 'from'){
@@ -334,7 +336,7 @@ export default {
         this.context_menu_list = [
           {
             label: "New Reveration",
-            icon: "fa fa-pencil",
+            icon: "fa fa-plus",
             alias: "new",
             confirm_popup: false
           }
@@ -355,14 +357,14 @@ export default {
           case "1": // check-in
             this.context_menu_list = [
               {
-                label: "Detail",
-                icon: "fa fa-pencil",
+                label: "Open Detail",
+                icon: "fa fa-info-circle",
                 alias: "detail",
                 confirm_popup: false
               },
               {
                 label: "Check-in",
-                icon: "fa fa-pencil",
+                icon: "fa fa-sign-in",
                 alias: "checkin",
                 confirm_popup: true
               },
@@ -374,7 +376,7 @@ export default {
               },
               {
                 label: "Cancel Booking",
-                icon: "fa fa-pencil",
+                icon: "fa fa-times",
                 alias: "delete",
                 confirm_popup: true
               }
@@ -383,14 +385,14 @@ export default {
           case "2": // occupied
             this.context_menu_list = [
               {
-                label: "Detail",
-                icon: "fa fa-pencil",
+                label: "Open Detail",
+                icon: "fa fa-info-circle",
                 alias: "detail",
                 confirm_popup: false
               },
               {
                 label: "Check-out",
-                icon: "fa fa-pencil",
+                icon: "fa fa-sign-out",
                 alias: "checkout",
                 confirm_popup: true
               },
@@ -399,25 +401,13 @@ export default {
                 label: "Change room",
                 alias: "change",
                 confirm_popup: true
-              },
-              {
-                icon: "fa fa-plus",
-                label: "Room charge bill",
-                alias: "",
-                confirm_popup: true
-              },
-              {
-                icon: "fa fa-plus",
-                label: "Extra charge bill",
-                alias: "",
-                confirm_popup: true
               }
             ];
             break;
           case "3": // check-out => chi nen lam chuc nang nay o phan calendar
             this.context_menu_list = [
               {
-                icon: "fa fa-thumbs-down",
+                icon: "fa fa-info-circle",
                 label: "Open Detail",
                 alias: "detail",
                 confirm_popup: false
@@ -560,6 +550,7 @@ export default {
             // on cancel click
           });
       } else if (this.data_booking.action_name == "new") {
+        let bk_code = this.genBookingCode();
         this.setBookingDetailDeafault();
         this.setBookingRoom(this.data_booking.id);
         this.setBookingArriveDate(parse(this.select_date.start));
@@ -572,8 +563,9 @@ export default {
           method: "new",
           date_start: format(this.instance_date.start, "YYYY-MM-DD"),
           date_stop: format(this.instance_date.stop, "YYYY-MM-DD"),
-          booking_code: this.genBookingCode(),
+          booking_code: bk_code,
         });
+        this.setBookingCode(bk_code);
       } else if (this.data_booking.action_name == "change") {
         this.$dialog
           .confirm(
@@ -659,6 +651,7 @@ export default {
   },
   mounted: function() {
     // UI:
+    // this.numberOfColumn = this.getDays.length + 1;
     this.numberOfColumn = this.getDays.length + 1;
     window.addEventListener("resize", this.handleWindowResize);
 

@@ -10,7 +10,7 @@ from django.utils import timezone
 
 class Person(User):
     user = models.OneToOneField(User, on_delete=models.CASCADE, parent_link=True, related_name='users')
-    avatar = models.ImageField(upload_to='Avatar/', null=True, default=None)
+    avatar = models.ImageField(upload_to='Avatar/', null=True, blank=True, default=None)
 
     def __str__(self):
         return super().get_full_name()

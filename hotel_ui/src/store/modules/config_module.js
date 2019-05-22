@@ -32,12 +32,29 @@ const mutations = {
                 state.data_value = [];
             }
         });
+    },
+    putDateConfig(state, data){
+        axios.put(URL_API + 'api/nightaudit_commit/1',
+            data, {
+                headers: {
+                    ...data.header_config
+                }
+            }
+        ).then().catch()
     }
+    
 }
 const actions = {
     fetchSessionDate({commit, rootState}){
         commit('fetchSessionDate', {
             'Authorization':'jwt '+rootState.user_module.tokenAuth,
+        });
+    },
+    putDateConfig: function ({ commit, rootState }, data) {
+        commit('putDateConfig', {
+            data_value: data, header_config: {
+                'Authorization': 'jwt ' + rootState.user_module.tokenAuth,
+            }
         });
     },
 }

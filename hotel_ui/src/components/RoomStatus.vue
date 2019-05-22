@@ -9,16 +9,18 @@
         <div class="col-md-12 col-sm-12">
           <table>
             <tr>
-              <td><input type="text"  v-model="name_status_slect" maxlength="100"></td>
+              <td>Room: <input type="text"  v-model="name_status_slect" maxlength="100"></td>
+              <td>&nbsp;&nbsp;&nbsp;Date: </td>
               <td><Datepicker id="dt-from-date" format="dd/MM/yyyy" v-model="filterstatus.date_status_filter"></Datepicker></td>
-              <td> Room status</td>
+              <td>&nbsp;&nbsp;&nbsp;Room status: &nbsp;</td>
               <td>
                 <select v-model="id_status_slect">
                   <option :key="rs.id" :value="rs.id" v-for="rs in room_status_filter">{{rs.name}}</option>
                 </select>
               </td>
               <td>
-                <input type="button" value="Search" @click="btnSearch_CLick">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" class="btn btn-info btn-sm" value="Search" @click="btnSearch_CLick">
               </td>
             </tr>
           </table>

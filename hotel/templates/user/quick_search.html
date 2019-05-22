@@ -1,0 +1,15 @@
+{% load staticfiles %}
+<ul>
+    {% for item in persons %}
+        <li>
+            <a href="{% url 'hotelmanagement_namspace:person_edit' id=item.id %}">
+                {% if item.avatar %}
+                    <img src="{{ item.avatar.url }}" alt="{{ item.email }}">
+                {% else %}
+                    <img src="{% static "images/no-avatar.png" %}" alt="{{ item.email }}">
+                {% endif %}
+                <p>{{ item.get_full_name }}</p>
+            </a>
+        </li>
+    {% endfor %}
+</ul>
